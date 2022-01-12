@@ -13,7 +13,7 @@ const BlogPost = ({ post }) => (
       src={post.image.url}
       alt="post image"
       layout="fixed"
-      width={800}
+      width={600}
       height={300}
     />
     <p>{post.description}</p>

@@ -1,9 +1,9 @@
 import axios from "axios";
 
-//const { CONTENTFUL_SPACE_ID, CONTENTFUL_ACCESS_TOKEN } = process.env;
+const { CONTENTFUL_SPACE_ID, CONTENTFUL_ACCESS_TOKEN } = process.env;
+
 const instance = axios.create({
-  baseURL:
-    "https://graphql.contentful.com/content/v1/spaces/nfg0mv1qhwou/?access_token=Px2I0bC6FlWQYBb2_8FhaCMK5A-CWUnbglZdgg2giP8",
+  baseURL: `https://graphql.contentful.com/content/v1/spaces/${CONTENTFUL_SPACE_ID}/?access_token=${CONTENTFUL_ACCESS_TOKEN}`,
 });
 
 const allPostsQuery = `query{
@@ -14,6 +14,10 @@ const allPostsQuery = `query{
         date
         slug
         description
+        image{
+            url
+            title
+        }
       }
     }
   }`;
