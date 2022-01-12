@@ -2,6 +2,7 @@ module.exports = {
   content: [
     "./pages/**/*.{js,jsx}",
     "./components/**/*.{js,jsx}",
+    "./modules/**/*.{js,jsx}"
   ],
   theme: {
     extend: {
@@ -13,6 +14,9 @@ module.exports = {
         'fitify-black': '#352E39',
         'fitify-green':'#198C8C'
       },
+      width: {
+        '100': '15rem',
+      }
     }
   },
   plugins: [],

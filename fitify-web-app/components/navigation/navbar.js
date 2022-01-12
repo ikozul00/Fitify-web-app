@@ -19,7 +19,7 @@ const Navbar = () =>{
             const itemLink=`/${item==="home" ? "":item}`;
             return (
             <Link href={itemLink} key={item} passHref>
-                <a className={`text-white text-lg uppercase hover:bg-fitify-green px-5 py-2 ${number===numberOfItmes ? "": "border-r-2"} 
+                <a className={`  text-white text-lg whitespace-nowrap w-100 uppercase hover:bg-fitify-green px-5 py-2 ${number===numberOfItmes ? "": "border-r-2"} 
                 ${isActive(itemLink) ? "underline-offset-4 text-decoration-line: underline font-bold" : ""}`}>{item} </a>
             </Link>
             );
