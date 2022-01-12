@@ -11,6 +11,7 @@ const allPostsQuery = `query{
       items{
         title
         id
+        date
         slug
         description
       }
@@ -33,4 +34,38 @@ export const getPosts = async () => {
 
   const data = response.data.data;
   return data.blogCollection.items;
+};
+
+// Funkcija dohvaca tocno odredeni blog post
+export const getPostBySlug = async (slug) => {
+  const response = await instance.post(
+    "",
+    {
+      query: `query{
+        blogCollection(where: {
+        slug: "${slug}"
+      }){
+        items{
+          id
+          title
+          description
+          date
+          image{
+            url
+            title
+          }
+          body{
+            json}
+        }
+      }
+    }`,
+    },
+    {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    }
+  );
+  const data = response.data.data;
+  return data.blogCollection.items[0];
 };
