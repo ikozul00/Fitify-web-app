@@ -10,7 +10,7 @@ const Navbar = () =>{
                 {menuItems.map((item) => {
                     return (
                     <Link href={`/${item}`}>
-                        <a>{item} </a>
+                        <a className="text-3xl">{item} </a>
                     </Link>
                     );
                 })}
