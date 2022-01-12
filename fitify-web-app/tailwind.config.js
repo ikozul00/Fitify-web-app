@@ -8,7 +8,7 @@ module.exports = {
     extend: {
       fontFamily: {
         'allerta-stencil': ['"Allerta Stencil"', 'sans-serif'],
-        'gloria-hallelujah': [' "Gloria Hallelujah"','sans-serif']
+        'pacifico' : [' "Pacifico"','sans-serif'],
       },
       colors: {
         'fitify-black': '#352E39',
