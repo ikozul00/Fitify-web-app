@@ -1,25 +1,30 @@
 import { getPostBySlug, getPosts } from "../../helper";
 import Image from "next/image";
+import { documentToReactComponents } from "@contentful/rich-text-react-renderer";
+import { RICH_TEXT_OPTIONS } from "./richTextOptions";
 
 const BlogPost = ({ post }) => (
   // Ovo je template za pojedine blog postove
 
   <main className="w-2/3 mx-auto my-0">
     <h1 className="text-center text-8xl text-gray-800">{post.title}</h1>
-    <h2 className="text-center text-5xl my-8 text-gray-600">
-      Some subtitle can go here
+    <h2 className="text-center text-2xl my-8 text-gray-600">
+      {post.description}
     </h2>
     <Image
       src={post.image.url}
-      alt="post image"
+      alt={post.image.title}
       layout="fixed"
       width={600}
       height={300}
     />
-    <p>{post.description}</p>
+    {documentToReactComponents(post.body.json, RICH_TEXT_OPTIONS)}
   </main>
 );
 
+// Ova funkcija sluzi za static side rendering (staticko pregeneriranje)
+// Nece se nigdje importati, sam Next.js je zove
+// Ova funkcija izvrsava se samo na serverskoj strani - zato se ovdje mogu izvoditi "skupe" operacije
 export async function getStaticPaths() {
   const posts = await getPosts();
 
@@ -35,9 +40,6 @@ export async function getStaticPaths() {
   };
 }
 
-// Ova funkcija sluzi za static side rendering (staticko pregeneriranje)
-// Nece se nigdje importati, sam Next.js je zove
-// Ova funkcija izvrsava se samo na serverskoj strani - zato se ovdje mogu izvoditi "skupe" operacije
 export async function getStaticProps(context) {
   const { slug } = context.params;
   const post = await getPostBySlug(slug);

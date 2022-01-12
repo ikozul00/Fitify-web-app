@@ -1,24 +1,32 @@
 import { getPosts } from "../../helper";
 import Link from "next/link";
+import Image from "next/image";
 
 const Blog = ({ posts }) => {
   console.log(posts);
   return (
-    <>
-      <h1>BLOG</h1>
+    <div className="w-2/3 mx-auto my-0">
+      <h1 className="text-center text-8xl text-gray-800">BLOG</h1>
       <ul>
         {posts.map((post) => (
           <li key={post.id}>
             <Link href={`blog/${post.slug}`}>
-              <h1 className="cursor-pointer text-lg text-center">
+              <h1 className="cursor-pointer text-center text-5xl my-8 text-gray-600">
                 {post.title}
               </h1>
             </Link>
+            <Image
+              src={post.image.url}
+              alt="post image"
+              layout="fixed"
+              width={400}
+              height={300}
+            />
             {post.description}
           </li>
         ))}
       </ul>
-    </>
+    </div>
   );
 };
 export default Blog;

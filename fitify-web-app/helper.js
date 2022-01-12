@@ -6,11 +6,10 @@ const instance = axios.create({
   baseURL: `https://graphql.contentful.com/content/v1/spaces/${CONTENTFUL_SPACE_ID}/?access_token=${CONTENTFUL_ACCESS_TOKEN}`,
 });
 
-const allPostsQuery = `query{
+const getAllPostsQuery = `query{
     blogCollection{
       items{
         title
-        id
         date
         slug
         description
@@ -27,7 +26,7 @@ export const getPosts = async () => {
   const response = await instance.post(
     "",
     {
-      query: allPostsQuery,
+      query: getAllPostsQuery,
     },
     {
       headers: {
