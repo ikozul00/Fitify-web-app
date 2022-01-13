@@ -13,7 +13,7 @@ const getAllPostsQuery = `query{
         date
         slug
         description
-        image{
+        thumbnailImage{
             url
             title
         }
@@ -53,12 +53,11 @@ export const getPostBySlug = async (slug) => {
           title
           description
           date
-          image{
+          headerImage{
             url
             title
           }
-          body{
-            json}
+          body
         }
       }
     }`,
