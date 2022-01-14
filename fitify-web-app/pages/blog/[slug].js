@@ -3,9 +3,10 @@ import Image from "next/image";
 import { serialize } from "next-mdx-remote/serialize";
 import { MDXRemote } from "next-mdx-remote";
 import { H2, H3 } from "../../components/blog/heading";
-import { P } from "../../components/blog/text";
-import { Ul, Ol } from "../../components/blog/list";
+import { P, Strong } from "../../components/blog/text";
+import { Ul, Li, Ol } from "../../components/blog/list";
 import { A } from "../../components/blog/link";
+import React from "react";
 
 const components = {
   h2: H2,
@@ -13,7 +14,9 @@ const components = {
   p: P,
   ul: Ul,
   ol: Ol,
+  li: Li,
   a: A,
+  strong: Strong,
 };
 
 const BlogPost = ({ post }) => (
@@ -29,8 +32,7 @@ const BlogPost = ({ post }) => (
       width={1000}
       height={500}
     />
-    <MDXRemote {...post.mdxSource} components={components} />
-    {console.log(post.mdxSource)}
+    <MDXRemote {...post.mdxSource} components={components} lazy />
   </main>
 );
 
@@ -58,7 +60,6 @@ export async function getStaticProps(context) {
 
   post.mdxSource = await serialize(post.body);
   delete post.body;
-  //post.mdxSource = await serialize("## 1: YOU’RE NOT PACING YOURSELF");
 
   return {
     props: { post },
