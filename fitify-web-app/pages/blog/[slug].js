@@ -1,5 +1,20 @@
 import { getPostBySlug, getPosts } from "../../helper";
 import Image from "next/image";
+import { serialize } from "next-mdx-remote/serialize";
+import { MDXRemote } from "next-mdx-remote";
+import { H2, H3 } from "../../components/blog/heading";
+import { P } from "../../components/blog/text";
+import { Ul, Ol } from "../../components/blog/list";
+import { A } from "../../components/blog/link";
+
+const components = {
+  h2: H2,
+  h3: H3,
+  p: P,
+  ul: Ul,
+  ol: Ol,
+  a: A,
+};
 
 const BlogPost = ({ post }) => (
   <main className="w-2/3 mx-auto my-0">
@@ -14,7 +29,8 @@ const BlogPost = ({ post }) => (
       width={1000}
       height={500}
     />
-    {post.body}
+    <MDXRemote {...post.mdxSource} components={components} />
+    {console.log(post.mdxSource)}
   </main>
 );
 
@@ -39,6 +55,10 @@ export async function getStaticPaths() {
 export async function getStaticProps(context) {
   const { slug } = context.params;
   const post = await getPostBySlug(slug);
+
+  post.mdxSource = await serialize(post.body);
+  delete post.body;
+  //post.mdxSource = await serialize("## 1: YOU’RE NOT PACING YOURSELF");
 
   return {
     props: { post },
