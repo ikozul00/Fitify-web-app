@@ -16,8 +16,8 @@ const Blog = ({ posts }) => {
               </h1>
             </Link>
             <Image
-              src={post.image.url}
-              alt="post image"
+              src={post.thumbnailImage.url}
+              alt={post.thumbnailImage.title}
               layout="fixed"
               width={400}
               height={300}

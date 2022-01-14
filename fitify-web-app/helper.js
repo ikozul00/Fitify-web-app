@@ -3,12 +3,13 @@ import axios from "axios";
 const { CONTENTFUL_SPACE_ID, CONTENTFUL_ACCESS_TOKEN } = process.env;
 
 const instance = axios.create({
-  baseURL: `https://graphql.contentful.com/content/v1/spaces/${CONTENTFUL_SPACE_ID}/?access_token=${CONTENTFUL_ACCESS_TOKEN}`,
+  baseURL: `https://graphql.contentful.com/content/v1/spaces/${CONTENTFUL_SPACE_ID}`,
 });
 
 const getAllPostsQuery = `query{
     blogCollection{
       items{
+        id
         title
         date
         slug
@@ -31,6 +32,7 @@ export const getPosts = async () => {
     {
       headers: {
         "Content-Type": "application/json",
+        Authorization: "Bearer " + CONTENTFUL_ACCESS_TOKEN,
       },
     }
   );
@@ -65,6 +67,7 @@ export const getPostBySlug = async (slug) => {
     {
       headers: {
         "Content-Type": "application/json",
+        Authorization: "Bearer " + CONTENTFUL_ACCESS_TOKEN,
       },
     }
   );

@@ -1,24 +1,20 @@
 import { getPostBySlug, getPosts } from "../../helper";
 import Image from "next/image";
-import { documentToReactComponents } from "@contentful/rich-text-react-renderer";
-import { RICH_TEXT_OPTIONS } from "./richTextOptions";
 
 const BlogPost = ({ post }) => (
-  // Ovo je template za pojedine blog postove
-
   <main className="w-2/3 mx-auto my-0">
     <h1 className="text-center text-8xl text-gray-800">{post.title}</h1>
     <h2 className="text-center text-2xl my-8 text-gray-600">
       {post.description}
     </h2>
     <Image
-      src={post.image.url}
-      alt={post.image.title}
+      src={post.headerImage.url}
+      alt={post.headerImage.title}
       layout="fixed"
-      width={600}
-      height={300}
+      width={1000}
+      height={500}
     />
-    {documentToReactComponents(post.body.json, RICH_TEXT_OPTIONS)}
+    {post.body}
   </main>
 );
 
