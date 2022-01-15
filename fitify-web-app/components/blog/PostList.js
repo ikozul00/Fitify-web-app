@@ -1,5 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
+import Pagination from "./Pagination";
 
 const PostList = (props) => {
   const { posts, currentPage, totalPages } = props;
@@ -26,6 +27,7 @@ const PostList = (props) => {
           </li>
         ))}
       </ul>
+      <Pagination totalPages={totalPages} currentPage={currentPage} />
     </div>
   );
 };
