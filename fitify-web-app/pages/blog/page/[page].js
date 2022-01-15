@@ -1,12 +1,12 @@
 import { getPaginatedPosts, getNumberOfPosts } from "@/lib/ContentfulAPI";
 import { Config } from "@/lib/Config";
+import PostList from "@/components/blog/PostList";
 
-export default function BlogIndexPage(props) {
-  const { postSummaries, totalPages, currentPage } = props;
+export default function BlogPage(props) {
+  const { posts, totalPages, currentPage } = props;
 
   return (
-    // We’ll build the post list component later
-    <p>kupus</p>
+    <PostList posts={posts} totalPages={totalPages} currentPage={currentPage} />
   );
 }
 

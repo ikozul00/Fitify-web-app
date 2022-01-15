@@ -49,7 +49,7 @@ export const getPaginatedPosts = async (page) => {
             title
             date
             slug
-            descriptiono
+            description
             thumbnailImage{
                 url
                 title
