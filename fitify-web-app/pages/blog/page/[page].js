@@ -6,7 +6,14 @@ export default function BlogPage(props) {
   const { posts, totalPages, currentPage } = props;
 
   return (
-    <PostList posts={posts} totalPages={totalPages} currentPage={currentPage} />
+    <>
+      <h1 className="text-center text-8xl text-gray-800">BLOG</h1>
+      <PostList
+        posts={posts}
+        totalPages={totalPages}
+        currentPage={currentPage}
+      />
+    </>
   );
 }
 

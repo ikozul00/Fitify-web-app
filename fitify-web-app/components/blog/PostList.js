@@ -7,7 +7,6 @@ const PostList = (props) => {
 
   return (
     <div className="w-2/3 mx-auto my-0">
-      <h1 className="text-center text-8xl text-gray-800">BLOG</h1>
       <ul>
         {posts.map((post) => (
           <li key={post.id}>

@@ -1,14 +1,25 @@
 import { getPaginatedPosts } from "@/lib/ContentfulAPI";
 import { Config } from "@/lib/Config";
 import PostList from "@/components/blog/PostList";
+import HeadPost from "@/components/blog/HeadPost";
 
 const Blog = (props) => {
   const { posts, totalPages, currentPage } = props;
-  console.log(posts);
-  console.log("Duljina je", posts.length);
+
+  // Ako nema postova (doslo je do greske)
+  if (posts.length == 0)
+    return <p>Error occured while loading the articles!</p>;
 
   return (
-    <PostList posts={posts} totalPages={totalPages} currentPage={currentPage} />
+    <>
+      <h1 className="text-center text-8xl text-gray-800">BLOG</h1>
+      <HeadPost post={posts[0]} />
+      <PostList
+        posts={posts.slice(1)}
+        totalPages={totalPages}
+        currentPage={currentPage}
+      />
+    </>
   );
 };
 export default Blog;
