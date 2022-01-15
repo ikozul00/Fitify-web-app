@@ -30,6 +30,8 @@ export const getNumberOfPosts = async () => {
     )
     .catch((err) => 0);
 
+  if (response == 0) return 0; // U slucaju greske, broj clanaka postavlja se na 0
+
   const data = response.data.data;
   return data.blogCollection.total;
 };
@@ -47,7 +49,7 @@ export const getPaginatedPosts = async (page) => {
             title
             date
             slug
-            description
+            descriptiono
             thumbnailImage{
                 url
                 title
@@ -69,7 +71,9 @@ export const getPaginatedPosts = async (page) => {
         },
       }
     )
-    .catch((err) => ({ total: 0, items: [] })); // U slucaju greske vrati 0 i praznu listu clanaka
+    .catch((err) => ({
+      data: { data: { blogCollection: { total: 0, items: [] } } },
+    })); // U slucaju greske vrati duljinu 0 i praznu listu clanaka
 
   const data = response.data.data;
   return data.blogCollection;
