@@ -1,7 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
 import Pagination from "./Pagination";
-import { Date } from "./date";
 
 const PostList = (props) => {
   const { posts, currentPage, totalPages } = props;
