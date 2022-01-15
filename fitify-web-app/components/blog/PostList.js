@@ -1,6 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import Pagination from "./Pagination";
+import { Date } from "./date";
 
 const PostList = (props) => {
   const { posts, currentPage, totalPages } = props;
@@ -15,6 +16,9 @@ const PostList = (props) => {
                 {post.title}
               </h1>
             </Link>
+            <h2 text-center text-3xl my-8 text-gray-600>
+              {post.date}
+            </h2>
             <Image
               src={post.thumbnailImage.url}
               alt={post.thumbnailImage.title}

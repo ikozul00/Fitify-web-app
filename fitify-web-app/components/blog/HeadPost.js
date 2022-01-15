@@ -9,6 +9,9 @@ const HeadPost = ({ post }) => {
           {post.title}
         </h1>
       </Link>
+      <h2 text-center text-3xl my-8 text-gray-600>
+        {post.date}
+      </h2>
       <Image
         src={post.thumbnailImage.url}
         alt={post.thumbnailImage.title}
