@@ -13,6 +13,15 @@ const getNumberOfPostsQuery = `query{
     }
   }`;
 
+const getAllPostSlugsQuery = `{
+  blogCollection {
+    items {
+      slug
+    }
+  }
+}
+`;
+
 // Funkcija vraca ukupan broj postova bloga
 export const getNumberOfPosts = async () => {
   const response = await instance
@@ -77,4 +86,63 @@ export const getPaginatedPosts = async (page) => {
 
   const data = response.data.data;
   return data.blogCollection;
+};
+
+// Funkcija dohvaca sve slugove
+export const getAllPostSlugs = async () => {
+  const response = await instance
+    .post(
+      "",
+      {
+        query: getAllPostSlugsQuery,
+      },
+      {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + CONTENTFUL_ACCESS_TOKEN,
+        },
+      }
+    )
+    .catch(() => null);
+
+  // U slucaju greske, vraca se prazna lista
+  if (!response) return [];
+
+  const data = response.data.data;
+  return data.blogCollection.items;
+};
+
+// Funkcija dohvaca tocno odredeni blog post
+export const getPostBySlug = async (slug) => {
+  const response = await instance.post(
+    "",
+    {
+      query: `query{
+        blogCollection(where: {
+        slug: "${slug}"
+      }){
+        items{
+          id
+          title
+          description
+          date
+          headerImage{
+            url
+            title
+          }
+          body
+        }
+      }
+    }`,
+    },
+    {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + CONTENTFUL_ACCESS_TOKEN,
+      },
+    }
+  );
+  // Add error handling
+  const data = response.data.data;
+  return data.blogCollection.items[0];
 };

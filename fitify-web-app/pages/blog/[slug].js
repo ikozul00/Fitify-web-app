@@ -1,4 +1,4 @@
-import { getPostBySlug, getPosts } from "../../helper";
+import { getAllPostSlugs, getPostBySlug } from "@/lib/ContentfulAPI";
 import Image from "next/image";
 import { serialize } from "next-mdx-remote/serialize";
 import { MDXRemote } from "next-mdx-remote";
@@ -40,9 +40,9 @@ const BlogPost = ({ post }) => (
 // Nece se nigdje importati, sam Next.js je zove
 // Ova funkcija izvrsava se samo na serverskoj strani - zato se ovdje mogu izvoditi "skupe" operacije
 export async function getStaticPaths() {
-  const posts = await getPosts();
+  const posts = await getAllPostSlugs();
 
-  //Uzmu se svi postovi i iz njih filtriraju svi slugovi
+  //Uzmu se svi slugovi i iz njih kreiraju pathovi
   const paths = posts.map((post) => ({
     params: { slug: post.slug },
   }));
