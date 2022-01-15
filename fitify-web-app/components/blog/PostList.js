@@ -10,7 +10,7 @@ const PostList = (props) => {
       <ul>
         {posts.map((post) => (
           <li key={post.id}>
-            <Link href={`blog/${post.slug}`}>
+            <Link href={`/blog/${post.slug}`}>
               <h1 className="cursor-pointer text-center text-5xl my-8 text-gray-600">
                 {post.title}
               </h1>
