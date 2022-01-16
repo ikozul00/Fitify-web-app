@@ -146,3 +146,38 @@ export const getPostBySlug = async (slug) => {
   const data = response.data.data;
   return data.blogCollection.items[0];
 };
+
+
+export const CheckLoginData =async (name, password) => {
+  const response = await instance
+    .post(
+      "",
+      {
+        query: 
+        `query{
+          userCollection(where: {
+              username:"${name}",password:"${password}"
+            }){
+            items{
+              username
+            }
+          }
+        }`,
+      },
+      {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + CONTENTFUL_ACCESS_TOKEN,
+        },
+      }
+    )
+    .catch(() => null);
+
+    
+    if(!response){
+      return -1;
+    }
+    const data = response.data.data;
+    return data.userCollection.items;
+
+}
