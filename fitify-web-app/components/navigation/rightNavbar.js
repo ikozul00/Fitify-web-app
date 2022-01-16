@@ -1,17 +1,25 @@
 import Link from "next/link";
 import { useRouter } from 'next/router';
+import { useEffect } from "react";
+import { useState } from "react/cjs/react.development";
 
 const RightNavbar = () => {
     const router = useRouter();
+    const [user, setUser] = useState();
+
+    useEffect(() => {
+        setUser(localStorage.getItem("user"));
+    },localStorage.getItem("user"));
+
 
     return(
         <>
         <nav className=" bg-fitify-black  text-2xl flex text-white">
-            <Link href="/login" key="login" passHref>
+            <Link href={user  ? "/profile" : "/login"} key="login" passHref>
                 <a className=" px-5">
                     <div className="text-center">
-                        <i className={` ${router.pathname=="/login" ? "text-fitify-green" : "text-white"} fas fa-user`}></i>
-                        <p className=" font-open-sans text-sm">Login</p>
+                        <i className={` ${(router.pathname=="/login" || router.pathname=="/profile") ? "text-fitify-green" : "text-white"} fas fa-user`}></i>
+                        <p className=" font-open-sans text-sm">{user ? user : "Login"}</p>
                     </div>
                 </a>
             </Link>

@@ -1,8 +1,11 @@
+import { useRouter } from "next/router";
 import { useState } from "react";
 
 const Login = () => {
     const [username, setUsername] = useState("");
     const [password,setPassword] = useState("");
+    const [errorMessage,setErrorMessage] = useState("");
+    const router = useRouter();
 
     function onChange(event){
         event.preventDefault();
@@ -31,14 +34,15 @@ const Login = () => {
               });
               const responseData=await res.json();
               if(responseData.data.length===0){
-                  alert("Wrong username or password");
+                  setErrorMessage("Wrong username or password!");
               }
               else{
-                  alert("All good");
+                localStorage.setItem('user', username);
+                router.push("/profile");
               }
         }
         else{
-            console.log("krivo");
+            setErrorMessage("You must enter both username and password!");
         }
     }
 
@@ -55,6 +59,7 @@ const Login = () => {
                     <input type="password" id="password" name="password" required className=" border-2 border-black" value={password} onChange={(e)=>onChange(e)}></input>
                     <button type="submit" className="bg-fitify-green">Login</button>
                 </form>
+                <p>{errorMessage}</p>
             </div>
         </div>
         </>
