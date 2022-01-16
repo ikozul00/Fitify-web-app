@@ -7,12 +7,14 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        'allerta-stencil': ['"Allerta Stencil"', 'sans-serif'],
-        'pacifico' : [' "Pacifico"','sans-serif'],
+        'logo-allerta-stencil': ['"Allerta Stencil"', 'sans-serif'],
+        'logo-pacifico' : [' "Pacifico"','sans-serif'],
+        'open-sans': [' "Open Sans"','sans-serif'],
       },
       colors: {
         'fitify-black': '#352E39',
-        'fitify-green':'#198C8C'
+        'fitify-green':'#198C8C',
+        'fitify-purple' : '#6E6FB3'
       },
       width: {
         '100': '15rem',
