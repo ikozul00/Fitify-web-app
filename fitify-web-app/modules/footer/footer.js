@@ -6,6 +6,7 @@ const Footer = () => {
     return(
         <>
         <section className=" bg-fitify-black flex justify-between items-center">
+        <div className="flex justify-between items-center w-3/6">
         <Logo/>
 
         <div className=" text-white font-open-sans py-10">
@@ -23,7 +24,8 @@ const Footer = () => {
             <p className=" py-2 font-light">Terms and Conditions</p>
             <p className=" py-2 font-light">About Us</p>
         </div>
-        <div className=" text-white font-open-sans pr-3">
+        </div>
+        <div className=" text-white font-open-sans pr-">
             <p className=" uppercase font-bold">Follow us:</p>
             <div className="flex pt-2">
                 <div className=" w-10 h-10 rounded-full flex items-center justify-around mr-5">
@@ -35,7 +37,7 @@ const Footer = () => {
                 <div className=" w-10 h-10 bg-fitify-purple rounded-full flex items-center justify-around mr-5">
                 <Image src='/SnapchatIcon.png' width={35} height={30} layout="fixed"/>
                 </div>
-                <div className=" w-10 h-10 rounded-full flex items-center justify-around mr-5">
+                <div className=" w-10 h-10 rounded-full flex items-center justify-around mr-48">
                 <Image src='/TwitterIcon.png' width={40} height={40} alt="Twitter" layout="fixed"/>
                 </div>
 
