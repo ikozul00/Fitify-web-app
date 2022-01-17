@@ -3,8 +3,8 @@ import ProductContainer from "@/components/shop/ProductContainer";
 
 const Shop = ({ products, numberOfProducts }) => {
   return (
-    <>
-      <div className="font-open-sans text-left w-2/3 mx-10 my-10">
+    <main className="full">
+      <div className="font-open-sans text-left lg:w-2/3 mx-10 my-10">
         <h1 className="text-5xl fitify-purple my-8">Shop</h1>
         <p>
           Define your activewear style with our fashion clothing. Everyday
@@ -24,7 +24,7 @@ const Shop = ({ products, numberOfProducts }) => {
         <p className="mx-10">{numberOfProducts} Results</p>
         <ProductContainer products={products} />
       </div>
-    </>
+    </main>
   );
 };
 

@@ -18,9 +18,9 @@ const components = {
 
 const ProductView = ({ product }) => {
   return (
-    <main className="w-2/3 mx-auto my-0 flex justify-between items-center">
+    <main className="w-2/3 mx-auto my-10 flex justify-between">
       <div className="w-1/2">
-        <div className="relative w-1/2 h-96">
+        <div className="relative w-full h-full">
           <Image
             src={product.thumbnailImage.url}
             alt="Product image"
