@@ -13,7 +13,6 @@ export async function getStaticPaths() {
     params: { slug: product.sys.id },
   }));
 
-  console.log(paths);
   return {
     paths,
     fallback: false, // Ovim se obvezujemo da smo dali opise svih pathova koje zelimo staticki pregenerirati

@@ -217,3 +217,43 @@ export const getProductByID = async (id) => {
   const data = response.data.data.product;
   return data;
 };
+
+// Dohvatiti sve produkte za pocetnu stranicu shopa
+export const getAllProducts = async () => {
+  const response = await instance
+    .post(
+      "",
+      {
+        query: `{
+        productCollection {
+          total
+          items {
+            sys {
+              id
+            }
+            title
+            brand
+            thumbnailImage {
+              url
+            }
+            price
+            oldPrice
+          }
+        }
+      }`,
+      },
+      {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + CONTENTFUL_ACCESS_TOKEN,
+        },
+      }
+    )
+    .catch(() => null);
+
+  // U slucaju greske, vraca se prazan objekt
+  if (!response) return {};
+
+  const data = response.data.data.productCollection;
+  return data;
+};

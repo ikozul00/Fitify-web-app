@@ -38,7 +38,7 @@ const ProductView = ({ product }) => {
         </div>
         <div>
           <p>Select Size</p>
-          <div className="flex">
+          <div className="flex justify-around">
             {product.sizes.map((size) => (
               <button className="rounded-full border-black border-2">
                 {size}
