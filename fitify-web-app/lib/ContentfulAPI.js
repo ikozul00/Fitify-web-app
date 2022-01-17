@@ -146,3 +146,74 @@ export const getPostBySlug = async (slug) => {
   const data = response.data.data;
   return data.blogCollection.items[0];
 };
+
+// Funkcija dohvaca sve ID-ove
+export const getAllProductIDs = async () => {
+  const response = await instance
+    .post(
+      "",
+      {
+        query: `{
+          productCollection {
+            items {
+              sys {
+                id
+              }
+            }
+          }
+        }`,
+      },
+      {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + CONTENTFUL_ACCESS_TOKEN,
+        },
+      }
+    )
+    .catch(() => null);
+
+  // U slucaju greske, vraca se prazna lista
+  if (!response) return [];
+
+  const data = response.data.data.productCollection.items;
+  return data;
+};
+
+// Funkcija dohvaca tocno odredeni product
+export const getProductByID = async (id) => {
+  const response = await instance.post(
+    "",
+    {
+      query: `{
+        product(id: "${id}") {
+          title
+          price
+          oldPrice
+          gender
+          color
+          brand
+          sizes
+          thumbnailImage {
+            url
+          }
+          imagesCollection {
+            items {
+              url
+            }
+          }
+          productDetails
+          material
+        }
+      }`,
+    },
+    {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + CONTENTFUL_ACCESS_TOKEN,
+      },
+    }
+  );
+  // Add error handling
+  const data = response.data.data.product;
+  return data;
+};
