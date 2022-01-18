@@ -4,6 +4,7 @@ import { H2, H3 } from "@/components/blog/heading";
 import { P, Strong } from "@/components/blog/text";
 import { Ul, Li, Ol } from "@/components/blog/list";
 import { A } from "@/components/blog/link";
+import ImageSlider from "../imageSlider/ImageSlider";
 
 const components = {
   h2: H2,
@@ -17,15 +18,12 @@ const components = {
 };
 
 const ProductView = ({ product }) => {
+  const images = [product.thumbnailImage, ...product.imagesCollection.items];
   return (
     <main className="w-2/3 mx-auto my-10 flex justify-between">
       <div className="w-1/2">
         <div className="relative w-full h-full">
-          <Image
-            src={product.thumbnailImage.url}
-            alt="Product image"
-            layout="fill"
-          />
+          <ImageSlider images={images} />
         </div>
       </div>
       <div className="font-open-sans text-left px-5 w-1/2">
