@@ -1,4 +1,4 @@
-export const Ul = (props) => <ul className="my-4" {...props} />;
+export const Ul = (props) => <ul {...props} />;
 
 export const Ol = (props) => <ol className="my-4" {...props} />;
 
