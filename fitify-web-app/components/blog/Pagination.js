@@ -16,23 +16,23 @@ const Pagination = (props) => {
   const prevDisabled = parseInt(currentPage, 10) === 1;
 
   return (
-    <ol>
+    <ol className="flex place-content-center mb-5">
       <li>
-        {prevDisabled && <span>Previous page</span>}
+        {prevDisabled && <span className="text-2xl pr-3 "><i class="fas fa-arrow-left"></i></span>}
         {!prevDisabled && (
           <Link href={prevPageUrl}>
-            <a>Previous page</a>
+            <a className="text-2xl pr-3 "><i class="fas fa-arrow-left"></i></a>
           </Link>
         )}
       </li>
-      <li>
+      <li className="self-center">
         Page {currentPage} of {totalPages}
       </li>
       <li>
-        {nextDisabled && <span>Next page</span>}
+        {nextDisabled && <span className="text-2xl pl-3 "><i class="fas fa-arrow-right"></i></span>}
         {!nextDisabled && (
           <Link href={nextPageUrl}>
-            <a>Next page</a>
+            <a className="text-2xl pl-3 "><i class="fas fa-arrow-right"></i></a>
           </Link>
         )}
       </li>

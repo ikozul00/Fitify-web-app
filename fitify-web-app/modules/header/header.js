@@ -5,7 +5,7 @@ import RightNavbar from "../../components/navigation/rightNavbar";
 
 const Header=()=>{
     return(
-            <div className=" bg-fitify-black flex justify-between items-center w-screen">
+            <div className=" bg-fitify-black flex justify-between items-center">
                 <Logo/>
                 <Navbar/>
                 <RightNavbar/>

@@ -6,7 +6,7 @@ const PostList = (props) => {
   const { posts, currentPage, totalPages } = props;
 
   return (
-    <div className="w-4/5 mx-auto my-0">
+    <div className=" mx-auto my-0">
       <h2 className=" text-5xl text-gray-700">Recent articles</h2>
       <ul>
         {posts.map((post) => (

@@ -12,13 +12,15 @@ const Blog = (props) => {
 
   return (
     <>
-      <h1 className="text-5xl uppercase">BLOG</h1>
+    <div className="w-9/12 mx-auto">
+      <h1 className="text-5xl uppercase mt-12">BLOG</h1>
       <HeadPost post={posts[0]} />
       <PostList
         posts={posts.slice(1)}
         totalPages={totalPages}
         currentPage={currentPage}
       />
+      </div>
     </>
   );
 };

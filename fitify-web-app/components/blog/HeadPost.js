@@ -3,7 +3,7 @@ import Image from "next/image";
 
 const HeadPost = ({ post }) => {
   return (
-    <div className="bg-fitify-green w-4/5 mx-auto mt-16 mb-16 flex h-80">
+    <div className="bg-fitify-green mx-auto mt-16 mb-16 flex h-80">
       <div className=" w-3/12 relative">
       <Image
         src={post.thumbnailImage.url}
