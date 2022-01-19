@@ -6,12 +6,12 @@ import { useState } from "react";
 const Shop = ({ products, numberOfProducts }) => {
   const [shownProducts, setShownProducts] = useState(products);
 
-  const filterProducts = (
-    filters = { newCategory: "all", newBrand: "all" }
-  ) => {
+  const filterProducts = (filters) => {
     // Uzmi sve produkte
     const filteredProducts = products;
+
     // Filtrira se korak po korak, po svakom filtru
+    // Ako je neki filter postavljen na all, preskače se
     if (filters.newCategory != "all")
       filteredProducts = filteredProducts.filter(
         (product) => product.category == filters.newCategory
@@ -19,6 +19,21 @@ const Shop = ({ products, numberOfProducts }) => {
     if (filters.newBrand != "all")
       filteredProducts = filteredProducts.filter(
         (product) => product.brand == filters.newBrand
+      );
+    if (filters.newColor != "all")
+      filteredProducts = filteredProducts.filter((product) =>
+        product.color.includes(filters.newColor)
+      );
+    if (filters.newSize != "all")
+      filteredProducts = filteredProducts.filter((product) =>
+        product.sizes.includes(filters.newSize)
+      );
+
+    // Svakako se prikazuju unisex proizvodi
+    if (filters.newGender != "all")
+      filteredProducts = filteredProducts.filter(
+        (product) =>
+          product.gender == filters.newGender || product.gender == "unisex"
       );
 
     // Na kraju se postavljaju novi proizvodi za prikazivanje
