@@ -12,7 +12,7 @@ const Blog = (props) => {
 
   return (
     <>
-      <h1 className="text-center text-8xl text-gray-800">BLOG</h1>
+      <h1 className="text-5xl uppercase">BLOG</h1>
       <HeadPost post={posts[0]} />
       <PostList
         posts={posts.slice(1)}
