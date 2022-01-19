@@ -4,15 +4,25 @@ import Filter from "@/components/shop/Filter";
 import { useState } from "react";
 
 const Shop = ({ products, numberOfProducts }) => {
-  const [brand, setBrand] = useState("all");
   const [shownProducts, setShownProducts] = useState(products);
 
-  const selectBrand = (newBrand) => {
-    setBrand(newBrand);
-    if (newBrand == "all") setShownProducts(products);
-    else
-      setShownProducts(products.filter((product) => product.brand == newBrand));
-    console.log("Shown products", shownProducts);
+  const filterProducts = (
+    filters = { newCategory: "all", newBrand: "all" }
+  ) => {
+    // Uzmi sve produkte
+    const filteredProducts = products;
+    // Filtrira se korak po korak, po svakom filtru
+    if (filters.newCategory != "all")
+      filteredProducts = filteredProducts.filter(
+        (product) => product.category == filters.newCategory
+      );
+    if (filters.newBrand != "all")
+      filteredProducts = filteredProducts.filter(
+        (product) => product.brand == filters.newBrand
+      );
+
+    // Na kraju se postavljaju novi proizvodi za prikazivanje
+    setShownProducts(filteredProducts);
   };
 
   return (
@@ -37,7 +47,7 @@ const Shop = ({ products, numberOfProducts }) => {
         <p className="mx-10 my-10">{shownProducts.length} Results</p>
         <div className="flex flex-row">
           <div className="basis-1/5 px-10">
-            <Filter brand={brand} selectBrand={selectBrand} />
+            <Filter filterProducts={filterProducts} />
           </div>
           <div className="basis-4/5">
             <ProductContainer products={shownProducts} />
