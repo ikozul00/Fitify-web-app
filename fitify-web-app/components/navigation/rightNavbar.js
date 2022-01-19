@@ -17,10 +17,10 @@ const RightNavbar = () => {
     return(
         <>
         <nav className=" bg-fitify-black  text-2xl flex text-white">
-            <Link href={user  ? "/profile" : "/login"} key="login" passHref>
+            <Link href={user  ? `/profile/${user}` : "/login"} key="login" passHref>
                 <a className=" px-4">
                     <div className="text-center hover:opacity-60">
-                        <i className={` ${(router.pathname=="/login" || router.pathname=="/profile") ? "text-fitify-green" : "text-white"} fas fa-user`}></i>
+                        <i className={` ${(router.pathname=="/login" || router.pathname.includes(`/profile`)) ? "text-fitify-green" : "text-white"} fas fa-user`}></i>
                         <p className=" font-open-sans text-sm">{user ? user : "Login"}</p>
                     </div>
                 </a>

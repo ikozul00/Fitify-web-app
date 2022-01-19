@@ -181,3 +181,44 @@ export const CheckLoginData =async (name, password) => {
     return data.userCollection.items;
 
 }
+
+export const GetUserData =async (name) => {
+  const response = await instance
+    .post(
+      "",
+      {
+        query: 
+        `query{
+          userCollection(where: {
+          username:"${name}"
+        }){
+          items{
+            name,
+            username,
+            email,
+            address,
+            city,
+            country,
+            phoneNumber,
+            surname
+          }
+          }
+        }`,
+      },
+      {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + CONTENTFUL_ACCESS_TOKEN,
+        },
+      }
+    )
+    .catch(() => null);
+
+    
+    if(!response){
+      return -1;
+    }
+    const data = response.data.data;
+    return data.userCollection.items;
+
+}

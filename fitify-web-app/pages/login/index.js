@@ -39,7 +39,7 @@ const Login = () => {
               }
               else{
                 localStorage.setItem('user', username);
-                router.push("/profile");
+                router.push(`/profile/${username}`);
               }
         }
         else{
