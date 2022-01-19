@@ -1,7 +1,20 @@
 import { getAllProducts } from "@/lib/ContentfulAPI";
 import ProductContainer from "@/components/shop/ProductContainer";
+import Filter from "@/components/shop/Filter";
+import { useState } from "react";
 
 const Shop = ({ products, numberOfProducts }) => {
+  const [brand, setBrand] = useState("all");
+  const [shownProducts, setShownProducts] = useState(products);
+
+  const selectBrand = (newBrand) => {
+    setBrand(newBrand);
+    if (newBrand == "all") setShownProducts(products);
+    else
+      setShownProducts(products.filter((product) => product.brand == newBrand));
+    console.log("Shown products", shownProducts);
+  };
+
   return (
     <main className="full">
       <div className="font-open-sans text-left lg:w-2/3 mx-10 my-10">
@@ -21,8 +34,15 @@ const Shop = ({ products, numberOfProducts }) => {
         </p>
       </div>
       <div>
-        <p className="mx-10">{numberOfProducts} Results</p>
-        <ProductContainer products={products} />
+        <p className="mx-10 my-10">{shownProducts.length} Results</p>
+        <div className="flex flex-row">
+          <div className="basis-1/5 px-10">
+            <Filter brand={brand} selectBrand={selectBrand} />
+          </div>
+          <div className="basis-4/5">
+            <ProductContainer products={shownProducts} />
+          </div>
+        </div>
       </div>
     </main>
   );

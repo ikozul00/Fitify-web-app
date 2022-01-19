@@ -233,6 +233,10 @@ export const getAllProducts = async () => {
             }
             title
             brand
+            gender
+            color
+            category
+            sizes
             thumbnailImage {
               url
             }
