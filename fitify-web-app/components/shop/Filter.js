@@ -1,6 +1,8 @@
 import { BsSliders } from "react-icons/bs";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { filters } from "../../constants/filters";
+import InputRange from "react-input-range";
+import "react-input-range/lib/css/index.css";
 
 const Filter = ({ filterProducts }) => {
   const [brand, setBrand] = useState("all");
@@ -8,6 +10,7 @@ const Filter = ({ filterProducts }) => {
   const [color, setColor] = useState("all");
   const [size, setSize] = useState("all");
   const [gender, setGender] = useState("all");
+  const [price, setPrice] = useState({ min: 0, max: 200 });
 
   return (
     <main className="font-open-sans">
@@ -89,6 +92,19 @@ const Filter = ({ filterProducts }) => {
           </select>
         </div>
 
+        <div className="my-5 w-full">
+          <p className="my-10">Price</p>
+          <InputRange
+            draggableTrack
+            minValue={0}
+            maxValue={200}
+            step={10}
+            onChange={(value) => setPrice(value)}
+            value={price}
+            onChangeComplete={(value) => console.log(value)}
+          />
+        </div>
+
         <button
           className="my-10 border-2 border-black w-full"
           onClick={() =>
@@ -98,6 +114,8 @@ const Filter = ({ filterProducts }) => {
               newColor: color,
               newSize: size,
               newGender: gender,
+              minimumPrice: price.min,
+              maximumPrice: price.max,
             })
           }
         >

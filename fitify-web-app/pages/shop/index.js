@@ -39,6 +39,12 @@ const Shop = ({ products }) => {
           product.gender == filters.newGender || product.gender == "unisex"
       );
 
+    filteredProducts = filteredProducts.filter(
+      (product) =>
+        product.price >= filters.minimumPrice &&
+        product.price <= filters.maximumPrice
+    );
+
     // Na kraju se postavljaju novi proizvodi za prikazivanje, ali prvo ih treba sortirati
     setShownProducts(sortProducts(sortingOption, filteredProducts));
   };
