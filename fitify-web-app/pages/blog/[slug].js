@@ -25,7 +25,7 @@ const BlogPost = ({ post }) => (
     <h2 className="text-center text-2xl my-8 text-gray-600">
       {post.description}
     </h2>
-    <h3 text-center text-2xl my-8 text-gray-600>
+    <h3 className="text-center text-2xl my-8 text-gray-600">
       {post.date}
     </h3>
     <Image
