@@ -8,7 +8,7 @@ export default function BlogPage(props) {
   return (
     <>
     <div className="w-9/12 mx-auto">
-      <h1 className="text-5xl uppercase mt-12">BLOG</h1>
+      <h1 className="text-5xl uppercase mt-12y">BLOG</h1>
       <PostList
         posts={posts}
         totalPages={totalPages}

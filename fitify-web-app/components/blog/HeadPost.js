@@ -9,6 +9,7 @@ const HeadPost = ({ post }) => {
         src={post.thumbnailImage.url}
         alt={post.thumbnailImage.title}
         layout="fill"
+        objectFit="cover"
       />
       </div>
       <div className="w-7/12 ml-12">

@@ -15,6 +15,7 @@ const PostList = (props) => {
              <Image
               src={post.thumbnailImage.url}
               alt={post.thumbnailImage.title}
+              objectFit="cover"
               layout="fill"
             />
             </div>
