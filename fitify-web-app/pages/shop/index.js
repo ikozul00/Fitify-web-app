@@ -3,9 +3,11 @@ import ProductContainer from "@/components/shop/ProductContainer";
 import Filter from "@/components/shop/Filter";
 import { useState } from "react";
 import SortBy from "@/components/shop/SortBy";
+import { sortProducts } from "@/lib/sorting";
 
 const Shop = ({ products }) => {
   const [shownProducts, setShownProducts] = useState(products);
+  const [sortingOption, setSortingOption] = useState("");
 
   const filterProducts = (filters) => {
     // Uzmi sve produkte
@@ -37,36 +39,14 @@ const Shop = ({ products }) => {
           product.gender == filters.newGender || product.gender == "unisex"
       );
 
-    // Na kraju se postavljaju novi proizvodi za prikazivanje
-    setShownProducts(filteredProducts);
+    // Na kraju se postavljaju novi proizvodi za prikazivanje, ali prvo ih treba sortirati
+    setShownProducts(sortProducts(sortingOption, filteredProducts));
   };
 
-  const sortProducts = (value) => {
-    const sortedProducts = [...shownProducts];
-    switch (value) {
-      case "new":
-        sortedProducts.sort((a, b) =>
-          a.sys.publishedAt > b.sys.publishedAt
-            ? -1
-            : b.sys.publishedAt > a.sys.publishedAt
-            ? 1
-            : 0
-        );
-        console.log("new");
-        console.log(sortedProducts);
-        break;
-      case "high":
-        sortedProducts.sort((a, b) => b.price - a.price);
-        console.log("high");
-        console.log(sortedProducts);
-        break;
-      case "low":
-        sortedProducts.sort((a, b) => a.price - b.price);
-        console.log("low");
-        console.log(sortedProducts);
-        break;
-    }
-    setShownProducts(sortedProducts);
+  const handleSetSortingOption = (option) => {
+    // U stateu sortingOption pamti se sto je klijent odabrao, kako bi se poslije filtriranja moglo primijeniti
+    setSortingOption(option);
+    setShownProducts(sortProducts(option, shownProducts));
   };
 
   return (
@@ -92,7 +72,7 @@ const Shop = ({ products }) => {
       <div>
         <div className="flex flex-row justify-between">
           <p className="mx-10 my-10">{shownProducts.length} Results</p>
-          <SortBy setSortingOption={sortProducts} />
+          <SortBy setSortingOption={handleSetSortingOption} />
         </div>
         <div className="flex flex-row">
           <div className="basis-1/5 px-10 py-10">

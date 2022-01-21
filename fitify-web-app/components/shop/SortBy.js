@@ -5,6 +5,7 @@ const SortBy = ({ setSortingOption }) => {
   const [option, setOption] = useState("");
 
   const handleSetSortingOption = (value) => {
+    // Lokalno postavlja opciju i salje je parentu
     setOption(value);
     setSortingOption(value);
   };
