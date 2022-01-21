@@ -74,3 +74,9 @@ export const filters = {
   color: color,
   sizes: sizes,
 };
+
+export const sortingOptions = [
+  { id: "new", title: "Newest products" },
+  { id: "high", title: "Price High to Low" },
+  { id: "low", title: "Price Low to High" },
+];

@@ -2,8 +2,9 @@ import { getAllProducts } from "@/lib/ContentfulAPI";
 import ProductContainer from "@/components/shop/ProductContainer";
 import Filter from "@/components/shop/Filter";
 import { useState } from "react";
+import SortBy from "@/components/shop/SortBy";
 
-const Shop = ({ products, numberOfProducts }) => {
+const Shop = ({ products }) => {
   const [shownProducts, setShownProducts] = useState(products);
 
   const filterProducts = (filters) => {
@@ -40,9 +41,37 @@ const Shop = ({ products, numberOfProducts }) => {
     setShownProducts(filteredProducts);
   };
 
+  const sortProducts = (value) => {
+    const sortedProducts = [...shownProducts];
+    switch (value) {
+      case "new":
+        sortedProducts.sort((a, b) =>
+          a.sys.publishedAt > b.sys.publishedAt
+            ? -1
+            : b.sys.publishedAt > a.sys.publishedAt
+            ? 1
+            : 0
+        );
+        console.log("new");
+        console.log(sortedProducts);
+        break;
+      case "high":
+        sortedProducts.sort((a, b) => b.price - a.price);
+        console.log("high");
+        console.log(sortedProducts);
+        break;
+      case "low":
+        sortedProducts.sort((a, b) => a.price - b.price);
+        console.log("low");
+        console.log(sortedProducts);
+        break;
+    }
+    setShownProducts(sortedProducts);
+  };
+
   return (
     <main className="full">
-      <div className="font-open-sans text-left lg:w-2/3 mx-10 my-10">
+      <div className="font-open-sans text-left lg:w-1/2 mx-10 my-10">
         <h1 className="text-5xl fitify-purple my-8">Shop</h1>
         <p
           dangerouslySetInnerHTML={{
@@ -61,9 +90,12 @@ const Shop = ({ products, numberOfProducts }) => {
         />
       </div>
       <div>
-        <p className="mx-10 my-10">{shownProducts.length} Results</p>
+        <div className="flex flex-row justify-between">
+          <p className="mx-10 my-10">{shownProducts.length} Results</p>
+          <SortBy setSortingOption={sortProducts} />
+        </div>
         <div className="flex flex-row">
-          <div className="basis-1/5 px-10">
+          <div className="basis-1/5 px-10 py-10">
             <Filter filterProducts={filterProducts} />
           </div>
           <div className="basis-4/5">
@@ -82,7 +114,6 @@ export async function getStaticProps() {
   return {
     props: {
       products: productCollection.items,
-      numberOfProducts: productCollection.total,
     },
   };
 }

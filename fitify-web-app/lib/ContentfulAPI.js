@@ -230,6 +230,7 @@ export const getAllProducts = async () => {
           items {
             sys {
               id
+              publishedAt
             }
             title
             brand
