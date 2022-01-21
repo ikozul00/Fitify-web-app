@@ -18,10 +18,10 @@ const Pagination = (props) => {
   return (
     <ol className="flex place-content-center mb-5">
       <li>
-        {prevDisabled && <span className="text-2xl pr-3 "><i class="fas fa-arrow-left"></i></span>}
+        {prevDisabled && <span className="text-2xl bg-fitify-purple text-center rounded-full p-1 m-2 "><i class=" text-white fas fa-arrow-left mx-1"></i></span>}
         {!prevDisabled && (
           <Link href={prevPageUrl}>
-            <a className="text-2xl pr-3 "><i class="fas fa-arrow-left"></i></a>
+            <a className="text-2xl bg-fitify-purple text-center rounded-full p-1 m-2"><i class=" text-white fas fa-arrow-left mx-1"></i></a>
           </Link>
         )}
       </li>
@@ -29,10 +29,10 @@ const Pagination = (props) => {
         Page {currentPage} of {totalPages}
       </li>
       <li>
-        {nextDisabled && <span className="text-2xl pl-3 "><i class="fas fa-arrow-right"></i></span>}
+        {nextDisabled && <span className="text-2xl bg-fitify-purple text-center rounded-full p-1 m-2"><i class="fas fa-arrow-right text-white mx-1"></i></span>}
         {!nextDisabled && (
           <Link href={nextPageUrl}>
-            <a className="text-2xl pl-3 "><i class="fas fa-arrow-right"></i></a>
+            <a className="text-2xl bg-fitify-purple text-center rounded-full p-1 m-2"><i class="fas fa-arrow-right text-white mx-1"></i></a>
           </Link>
         )}
       </li>
