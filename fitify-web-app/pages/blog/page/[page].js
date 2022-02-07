@@ -7,12 +7,14 @@ export default function BlogPage(props) {
 
   return (
     <>
-      <h1 className="text-center text-8xl text-gray-800">BLOG</h1>
+    <div className="w-9/12 mx-auto font-open-sans">
+      <h1 className="text-5xl uppercase mt-12 text-gray-700 font-semibold mb-7">BLOG</h1>
       <PostList
         posts={posts}
         totalPages={totalPages}
         currentPage={currentPage}
       />
+      </div>
     </>
   );
 }

@@ -16,27 +16,27 @@ const Pagination = (props) => {
   const prevDisabled = parseInt(currentPage, 10) === 1;
 
   return (
-    <ol>
-      <li>
-        {prevDisabled && <span>Previous page</span>}
+    <div className="flex place-content-center mb-12  mt-12">
+      <span>
+        {prevDisabled && <span className="text-center p-1 m-2 text-4xl opacity-60" aria-label="Previous page"><i class="fas fa-arrow-left mx-1" aria-hidden="true"></i></span>}
         {!prevDisabled && (
           <Link href={prevPageUrl}>
-            <a>Previous page</a>
+            <a className="text-center p-1 m-2 text-4xl"><i class="  fas fa-arrow-left mx-1 hover:scale-105"></i></a>
           </Link>
         )}
-      </li>
-      <li>
+      </span>
+      <span className="self-center text-xl">
         Page {currentPage} of {totalPages}
-      </li>
-      <li>
-        {nextDisabled && <span>Next page</span>}
+      </span>
+      <span>
+        {nextDisabled && <span className="text-center p-1 m-2 text-4xl opacity-60"><i class="fas fa-arrow-right mx-1"></i></span>}
         {!nextDisabled && (
           <Link href={nextPageUrl}>
-            <a>Next page</a>
+            <a className="text-center  p-1 m-2 text-4xl "><i class="fas fa-arrow-right mx-1 hover:scale-105"></i></a>
           </Link>
         )}
-      </li>
-    </ol>
+      </span>
+    </div>
   );
 };
 export default Pagination;

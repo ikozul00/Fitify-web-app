@@ -6,7 +6,9 @@ import { H2, H3 } from "../../components/blog/heading";
 import { P, Strong } from "../../components/blog/text";
 import { Ul, Li, Ol } from "../../components/blog/list";
 import { A } from "../../components/blog/link";
+import { CustomImage } from "@/components/blog/image";
 import React from "react";
+import { parseDate } from "parseDate";
 
 const components = {
   h2: H2,
@@ -17,27 +19,32 @@ const components = {
   li: Li,
   a: A,
   strong: Strong,
+  img:CustomImage
 };
 
-const BlogPost = ({ post }) => (
-  <main className="w-2/3 mx-auto my-0">
-    <h1 className="text-center text-8xl text-gray-800">{post.title}</h1>
-    <h2 className="text-center text-2xl my-8 text-gray-600">
+const BlogPost = ({ post }) => {
+  const date=parseDate(post.date);
+  
+  return(
+  <main className="w-4/5 mx-auto mt-0 mb-20 font-open-sans">
+    <h3 className=" text-xl my-10 text-gray-600 text-right">
+      {`${date.day}/${date.month}/${date.year}`}
+    </h3>
+    <h1 className="text-center text-6xl text-gray-700 font-semibold">{post.title}</h1>
+    <h2 className="text-center text-2xl mt-5 mb-16 text-gray-600">
       {post.description}
     </h2>
-    <h3 text-center text-2xl my-8 text-gray-600>
-      {post.date}
-    </h3>
+    <div className="relative w-full h-96 mx-auto mb-10">
     <Image
       src={post.headerImage.url}
       alt={post.headerImage.title}
-      layout="fixed"
-      width={1000}
-      height={500}
+      layout="fill"
+      objectFit="cover"
     />
+    </div>
     <MDXRemote {...post.mdxSource} components={components} lazy />
   </main>
-);
+);}
 
 // Ova funkcija sluzi za static side rendering (staticko pregeneriranje)
 // Nece se nigdje importati, sam Next.js je zove

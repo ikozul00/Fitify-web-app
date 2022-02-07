@@ -36,7 +36,6 @@ const Profile = ({data}) => {
 
 export async function getServerSideProps(context) {
     // Fetch data from external API
-    
     const {user}=context.params;
     const res = await GetUserData(user);
     const data=res[0];
