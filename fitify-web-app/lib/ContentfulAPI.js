@@ -147,19 +147,18 @@ export const getPostBySlug = async (slug) => {
   return data.blogCollection.items[0];
 };
 
-
-export const CheckLoginData =async (name, password) => {
+// Funkcija dohvaca sve ID-ove
+export const getAllProductIDs = async () => {
   const response = await instance
     .post(
       "",
       {
-        query: 
-        `query{
-          userCollection(where: {
-              username:"${name}",password:"${password}"
-            }){
-            items{
-              username
+        query: `{
+          productCollection {
+            items {
+              sys {
+                id
+              }
             }
           }
         }`,
@@ -173,37 +172,80 @@ export const CheckLoginData =async (name, password) => {
     )
     .catch(() => null);
 
-    
-    if(!response){
-      return -1;
+  // U slucaju greske, vraca se prazna lista
+  if (!response) return [];
+
+  const data = response.data.data.productCollection.items;
+  return data;
+};
+
+// Funkcija dohvaca tocno odredeni product
+export const getProductByID = async (id) => {
+  const response = await instance.post(
+    "",
+    {
+      query: `{
+        product(id: "${id}") {
+          title
+          price
+          oldPrice
+          gender
+          color
+          brand
+          sizes
+          thumbnailImage {
+            url
+          }
+          imagesCollection {
+            items {
+              url
+            }
+          }
+          productDetails
+          material
+        }
+      }`,
+    },
+    {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + CONTENTFUL_ACCESS_TOKEN,
+      },
     }
-    const data = response.data.data;
-    return data.userCollection.items;
+  );
+  // Add error handling
+  const data = response.data.data.product;
+  return data;
+};
 
-}
-
-export const GetUserData =async (name) => {
+// Dohvatiti sve produkte za pocetnu stranicu shopa
+export const getAllProducts = async () => {
   const response = await instance
     .post(
       "",
       {
-        query: 
-        `query{
-          userCollection(where: {
-          username:"${name}"
-        }){
-          items{
-            name,
-            username,
-            email,
-            address,
-            city,
-            country,
-            phoneNumber,
-            surname
+        query: `{
+        productCollection {
+          total
+          items {
+            sys {
+              id
+              publishedAt
+            }
+            title
+            brand
+            gender
+            color
+            category
+            sizes
+            thumbnailImage {
+              url
+            }
+            price
+            oldPrice
           }
-          }
-        }`,
+        }
+      }`,
       },
       {
         headers: {
@@ -214,11 +256,80 @@ export const GetUserData =async (name) => {
     )
     .catch(() => null);
 
-    
-    if(!response){
-      return -1;
+  // U slucaju greske, vraca se prazan objekt
+  if (!response) return {};
+
+  const data = response.data.data.productCollection;
+  return data;
+};
+
+export const CheckLoginData =async (name, password) => {
+  const response = await instance
+  .post(
+    "",
+    {
+      query: 
+      `query{
+        userCollection(where: {
+            username:"${name}",password:"${password}"
+          }){
+          items{
+            username
+          }
+        }
+      }`,
+    },
+    {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + CONTENTFUL_ACCESS_TOKEN,
+      },
     }
-    const data = response.data.data;
-    return data.userCollection.items;
+  )
+  .catch(() => null);
+  if(!response){
+    return -1;
+  }
+  const data = response.data.data;
+  return data.userCollection.items;
+
+}
+
+export const GetUserData =async (name) => {
+  const response = await instance
+  .post(
+    "",
+    {
+      query: 
+      `query{
+        userCollection(where: {
+        username:"${name}"
+      }){
+        items{
+          name,
+          username,
+          email,
+          address,
+          city,
+          country,
+          phoneNumber,
+          surname
+        }
+        }
+      }`,
+    },
+    {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + CONTENTFUL_ACCESS_TOKEN,
+      },
+    }
+  )
+  .catch(() => null);
+  if(!response){
+    return -1;
+  }
+  const data = response.data.data;
+  return data.userCollection.items;
 
 }
