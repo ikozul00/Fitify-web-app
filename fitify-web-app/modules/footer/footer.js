@@ -29,16 +29,16 @@ const Footer = () => {
             <p className=" uppercase font-bold">Follow us:</p>
             <div className="flex pt-2">
                 <div className=" w-10 h-10 rounded-full flex items-center justify-around mr-5">
-                <Image src='/FacebookIcon.png' width={40} height={40} alt="Facebook" layout="fixed"/>
+                <Image src='/FacebookIconGray.png' width={40} height={40} alt="Facebook" layout="fixed"/>
                 </div>
                 <div className=" w-10 h-10 rounded-full flex items-center justify-around mr-5">
-                <Image src='/InstagramIcon.png' layout="fixed" width={40} height={40} alt="Instagram"/>
+                <Image src='/InstagramIconGray.png' layout="fixed" width={40} height={40} alt="Instagram"/>
                 </div>
-                <div className=" w-10 h-10 bg-fitify-purple rounded-full flex items-center justify-around mr-5">
+                <div className=" w-10 h-10 bg-fitify-gray rounded-full flex items-center justify-around mr-5">
                 <Image src='/SnapchatIcon.png' width={35} height={30} layout="fixed"/>
                 </div>
                 <div className=" w-10 h-10 rounded-full flex items-center justify-around mr-48">
-                <Image src='/TwitterIcon.png' width={40} height={40} alt="Twitter" layout="fixed"/>
+                <Image src='/TwitterIconGray.png' width={40} height={40} alt="Twitter" layout="fixed"/>
                 </div>
 
             </div>
