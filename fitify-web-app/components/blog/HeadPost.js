@@ -12,7 +12,8 @@ const HeadPost = ({ post }) => {
 
 
   return (
-    <div className="bg-fitify-green mx-auto mt-16 mb-16 flex h-80">
+    <Link href={`blog/${post.slug}`}>
+    <div className="bg-fitify-green mx-auto mt-16 mb-16 flex h-80 border-4 border-fitify-green cursor-pointer hover:opacity-75">
       <div className=" w-3/12 relative">
       <Image
         src={post.thumbnailImage.url}
@@ -25,15 +26,14 @@ const HeadPost = ({ post }) => {
       <h2 className="text-xl my-8 text-white">
       {`${date.day}/${date.month}/${date.year}`}
       </h2>
-      <Link href={`blog/${post.slug}`}>
-        <h1 className="cursor-pointer text-4xl my-8 text-white font-semibold">
+      
+        <h1 className=" text-4xl my-8 text-white font-semibold">
           {post.title}
         </h1>
-      </Link>
-    
       <p className="text-white text-xl">{post.description}</p>
       </div>
     </div>
+    </Link>
   );
 };
 export default HeadPost;

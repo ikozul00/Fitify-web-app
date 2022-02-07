@@ -14,6 +14,7 @@ module.exports = {
       colors: {
         'fitify-black': '#352E39',
         'fitify-green':'#198C8C',
+        'fitify-green-light':'#d1e8e8',
         'fitify-purple' : '#6E6FB3'
       },
       width: {
