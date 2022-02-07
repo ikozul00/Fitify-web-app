@@ -16,27 +16,27 @@ const Pagination = (props) => {
   const prevDisabled = parseInt(currentPage, 10) === 1;
 
   return (
-    <ol className="flex place-content-center mb-5">
-      <li>
-        {prevDisabled && <span className="text-2xl bg-fitify-purple text-center rounded-full p-1 m-2 "><i class=" text-white fas fa-arrow-left mx-1"></i></span>}
+    <div className="flex place-content-center mb-12  mt-12">
+      <span>
+        {prevDisabled && <span className="text-center p-1 m-2 text-4xl opacity-70" aria-label="Previous page"><i class="fas fa-arrow-left mx-1" aria-hidden="true"></i></span>}
         {!prevDisabled && (
           <Link href={prevPageUrl}>
-            <a className="text-2xl bg-fitify-purple text-center rounded-full p-1 m-2"><i class=" text-white fas fa-arrow-left mx-1"></i></a>
+            <a className="text-center p-1 m-2 text-4xl"><i class="  fas fa-arrow-left mx-1 hover:scale-105"></i></a>
           </Link>
         )}
-      </li>
-      <li className="self-center">
+      </span>
+      <span className="self-center text-xl">
         Page {currentPage} of {totalPages}
-      </li>
-      <li>
-        {nextDisabled && <span className="text-2xl bg-fitify-purple text-center rounded-full p-1 m-2"><i class="fas fa-arrow-right text-white mx-1"></i></span>}
+      </span>
+      <span>
+        {nextDisabled && <span className="text-center p-1 m-2 text-4xl opacity-70"><i class="fas fa-arrow-right mx-1"></i></span>}
         {!nextDisabled && (
           <Link href={nextPageUrl}>
-            <a className="text-2xl bg-fitify-purple text-center rounded-full p-1 m-2"><i class="fas fa-arrow-right text-white mx-1"></i></a>
+            <a className="text-center  p-1 m-2 text-4xl "><i class="fas fa-arrow-right mx-1 hover:scale-105"></i></a>
           </Link>
         )}
-      </li>
-    </ol>
+      </span>
+    </div>
   );
 };
 export default Pagination;

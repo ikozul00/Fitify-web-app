@@ -9,8 +9,8 @@ const RightNavbar = () => {
         <nav className=" bg-fitify-black  text-2xl flex text-white">
             <Link href="/login" key="login" passHref>
                 <a className=" px-5">
-                    <div className="text-center">
-                        <i className={` ${router.pathname=="/login" ? "text-fitify-green" : "text-white"} fas fa-user`}></i>
+                    <div className="text-center" aria-label="Login" title="Login">
+                        <i className={` ${router.pathname=="/login" ? "text-fitify-green" : "text-white"} fas fa-user`} aria-hidden="true"></i>
                         <p className=" font-open-sans text-sm">Login</p>
                     </div>
                 </a>

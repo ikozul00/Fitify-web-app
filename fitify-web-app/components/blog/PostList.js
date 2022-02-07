@@ -10,7 +10,7 @@ const PostList = (props) => {
 
   return (
     <div className=" mx-auto my-0">
-      <h2 className=" text-5xl text-gray-700">Recent articles</h2>
+      <h2 className=" text-5xl text-gray-700 mb-10">Recent articles</h2>
       <ul>
         {posts.map((post) => {
           const postDate = parseDate(post.date);
