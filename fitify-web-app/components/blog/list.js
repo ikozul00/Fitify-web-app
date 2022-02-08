@@ -4,6 +4,6 @@ export const Ol = (props) => <ol className="my-4" {...props} />;
 
 export const Li = (props) => (
   <li className="list-disc list-inside ml-4">
-    <span className="text-gray-700" {...props} />
+    <span className="font-semibold" {...props} />
   </li>
 );
