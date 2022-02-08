@@ -5,6 +5,7 @@ import { P, Strong } from "@/components/blog/text";
 import { Ul, Li, Ol } from "@/components/blog/list";
 import { A } from "@/components/blog/link";
 import ImageSlider from "../imageSlider/ImageSlider";
+import { useState } from "react";
 
 const components = {
   h2: H2,
@@ -19,6 +20,21 @@ const components = {
 
 const ProductView = ({ product }) => {
   const images = [product.thumbnailImage, ...product.imagesCollection.items];
+  const [pickedSize,setPickedSize] = useState("0");
+
+  function sizePicked(size){
+    setPickedSize(size);
+  }
+
+  function addToCart(){
+    if(pickedSize==="0"){
+      alert("0");
+    }
+    else{
+      alert(`Adding to cart ${product.title} ${product.price} ${images[0].url} ${pickedSize}`);
+    }
+  }
+
   return (
     <main className="w-2/3 mx-auto my-10 flex justify-between">
       <div className="w-1/2">
@@ -38,7 +54,7 @@ const ProductView = ({ product }) => {
           <p>Select Size</p>
           <div className="flex justify-around">
             {product.sizes.map((size) => (
-              <button className="rounded-full border-black border-2">
+              <button className={`rounded-full border-black border-2 ${pickedSize===size ? 'bg-fitify-green' : 'bg-white'}`} onClick={() => sizePicked(size)}>
                 {size}
               </button>
             ))}
@@ -49,6 +65,7 @@ const ProductView = ({ product }) => {
           <p className="text-2xl">Material:</p>
           {product.material}
         </div>
+        <button className="bg-fitify-green border-2 border-black" onClick={() => addToCart()}>Add to cart</button>
       </div>
     </main>
   );
