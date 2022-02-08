@@ -25,7 +25,7 @@ const RightNavbar = () => {
                     </div>
                 </a>
             </Link>
-            <Link href="/shopping_bag" key="shopping_bag" passHref>
+            <Link href="/cart" key="cart" passHref>
                 <a className=" px-4">
                     <div className="hover:opacity-60">
                         <i class={` ${router.pathname=="" ? "text-fitify-green" : "text-white"} fas fa-shopping-cart`}></i> 

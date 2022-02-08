@@ -6,6 +6,8 @@ import { Ul, Li, Ol } from "@/components/blog/list";
 import { A } from "@/components/blog/link";
 import ImageSlider from "../imageSlider/ImageSlider";
 import { useState } from "react";
+import { connect } from "react-redux";
+import { addToCart } from "redux/actions/cartActions";
 
 const components = {
   h2: H2,
@@ -18,9 +20,10 @@ const components = {
   strong: Strong,
 };
 
-const ProductView = ({ product }) => {
+const ProductView = ({ product,addToCartRedux }) => {
   const images = [product.thumbnailImage, ...product.imagesCollection.items];
   const [pickedSize,setPickedSize] = useState("0");
+
 
   function sizePicked(size){
     setPickedSize(size);
@@ -31,7 +34,9 @@ const ProductView = ({ product }) => {
       alert("0");
     }
     else{
-      alert(`Adding to cart ${product.title} ${product.price} ${images[0].url} ${pickedSize}`);
+      // alert(`Adding to cart ${product.title} ${product.price} ${images[0].url} ${pickedSize}`);
+      addToCartRedux(product.title,images[0],product.price,pickedSize);
+      console.log(product.title);
     }
   }
 
@@ -70,4 +75,12 @@ const ProductView = ({ product }) => {
     </main>
   );
 };
-export default ProductView;
+
+const mapDispatchToProps = (dispatch) => ({ 
+  addToCartRedux: (title,image,price,size) => dispatch(addToCart(title,image,price,size)),
+});
+
+
+
+
+export default connect(null, mapDispatchToProps)(ProductView); 
