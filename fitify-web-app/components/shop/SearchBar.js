@@ -27,7 +27,7 @@ const SearchBar = ({ searchQuery }) => {
         onChange={(event) => setQuery(event.target.value)}
         onKeyDown={(event) => handleKeyDown(event)}
         value={query}
-        className="px-4 py-2 w-80 rounded-2xl border-0"
+        className="px-4 py-2 w-80 rounded-2xl rounded-l-none border-0"
       />
     </div>
   );
