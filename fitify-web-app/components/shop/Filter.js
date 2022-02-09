@@ -6,7 +6,7 @@ import "react-input-range/lib/css/index.css";
 
 const Filter = ({ filterProducts }) => {
   const [brand, setBrand] = useState("all");
-  const [category, setCategory] = useState("all");
+  const [category, setCategory] = useState("");
   const [color, setColor] = useState("all");
   const [size, setSize] = useState("all");
   const [gender, setGender] = useState("all");

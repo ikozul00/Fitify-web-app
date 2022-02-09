@@ -28,7 +28,7 @@ const SaleContainer = ({ products }) => {
                   <h2 className="mb-2 mt-3 w-full">
                     {product.brand} {product.title}
                   </h2>
-                  <h1 className="text-lg my-2  font-bold">${product.price}</h1>
+                  <h1 className="text-lg my-2 font-bold">${product.price}</h1>
                   <h2 className="line-through mb-2 mt-1 w-full">
                     ${product.oldPrice}
                   </h2>
@@ -38,7 +38,7 @@ const SaleContainer = ({ products }) => {
           );
         })}
       </div>
-      <Link href={"/blog"}>
+      <Link href={{ pathname: "/shop" }}>
         <a className="text-right text-white bg-fitify-purple font-semibold h-24 px-5">
           DISCOVER MORE
         </a>

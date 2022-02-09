@@ -6,6 +6,7 @@ import SortBy from "@/components/shop/SortBy";
 import { sortProducts } from "@/lib/sorting";
 import { searchProducts } from "@/lib/search";
 import SearchBar from "@/components/shop/SearchBar";
+import { useRouter } from "next/router";
 
 const Shop = ({ products }) => {
   const [shownProducts, setShownProducts] = useState(products);

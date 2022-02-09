@@ -23,10 +23,10 @@ const BlogContainer = ({ posts }) => {
                   />
                 </div>
                 <div className="ml-7 w-full text-white">
-                  <h1 className="text-3xl font-bold mb-2 mt-3 w-full">
+                  <h1 className="text-2xl font-bold mb-2 mt-3 w-2/3">
                     {post.title}
                   </h1>
-                  <h2 className="text-lg my-2 text-right">
+                  <h2 className="text-lg my-2 w-3/4 text-right">
                     {`${postDate.day}/${postDate.month}/${postDate.year}`}
                   </h2>
                 </div>
