@@ -20,13 +20,22 @@ const components = {
   strong: Strong,
 };
 
-const ProductView = ({ product,addToCartRedux, counter }) => {
+const ProductView = ({ product,addToCartRedux, counter}) => {
   const images = [product.thumbnailImage, ...product.imagesCollection.items];
   const [pickedSize,setPickedSize] = useState("0");
   const [pickedAmount,setPickedAmount] = useState("1");
+  const [added, setAdded] = useState(false);
+  const [inital, setInital] = useState(true);
 
   const amount = [1,2,3,4,5,6,7,8,9,10];
 
+  useEffect(() => {
+    if(!inital){
+      setAdded(true);
+      setTimeout(() => setAdded(false), 2000);
+    }
+    setInital(false);
+  }, [counter])
 
   function sizePicked(size){
     setPickedSize(size);
@@ -82,6 +91,11 @@ const ProductView = ({ product,addToCartRedux, counter }) => {
           }
         </select>
         <button className="bg-fitify-green border-2 border-black" onClick={() => addToCart()}>Add to cart</button>
+        {added && 
+          <div className=" bg-fitify-green">
+            <p>{`Product ${product.title} successfully added to cart!`}</p>
+          </div>
+        }
       </div>
     </main>
   );
@@ -92,7 +106,7 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 const mapStateToProps = (state) => ({
-  counter:state.cartReducer.quantity,
+  counter:state.cartReducer.quantity[0],
 });
 
 

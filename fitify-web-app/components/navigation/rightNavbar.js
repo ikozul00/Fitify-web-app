@@ -26,9 +26,11 @@ const RightNavbar = ({counter}) => {
             </Link>
             <Link href="/cart" key="cart" passHref>
                 <a className=" px-4">
-                    <div className="hover:opacity-60">
-                        <i class={` ${router.pathname=="" ? "text-fitify-green" : "text-white"} fas fa-shopping-cart`}></i> 
-                        <p>{counter}</p>
+                    <div className={`hover:opacity-60 ${router.pathname=="/cart" ? "text-fitify-green" : "text-white"}`}>
+                        <div className="flex">
+                            <i className={`fas fa-shopping-cart`}></i> 
+                            <p className="px-1">{counter}</p>
+                        </div>
                         <p className=" font-open-sans text-sm">Items</p>
                     </div>
                 </a>
