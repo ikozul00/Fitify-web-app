@@ -1,9 +1,9 @@
 import Link from "next/link";
 import { useRouter } from 'next/router';
-import { useEffect } from "react";
-import { useState } from "react/cjs/react.development";
+import { useEffect, useState } from "react";
+import { connect } from "react-redux";
 
-const RightNavbar = () => {
+const RightNavbar = ({counter}) => {
     const router = useRouter();
     const [user, setUser] = useState();
 
@@ -12,7 +12,6 @@ const RightNavbar = () => {
             setUser(localStorage.getItem("user"));
         },localStorage.getItem("user"));
     }
-
 
     return(
         <>
@@ -29,6 +28,7 @@ const RightNavbar = () => {
                 <a className=" px-4">
                     <div className="hover:opacity-60">
                         <i class={` ${router.pathname=="" ? "text-fitify-green" : "text-white"} fas fa-shopping-cart`}></i> 
+                        <p>{counter}</p>
                         <p className=" font-open-sans text-sm">Items</p>
                     </div>
                 </a>
@@ -38,4 +38,8 @@ const RightNavbar = () => {
     );
 }
 
-export default RightNavbar;
+const mapStateToProps = (state) => ({
+    counter:state.cartReducer.quantity[0],
+});
+
+export default connect(mapStateToProps, null)(RightNavbar); 
