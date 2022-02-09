@@ -17,7 +17,7 @@ const BlogContainer = ({ posts }) => {
                 <div className="w-full">
                   <Image
                     src={post.thumbnailImage.url}
-                    alt="Product image"
+                    alt={post.thumbnailImage.title}
                     width={500}
                     height={500}
                   />

@@ -1,9 +1,13 @@
 import Head from "next/head";
 import Image from "next/image";
 import BlogContainer from "@/components/home/BlogContainer";
-import { getNewestBlogArticles } from "@/lib/ContentfulAPI";
+import {
+  getNewestBlogArticles,
+  getNewestSaleProducts,
+} from "@/lib/ContentfulAPI";
+import SaleContainer from "@/components/home/SaleContainer";
 
-export default function Home({ /*saleProducts,*/ blogArticles }) {
+export default function Home({ saleProducts, blogArticles }) {
   return (
     <main className="font-open-sans flex flex-col">
       <div className="relative h-2/3">
@@ -18,16 +22,17 @@ export default function Home({ /*saleProducts,*/ blogArticles }) {
           Newest sport fashion and equipment
         </p>
       </div>
+      <SaleContainer products={saleProducts} />
       <BlogContainer posts={blogArticles} />
     </main>
   );
 }
 
 export async function getStaticProps() {
-  //const saleProducts = await ;
+  const saleProducts = await getNewestSaleProducts();
   const blogArticles = await getNewestBlogArticles();
 
   return {
-    props: { /*saleProducts: saleProducts,*/ blogArticles: blogArticles },
+    props: { saleProducts: saleProducts, blogArticles: blogArticles },
   };
 }

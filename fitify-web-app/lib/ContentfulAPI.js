@@ -365,3 +365,42 @@ export const getNewestBlogArticles = async () => {
   const data = response.data.data;
   return data.blogCollection.items;
 };
+
+export const getNewestSaleProducts = async () => {
+  const saleProductsQuery = `{
+    productCollection(limit: ${Config.homepage.saleProducts}, where: {oldPrice_exists: true}) {
+      items {
+        title
+        brand
+        price
+        oldPrice
+        thumbnailImage {
+          url
+        }
+        sys {
+          id
+        }
+      }
+    }
+  }`;
+
+  const response = await instance
+    .post(
+      "",
+      {
+        query: saleProductsQuery,
+      },
+      {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + CONTENTFUL_ACCESS_TOKEN,
+        },
+      }
+    )
+    .catch((err) => 0);
+
+  if (response == 0) return [];
+
+  const data = response.data.data;
+  return data.productCollection.items;
+};
