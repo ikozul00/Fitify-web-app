@@ -1,9 +1,11 @@
 import { getAllProducts } from "@/lib/ContentfulAPI";
 import ProductContainer from "@/components/shop/ProductContainer";
 import Filter from "@/components/shop/Filter";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import SortBy from "@/components/shop/SortBy";
 import { sortProducts } from "@/lib/sorting";
+import { searchProducts } from "@/lib/search";
+import SearchBar from "@/components/shop/SearchBar";
 
 const Shop = ({ products }) => {
   const [shownProducts, setShownProducts] = useState(products);
@@ -55,13 +57,19 @@ const Shop = ({ products }) => {
     setShownProducts(sortProducts(option, shownProducts));
   };
 
+  const handleSearchQuery = (query) => {
+    setShownProducts(searchProducts(query, products));
+  };
+
   return (
     <main className="full">
-      <div className="font-open-sans text-left lg:w-1/2 mx-10 my-10">
+      <div className="font-open-sans text-left mx-10 my-10">
         <h1 className="text-5xl fitify-purple my-8">Shop</h1>
-        <p
-          dangerouslySetInnerHTML={{
-            __html: `Define your activewear style with our fashion clothing. Everyday
+        <div className="flex flex-row justify-between">
+          <p
+            className="basis-1/2"
+            dangerouslySetInnerHTML={{
+              __html: `Define your activewear style with our fashion clothing. Everyday
           essentials include relaxed t-shirts, easy-to-wear sweatpants and
           laid-back hoodies to see you comfortably through off-duty weekends.
           Our form-fitting athletic wear is constructed from high-tech materials
@@ -72,8 +80,10 @@ const Shop = ({ products }) => {
           and shorts will keep you cool as your workout heats up. Whether you’re
           exercising at home, working out in the gym or channelling that
           athleisure aesthetic, we’ve got something to suit.`,
-          }}
-        />
+            }}
+          />
+          <SearchBar searchQuery={handleSearchQuery} />
+        </div>
       </div>
       <div>
         <div className="flex flex-row justify-between">
