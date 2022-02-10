@@ -28,7 +28,7 @@ export default function Home({ saleProducts, blogArticles }) {
           SHOP
         </h1>
         <div className="flex flex-row">
-          <Link href={`/shop`}>
+          <Link href={`/shop?category=Clothes`}>
             <div className="font-open-sans my-10 mx-10 basis-1/3">
               <div className="w-full">
                 <Image
@@ -44,7 +44,7 @@ export default function Home({ saleProducts, blogArticles }) {
               </div>
             </div>
           </Link>
-          <Link href={`/shop`}>
+          <Link href={`/shop?category=Shoes`}>
             <div className="font-open-sans my-10 mx-10 basis-1/3">
               <div className="w-full">
                 <Image
@@ -60,7 +60,7 @@ export default function Home({ saleProducts, blogArticles }) {
               </div>
             </div>
           </Link>
-          <Link href={`/shop`}>
+          <Link href={`/shop?category=Equipment`}>
             <div className="font-open-sans my-10 mx-10 basis-1/3 ">
               <div className="w-full">
                 <Image

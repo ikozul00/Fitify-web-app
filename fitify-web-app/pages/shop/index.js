@@ -11,6 +11,21 @@ import { useRouter } from "next/router";
 const Shop = ({ products }) => {
   const [shownProducts, setShownProducts] = useState(products);
   const [sortingOption, setSortingOption] = useState("");
+  const router = useRouter();
+
+  useEffect(() => {
+    if (router.query.category) {
+      filterProducts({
+        newCategory: router.query.category,
+        newBrand: "all",
+        newColor: "all",
+        newSize: "all",
+        newGender: "all",
+        minimumPrice: 0,
+        maximumPrice: 200,
+      });
+    }
+  }, [router]);
 
   const filterProducts = (filters) => {
     // Uzmi sve produkte
@@ -89,6 +104,11 @@ const Shop = ({ products }) => {
       <div>
         <div className="flex flex-row justify-between">
           <p className="mx-10 my-10">{shownProducts.length} Results</p>
+          {router.query.category && (
+            <h1 className="text-3xl fitify-purple my-8 text-center">
+              Results for: {router.query.category}
+            </h1>
+          )}
           <SortBy setSortingOption={handleSetSortingOption} />
         </div>
         <div className="flex flex-row">
