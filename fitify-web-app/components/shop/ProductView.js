@@ -26,6 +26,7 @@ const ProductView = ({ product,addToCartRedux, counter}) => {
   const [pickedAmount,setPickedAmount] = useState("1");
   const [added, setAdded] = useState(false);
   const [inital, setInital] = useState(true);
+  const [pickSize,setPickSize] = useState(false);
 
   const amount = [1,2,3,4,5,6,7,8,9,10];
 
@@ -38,19 +39,19 @@ const ProductView = ({ product,addToCartRedux, counter}) => {
   }, [counter])
 
   function sizePicked(size){
+    if(pickSize){
+      setPickSize(false);
+    }
     setPickedSize(size);
   }
 
 
   function addToCart(){
     if(pickedSize==="0"){
-      alert("0");
+      setPickSize(true);
     }
     else{
       addToCartRedux(product.sys.id,product.title,images[0],product.price,pickedSize,pickedAmount);
-      console.log(product);
-      console.log(pickedSize);
-      console.log(pickedAmount);
     }
   }
 
@@ -94,6 +95,12 @@ const ProductView = ({ product,addToCartRedux, counter}) => {
         {added && 
           <div className=" bg-fitify-green">
             <p>{`Product ${product.title} successfully added to cart!`}</p>
+          </div>
+        }
+
+        {pickSize &&
+          <div className=" bg-fitify-green">
+            <p>{`Sorry you need to first pick a size then you can add product ${product.title} to cart.`}</p>
           </div>
         }
       </div>

@@ -57,6 +57,9 @@ const cartReducer = (state = initialState, action) => {
                 if(itemExists){
                     state.items = state.items.filter (item => (item.id!==action.payload.id || item.size!==action.payload.size))
                     state.quantity[0]-=itemExists.amount;
+                    if(state.quantity[0]<0){
+                        state.quantity[0]=0;
+                    }
                     return {...state};
                 }
                 else{
