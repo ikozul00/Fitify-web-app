@@ -22,7 +22,6 @@ export async function getStaticPaths() {
 export async function getStaticProps(context) {
   const { slug } = context.params;
   const product = await getProductByID(slug);
-
   product.mdxSource = await serialize(product.productDetails);
   delete product.productDetails;
 
