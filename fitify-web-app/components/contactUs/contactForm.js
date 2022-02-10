@@ -45,7 +45,7 @@ const ContactForm = ({toggleForm}) => {
                     <button onClick={() => toggleForm(false)} className="font-bold text-3xl mr-7 text-red-800">X</button>
                 </div>
                 <div className="px-7 flex flex-col">
-                <label htmlFor="name">Name:</label>
+                <label htmlFor="name">Full name:</label>
                 <input type="text" name="name" id="name" className="border-2 mb-5 border-fitify-green form-field" value={name} onChange={(e) => handleChange(e)} required/>
                 <label htmlFor="username">Username:</label>
                 <input type="text" name="username" id="username" className="border-2 mb-5 border-fitify-green form-field" value={username} onChange={(e) => handleChange(e)} required/>
