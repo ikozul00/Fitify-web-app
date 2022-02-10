@@ -46,13 +46,13 @@ const ContactForm = ({toggleForm}) => {
                 </div>
                 <div className="px-7 flex flex-col">
                 <label htmlFor="name">Name:</label>
-                <input type="text" name="name" id="name" className="border-2 mb-5 border-fitify-green bg-green-100" value={name} onChange={(e) => handleChange(e)} required/>
+                <input type="text" name="name" id="name" className="border-2 mb-5 border-fitify-green form-field" value={name} onChange={(e) => handleChange(e)} required/>
                 <label htmlFor="username">Username:</label>
-                <input type="text" name="username" id="username" className="border-2 mb-5 border-fitify-green bg-green-100" value={username} onChange={(e) => handleChange(e)} required/>
+                <input type="text" name="username" id="username" className="border-2 mb-5 border-fitify-green form-field" value={username} onChange={(e) => handleChange(e)} required/>
                 <label htmlFor="email">Email:</label>
-                <input type="text" name="email" id="email" className="border-2 mb-5 border-fitify-green bg-green-100" value={email} onChange={(e) => handleChange(e)} required/>
+                <input type="text" name="email" id="email" className="border-2 mb-5 border-fitify-green form-field" value={email} onChange={(e) => handleChange(e)} required/>
                 <label htmlFor="message">Message:</label>
-                <textarea id="message" name="message" rows={4} cols={5} className="border-2 mb-5 border-fitify-green bg-green-100" value={message} onChange={(e) => handleChange(e)} required></textarea>
+                <textarea id="message" name="message" rows={4} cols={5} className="border-2 mb-5 border-fitify-green form-field" value={message} onChange={(e) => handleChange(e)} required></textarea>
                 {errorMessage && <p className="mb-3">{errorMessage}</p>}
                 <button onClick={(e) => sendMessage(e)} className=" bg-fitify-purple text-white w-36 py-2 place-self-end mb-7 ">Send</button>
                 </div>
