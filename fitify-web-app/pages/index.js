@@ -24,9 +24,11 @@ export default function Home({ saleProducts, blogArticles }) {
         </p>
       </div>
       <div className="w-9/12 mx-auto my-10">
-        <h1 className="text-center text-5xl uppercase mt-12 text-gray-700 font-semibold">
-          SHOP
-        </h1>
+        <Link href={`/shop`}>
+          <h1 className="text-center text-5xl uppercase mt-12 text-gray-700 font-semibold">
+            SHOP
+          </h1>
+        </Link>
         <div className="flex flex-row">
           <Link href={`/shop?category=Clothes`}>
             <div className="font-open-sans my-10 mx-10 basis-1/3">

@@ -4,9 +4,11 @@ import Link from "next/link";
 const SaleContainer = ({ products }) => {
   return (
     <div className="w-9/12 mx-auto my-10">
-      <h1 className="text-center text-5xl uppercase mt-12 text-gray-700 font-semibold">
-        SALE
-      </h1>
+      <Link href={"/shop?sale=true"}>
+        <h1 className="text-center text-5xl uppercase mt-12 text-gray-700 font-semibold">
+          SALE
+        </h1>
+      </Link>
       <div className="flex flex-row w-full">
         {products.map((product) => {
           return (
