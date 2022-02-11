@@ -186,6 +186,9 @@ export const getProductByID = async (id) => {
     {
       query: `{
         product(id: "${id}") {
+          sys {
+            id
+          }
           title
           price
           oldPrice

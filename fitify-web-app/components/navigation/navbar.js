@@ -16,7 +16,7 @@ const Navbar = () => {
   const isActive = (pathname) => {
     return router.pathname.split("/")[1] === pathname.split("/")[1];
   };
-
+  
   const createItems = () => {
     let number = 0;
     const numberOfItems = menuItems.length;
@@ -42,6 +42,7 @@ const Navbar = () => {
     });
     return items;
   };
+
 
   return (
     <>

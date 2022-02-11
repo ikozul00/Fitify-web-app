@@ -5,7 +5,9 @@ import { P, Strong } from "@/components/blog/text";
 import { Ul, Li, Ol } from "@/components/blog/list";
 import { A } from "@/components/blog/link";
 import ImageSlider from "../imageSlider/ImageSlider";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { connect } from "react-redux";
+import { addToCart } from "redux/actions/cartActions";
 
 const components = {
   h2: H2,
@@ -18,20 +20,38 @@ const components = {
   strong: Strong,
 };
 
-const ProductView = ({ product }) => {
+const ProductView = ({ product,addToCartRedux, counter}) => {
   const images = [product.thumbnailImage, ...product.imagesCollection.items];
   const [pickedSize,setPickedSize] = useState("0");
+  const [pickedAmount,setPickedAmount] = useState("1");
+  const [added, setAdded] = useState(false);
+  const [inital, setInital] = useState(true);
+  const [pickSize,setPickSize] = useState(false);
+
+  const amount = [1,2,3,4,5,6,7,8,9,10];
+
+  useEffect(() => {
+    if(!inital){
+      setAdded(true);
+      setTimeout(() => setAdded(false), 2000);
+    }
+    setInital(false);
+  }, [counter])
 
   function sizePicked(size){
+    if(pickSize){
+      setPickSize(false);
+    }
     setPickedSize(size);
   }
 
+
   function addToCart(){
     if(pickedSize==="0"){
-      alert("0");
+      setPickSize(true);
     }
     else{
-      alert(`Adding to cart ${product.title} ${product.price} ${images[0].url} ${pickedSize}`);
+      addToCartRedux(product.sys.id,product.title,images[0],product.price,pickedSize,pickedAmount);
     }
   }
 
@@ -65,9 +85,36 @@ const ProductView = ({ product }) => {
           <p className="text-2xl">Material:</p>
           {product.material}
         </div>
+        <label htmlFor="amount" id="amount">Amount:</label>
+        <select name="amount" id="amount" value={pickedAmount} onChange={(e) => setPickedAmount(e.target.value)}>
+          {
+            amount.map((i) => <option value={`${i}`}>{i}</option>)
+          }
+        </select>
         <button className="bg-fitify-green border-2 border-black" onClick={() => addToCart()}>Add to cart</button>
+        {added && 
+          <div className=" bg-fitify-green">
+            <p>{`Product ${product.title} successfully added to cart!`}</p>
+          </div>
+        }
+
+        {pickSize &&
+          <div className=" bg-fitify-green">
+            <p>{`Sorry you need to first pick a size then you can add product ${product.title} to cart.`}</p>
+          </div>
+        }
       </div>
     </main>
   );
 };
-export default ProductView;
+
+const mapDispatchToProps = (dispatch) => ({ 
+  addToCartRedux: (id,title,image,price,size,amount) => dispatch(addToCart(id,title,image,price,size,amount)),
+});
+
+const mapStateToProps = (state) => ({
+  counter:state.cartReducer.quantity[0],
+});
+
+
+export default connect(mapStateToProps, mapDispatchToProps)(ProductView); 
