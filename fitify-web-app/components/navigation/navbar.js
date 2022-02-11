@@ -27,7 +27,7 @@ const Navbar = () => {
       return (
         <Link href={itemLink} key={item.title} passHref>
           <a
-            className={`  text-white text-lg font-open-sans whitespace-nowrap w-100 uppercase hover:bg-fitify-green px-5 py-2 ${
+            className={`  text-white text-base custom:text-lg px-2 font-open-sans whitespace-nowrap uppercase hover:bg-fitify-green custom:px-5 py-2  ${
               number === numberOfItems ? "" : "border-r-2"
             } 
                 ${
@@ -47,7 +47,7 @@ const Navbar = () => {
 
   return (
     <>
-      <nav className="bg-fitify-black py-5">{createItems()}</nav>
+      <nav className="bg-fitify-black py-5 h-20 items-center md:flex hidden">{createItems()}</nav>
     </>
   );
 };

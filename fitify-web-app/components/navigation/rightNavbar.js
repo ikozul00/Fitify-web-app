@@ -22,17 +22,17 @@ const RightNavbar = ({counter}) => {
 
     return(
         <>
-        <nav className=" bg-fitify-black  text-2xl flex text-white">
-            <div className="relative dropdown px-5">
+        <nav className=" bg-fitify-black  md:text-2xl text-xl md:flex hidden text-white h-20 items-center">
+            <div className="relative dropdown md:px-5 px-2">
                 <button>
                     <i className={`fas fa-user`}></i>
                 </button>
                 <div className="hidden dropdown-content absolute bg-fitify-black right-0 w-32 text-lg text-center z-10 shadow-2xl">
                     <Link href={user  ? `/profile/${user}` : "/login"} key="dropdown1" passHref>
-                        <a className="px-10 py-3 whitespace-nowrap hover:bg-fitify-green">{user ? user : "Login"}</a>
+                        <a className="px-10 py-4 whitespace-nowrap hover:bg-fitify-green">{user ? user : "Login"}</a>
                     </Link>
                     <Link href={user  ? `/home` : "/registration"} key="dropdown2" passHref>
-                        <a className="px-10 py-3 whitespace-nowrap hover:bg-fitify-green" onClick={user ? (e) => LogOut(e) : () => {}}>{user ? "Log Out" : "Sign Up"}</a>
+                        <a className="px-10 py-4 whitespace-nowrap hover:bg-fitify-green" onClick={user ? (e) => LogOut(e) : () => {}}>{user ? "Log Out" : "Sign Up"}</a>
                     </Link>
                 </div>
             </div>
@@ -45,7 +45,7 @@ const RightNavbar = ({counter}) => {
                 </a>
             </Link> */}
             <Link href="/cart" key="cart" passHref>
-                <a className=" px-4">
+                <a className=" md:px-4 px-1">
                     <div className={`hover:opacity-60 ${router.pathname=="/cart" ? "text-fitify-green" : "text-white"}`}>
                         <div className="flex">
                             <i className={`fas fa-shopping-cart`}></i> 

@@ -1,4 +1,4 @@
-import Head from "next/head";
+
 import Image from "next/image";
 import BlogContainer from "@/components/home/BlogContainer";
 import {
