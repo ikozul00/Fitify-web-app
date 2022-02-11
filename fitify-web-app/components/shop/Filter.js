@@ -8,16 +8,23 @@ import "react-input-range/lib/css/index.css";
 
 const Filter = ({ usedFilters }) => {
   const [brand, setBrand] = useState("all");
-  const [category, setCategory] = useState(usedFilters.newCategory);
+  const [category, setCategory] = useState("all");
   const [color, setColor] = useState("all");
   const [size, setSize] = useState("all");
   const [gender, setGender] = useState("all");
   const [price, setPrice] = useState({ min: 0, max: 200 });
-  const [sale, setSale] = useState(usedFilters.newSale);
+  const [sale, setSale] = useState("all");
   const router = useRouter();
 
   useEffect(() => {
-    setCategory(usedFilters.category);
+    // Kada se promijeni query url, dodu novi propsi (nove vrijednosti filtra)
+    setCategory(usedFilters.newCategory);
+    setBrand(usedFilters.newBrand);
+    setColor(usedFilters.newColor);
+    setSize(usedFilters.newSize);
+    setGender(usedFilters.newGender);
+    setPrice({ min: usedFilters.minimumPrice, max: usedFilters.maximumPrice });
+    setSale(usedFilters.newSale);
   }, [usedFilters]);
 
   const handleClick = (e) => {
