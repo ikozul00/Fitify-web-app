@@ -3,11 +3,11 @@ import Link from "next/link";
 
 const SaleContainer = ({ products }) => {
   return (
-    <div className="w-9/12 mx-auto my-10">
+    <div className="w-9/12 mx-auto mt-6">
       <h1 className="text-center text-5xl uppercase mt-12 text-gray-700 font-semibold">
         SALE
       </h1>
-      <div className="flex flex-row w-full">
+      <div className="flex justify-between w-full ">
         {products.map((product) => {
           return (
             <Link
@@ -15,34 +15,41 @@ const SaleContainer = ({ products }) => {
               key={product.sys.id}
               id={product.sys.id}
             >
-              <div className="font-open-sans my-10 mx-10 basis-1/5">
-                <div className="w-full">
+              <div className="font-open-sans my-10 hover:cursor-pointer hover:bg-fitify-green-light">
+                <div className="w-44 h-44 relative mx-auto">
                   <Image
                     src={product.thumbnailImage.url}
                     alt="Product image"
-                    width={300}
-                    height={300}
+                    layout="fill"
+                    objectFit="cover"
                   />
                 </div>
                 <div className="w-full text-center">
-                  <h2 className="mb-2 mt-3 w-full">
-                    {product.brand} {product.title}
+                <h2 className="mt-1 w-44">
+                    {product.brand}
+                </h2>
+                <h2 className=" mt-1 w-44">
+                    {product.title}
                   </h2>
-                  <h1 className="text-lg my-2 font-bold">${product.price}</h1>
-                  <h2 className="line-through mb-2 mt-1 w-full">
+                  <div className="flex justify-around w-44 px-4">
+                  <h1 className="line-through mb-2 mt-2 text-xl text-fitify-green font-bold">
                     ${product.oldPrice}
-                  </h2>
+                  </h1>
+                  <h1 className="text-xl my-2 font-black">${product.price}</h1>
+                  </div>
                 </div>
               </div>
             </Link>
           );
         })}
       </div>
+      <div className="flex justify-end w-full">
       <Link href={"/shop?sale=true"}>
-        <a className="text-right text-white bg-fitify-purple font-semibold h-24 px-5">
-          DISCOVER MORE
+        <a className=" text-white bg-fitify-purple font-semibold py-4 px-6 hover:opacity-80">
+          {`DISCOVER MORE >>`}
         </a>
       </Link>
+      </div>
     </div>
   );
 };
