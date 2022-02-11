@@ -38,7 +38,7 @@ const SaleContainer = ({ products }) => {
           );
         })}
       </div>
-      <Link href={{ pathname: "/shop" }}>
+      <Link href={"/shop?sale=true"}>
         <a className="text-right text-white bg-fitify-purple font-semibold h-24 px-5">
           DISCOVER MORE
         </a>

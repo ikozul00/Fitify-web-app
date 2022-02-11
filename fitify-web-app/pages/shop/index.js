@@ -21,6 +21,19 @@ const Shop = ({ products }) => {
         newColor: "all",
         newSize: "all",
         newGender: "all",
+        newSale: "all",
+        minimumPrice: 0,
+        maximumPrice: 200,
+      });
+    }
+    if (router.query.sale) {
+      filterProducts({
+        newCategory: "all",
+        newBrand: "all",
+        newColor: "all",
+        newSize: "all",
+        newGender: "all",
+        newSale: "sale",
         minimumPrice: 0,
         maximumPrice: 200,
       });
@@ -56,6 +69,17 @@ const Shop = ({ products }) => {
         (product) =>
           product.gender == filters.newGender || product.gender == "unisex"
       );
+
+    if (filters.newSale != "all") {
+      if (filters.newSale == "sale")
+        filteredProducts = filteredProducts.filter(
+          (product) => product.oldPrice != null
+        );
+      else
+        filteredProducts = filteredProducts.filter(
+          (product) => product.oldPrice == null
+        );
+    }
 
     filteredProducts = filteredProducts.filter(
       (product) =>
