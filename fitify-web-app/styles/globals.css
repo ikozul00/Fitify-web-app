@@ -24,3 +24,13 @@ body {
 .form-field:focus {
   background-color: white;
 }
+
+.dropdown:hover .dropdown-content {
+  display: flex;
+  flex-direction: column;
+}
+
+.dropdown-content:hover {
+  display: flex;
+  flex-direction: column;
+}
