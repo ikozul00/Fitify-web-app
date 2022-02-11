@@ -1,20 +1,24 @@
 import { BsSliders } from "react-icons/bs";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import { filters } from "../../constants/filters";
 import InputRange from "react-input-range";
 import { createQuery } from "@/lib/filterFunctions";
 import "react-input-range/lib/css/index.css";
 
-const Filter = () => {
+const Filter = ({ usedFilters }) => {
   const [brand, setBrand] = useState("all");
-  const [category, setCategory] = useState("all");
+  const [category, setCategory] = useState(usedFilters.newCategory);
   const [color, setColor] = useState("all");
   const [size, setSize] = useState("all");
   const [gender, setGender] = useState("all");
-  const [sale, setSale] = useState("all");
   const [price, setPrice] = useState({ min: 0, max: 200 });
+  const [sale, setSale] = useState(usedFilters.newSale);
   const router = useRouter();
+
+  useEffect(() => {
+    setCategory(usedFilters.category);
+  }, [usedFilters]);
 
   const handleClick = (e) => {
     e.preventDefault();

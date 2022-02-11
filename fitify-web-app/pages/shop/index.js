@@ -1,7 +1,7 @@
 import { getAllProducts } from "@/lib/ContentfulAPI";
 import ProductContainer from "@/components/shop/ProductContainer";
 import Filter from "@/components/shop/Filter";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import SortBy from "@/components/shop/SortBy";
 import { sortProducts } from "@/lib/sorting";
 import { searchProducts } from "@/lib/search";
@@ -12,6 +12,16 @@ import { setFilters } from "@/lib/filterFunctions";
 const Shop = ({ products }) => {
   const [shownProducts, setShownProducts] = useState(products);
   const [sortingOption, setSortingOption] = useState("");
+  const [usedFilters, setUsedFilters] = useState({
+    newCategory: "all",
+    newBrand: "all",
+    newColor: "all",
+    newSize: "all",
+    newGender: "all",
+    newSale: "all",
+    minimumPrice: 0,
+    maximumPrice: 200,
+  });
   const router = useRouter();
 
   useEffect(() => {
@@ -22,6 +32,7 @@ const Shop = ({ products }) => {
   const filterProducts = (filters) => {
     // Uzmi sve produkte
     const filteredProducts = products;
+    setUsedFilters({ ...filters });
 
     // Filtrira se korak po korak, po svakom filtru
     // Ako je neki filter postavljen na all, preskače se
@@ -111,7 +122,7 @@ const Shop = ({ products }) => {
         </div>
         <div className="flex flex-row">
           <div className="basis-1/5 px-10 py-10">
-            <Filter />
+            <Filter usedFilters={usedFilters} />
           </div>
           <div className="basis-4/5">
             <ProductContainer products={shownProducts} />

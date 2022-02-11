@@ -58,8 +58,8 @@ export const createQuery = (queryFilters) => {
   }
   if (queryFilters.newSale != "all") {
     if (query.length > 1) query += "&";
-    if (queryFilters.newSale == "new") query += "sale=true";
-    else query += "sale=false";
+    if (queryFilters.newSale == "new") query += "sale=false";
+    else query += "sale=true";
   }
 
   if (queryFilters.minimumPrice != 0) {
