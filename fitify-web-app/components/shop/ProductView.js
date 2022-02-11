@@ -87,7 +87,7 @@ const ProductView = ({ product,addToCartRedux, counter}) => {
           }
         </select>
         </div>
-        <button className=" bg-fitify-purple text-white text-xl px-4 py-2 " onClick={() => addToCart()}>Add to cart</button>
+        <button className=" bg-fitify-purple text-white text-xl px-4 py-2 hover:opacity-80" onClick={() => addToCart()}>Add to cart</button>
         </div>
         {added && 
           <div className=" border-2 border-fitify-green rounded-lg my-3">
