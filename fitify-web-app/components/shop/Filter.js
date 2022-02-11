@@ -28,9 +28,13 @@ const Filter = ({ filterProducts }) => {
             onChange={(e) => setCategory(e.target.value)}
             value={category}
           >
-            <option value={"all"}>All Categories</option>
+            <option value={"all"} key={"all"}>
+              All Categories
+            </option>
             {filters.category.items.map((option) => (
-              <option value={option}>{option}</option>
+              <option value={option} key={option}>
+                {option}
+              </option>
             ))}
           </select>
         </div>
@@ -43,9 +47,13 @@ const Filter = ({ filterProducts }) => {
             onChange={(e) => setBrand(e.target.value)}
             value={brand}
           >
-            <option value={"all"}>All Brands</option>
+            <option value={"all"} key={"all"}>
+              All Brands
+            </option>
             {filters.brand.items.map((option) => (
-              <option value={option}>{option}</option>
+              <option value={option} key={option}>
+                {option}
+              </option>
             ))}
           </select>
         </div>
@@ -57,9 +65,13 @@ const Filter = ({ filterProducts }) => {
             onChange={(e) => setColor(e.target.value)}
             value={color}
           >
-            <option value={"all"}>All Colors</option>
+            <option value={"all"} key={"all"}>
+              All Colors
+            </option>
             {filters.color.items.map((option) => (
-              <option value={option}>{option}</option>
+              <option value={option} key={option}>
+                {option}
+              </option>
             ))}
           </select>
         </div>
@@ -72,9 +84,13 @@ const Filter = ({ filterProducts }) => {
             onChange={(e) => setSize(e.target.value)}
             value={size}
           >
-            <option value={"all"}>All Sizes</option>
+            <option value={"all"} key={"all"}>
+              All Sizes
+            </option>
             {filters.sizes.items.map((option) => (
-              <option value={option}>{option}</option>
+              <option value={option} key={option}>
+                {option}
+              </option>
             ))}
           </select>
         </div>
@@ -86,9 +102,13 @@ const Filter = ({ filterProducts }) => {
             onChange={(e) => setGender(e.target.value)}
             value={gender}
           >
-            <option value={"all"}>All Genders</option>
+            <option value={"all"} key={"all"}>
+              All Genders
+            </option>
             {filters.gender.items.map((option) => (
-              <option value={option}>{option}</option>
+              <option value={option} key={option}>
+                {option}
+              </option>
             ))}
           </select>
         </div>
