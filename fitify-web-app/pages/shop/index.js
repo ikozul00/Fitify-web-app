@@ -6,10 +6,39 @@ import SortBy from "@/components/shop/SortBy";
 import { sortProducts } from "@/lib/sorting";
 import { searchProducts } from "@/lib/search";
 import SearchBar from "@/components/shop/SearchBar";
+import { useRouter } from "next/router";
 
 const Shop = ({ products }) => {
   const [shownProducts, setShownProducts] = useState(products);
   const [sortingOption, setSortingOption] = useState("");
+  const router = useRouter();
+
+  useEffect(() => {
+    if (router.query.category) {
+      filterProducts({
+        newCategory: router.query.category,
+        newBrand: "all",
+        newColor: "all",
+        newSize: "all",
+        newGender: "all",
+        newSale: "all",
+        minimumPrice: 0,
+        maximumPrice: 200,
+      });
+    }
+    if (router.query.sale) {
+      filterProducts({
+        newCategory: "all",
+        newBrand: "all",
+        newColor: "all",
+        newSize: "all",
+        newGender: "all",
+        newSale: "sale",
+        minimumPrice: 0,
+        maximumPrice: 200,
+      });
+    }
+  }, [router]);
 
   const filterProducts = (filters) => {
     // Uzmi sve produkte
@@ -40,6 +69,17 @@ const Shop = ({ products }) => {
         (product) =>
           product.gender == filters.newGender || product.gender == "unisex"
       );
+
+    if (filters.newSale != "all") {
+      if (filters.newSale == "sale")
+        filteredProducts = filteredProducts.filter(
+          (product) => product.oldPrice != null
+        );
+      else
+        filteredProducts = filteredProducts.filter(
+          (product) => product.oldPrice == null
+        );
+    }
 
     filteredProducts = filteredProducts.filter(
       (product) =>
@@ -88,6 +128,11 @@ const Shop = ({ products }) => {
       <div>
         <div className="flex flex-row justify-between">
           <p className="mx-10 my-10">{shownProducts.length} Results</p>
+          {router.query.category && (
+            <h1 className="text-3xl fitify-purple my-8 text-center">
+              Results for: {router.query.category}
+            </h1>
+          )}
           <SortBy setSortingOption={handleSetSortingOption} />
         </div>
         <div className="flex flex-row">

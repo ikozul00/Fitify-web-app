@@ -11,6 +11,7 @@ const Filter = ({ filterProducts }) => {
   const [size, setSize] = useState("all");
   const [gender, setGender] = useState("all");
   const [price, setPrice] = useState({ min: 0, max: 200 });
+  const [sale, setSale] = useState("all");
 
   return (
     <main className="font-open-sans">
@@ -91,6 +92,25 @@ const Filter = ({ filterProducts }) => {
             ))}
           </select>
         </div>
+        <div className="my-5 w-full border-black border-2">
+          <select
+            name="sale"
+            id="sale"
+            className="w-full"
+            onChange={(e) => setSale(e.target.value)}
+            value={sale}
+          >
+            <option value={"all"} key={"all"}>
+              Sale/New Season
+            </option>
+            <option value={"sale"} key={"sale"}>
+              Sale
+            </option>
+            <option value={"new"} key={"new"}>
+              New Season
+            </option>
+          </select>
+        </div>
 
         <div className="my-5 w-full">
           <p className="my-10">Price</p>
@@ -114,6 +134,7 @@ const Filter = ({ filterProducts }) => {
               newColor: color,
               newSize: size,
               newGender: gender,
+              newSale: sale,
               minimumPrice: price.min,
               maximumPrice: price.max,
             })

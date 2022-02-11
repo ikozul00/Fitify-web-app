@@ -266,13 +266,12 @@ export const getAllProducts = async () => {
   return data;
 };
 
-export const CheckLoginData =async (name, password) => {
+export const CheckLoginData = async (name, password) => {
   const response = await instance
-  .post(
-    "",
-    {
-      query: 
-      `query{
+    .post(
+      "",
+      {
+        query: `query{
         userCollection(where: {
             username:"${name}",password:"${password}"
           }){
@@ -281,30 +280,28 @@ export const CheckLoginData =async (name, password) => {
           }
         }
       }`,
-    },
-    {
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: "Bearer " + CONTENTFUL_ACCESS_TOKEN,
       },
-    }
-  )
-  .catch(() => null);
-  if(!response){
+      {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + CONTENTFUL_ACCESS_TOKEN,
+        },
+      }
+    )
+    .catch(() => null);
+  if (!response) {
     return -1;
   }
   const data = response.data.data;
   return data.userCollection.items;
+};
 
-}
-
-export const GetUserData =async (name) => {
+export const GetUserData = async (name) => {
   const response = await instance
-  .post(
-    "",
-    {
-      query: 
-      `query{
+    .post(
+      "",
+      {
+        query: `query{
         userCollection(where: {
         username:"${name}"
       }){
@@ -320,19 +317,93 @@ export const GetUserData =async (name) => {
         }
         }
       }`,
-    },
-    {
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: "Bearer " + CONTENTFUL_ACCESS_TOKEN,
       },
-    }
-  )
-  .catch(() => null);
-  if(!response){
+      {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + CONTENTFUL_ACCESS_TOKEN,
+        },
+      }
+    )
+    .catch(() => null);
+  if (!response) {
     return -1;
   }
   const data = response.data.data;
   return data.userCollection.items;
+};
 
-}
+export const getNewestBlogArticles = async () => {
+  const newestArticlesQuery = `{
+    blogCollection(limit: ${Config.homepage.blogArticles}, order: date_DESC) {
+      items {
+        title
+        slug
+        thumbnailImage {
+          url
+          title
+        }
+        date
+      }
+    }
+  }`;
+
+  const response = await instance
+    .post(
+      "",
+      {
+        query: newestArticlesQuery,
+      },
+      {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + CONTENTFUL_ACCESS_TOKEN,
+        },
+      }
+    )
+    .catch((err) => 0);
+
+  if (response == 0) return [];
+
+  const data = response.data.data;
+  return data.blogCollection.items;
+};
+
+export const getNewestSaleProducts = async () => {
+  const saleProductsQuery = `{
+    productCollection(limit: ${Config.homepage.saleProducts}, where: {oldPrice_exists: true}) {
+      items {
+        title
+        brand
+        price
+        oldPrice
+        thumbnailImage {
+          url
+        }
+        sys {
+          id
+        }
+      }
+    }
+  }`;
+
+  const response = await instance
+    .post(
+      "",
+      {
+        query: saleProductsQuery,
+      },
+      {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + CONTENTFUL_ACCESS_TOKEN,
+        },
+      }
+    )
+    .catch((err) => 0);
+
+  if (response == 0) return [];
+
+  const data = response.data.data;
+  return data.productCollection.items;
+};
