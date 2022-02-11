@@ -1,17 +1,35 @@
 import { BsSliders } from "react-icons/bs";
 import { useState } from "react";
+import { useRouter } from "next/router";
 import { filters } from "../../constants/filters";
 import InputRange from "react-input-range";
+import { createQuery } from "@/lib/filterFunctions";
 import "react-input-range/lib/css/index.css";
 
-const Filter = ({ filterProducts }) => {
+const Filter = () => {
   const [brand, setBrand] = useState("all");
   const [category, setCategory] = useState("all");
   const [color, setColor] = useState("all");
   const [size, setSize] = useState("all");
   const [gender, setGender] = useState("all");
-  const [price, setPrice] = useState({ min: 0, max: 200 });
   const [sale, setSale] = useState("all");
+  const [price, setPrice] = useState({ min: 0, max: 200 });
+  const router = useRouter();
+
+  const handleClick = (e) => {
+    e.preventDefault();
+    let query = createQuery({
+      newBrand: brand,
+      newCategory: category,
+      newColor: color,
+      newSize: size,
+      newGender: gender,
+      newSale: sale,
+      minimumPrice: price.min,
+      maximumPrice: price.max,
+    });
+    router.push(`/shop/${query}`);
+  };
 
   return (
     <main className="font-open-sans">
@@ -147,18 +165,7 @@ const Filter = ({ filterProducts }) => {
 
         <button
           className="my-10 border-2 border-black w-full"
-          onClick={() =>
-            filterProducts({
-              newBrand: brand,
-              newCategory: category,
-              newColor: color,
-              newSize: size,
-              newGender: gender,
-              newSale: sale,
-              minimumPrice: price.min,
-              maximumPrice: price.max,
-            })
-          }
+          onClick={handleClick}
         >
           Apply
         </button>

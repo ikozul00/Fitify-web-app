@@ -7,7 +7,7 @@ import { sortProducts } from "@/lib/sorting";
 import { searchProducts } from "@/lib/search";
 import SearchBar from "@/components/shop/SearchBar";
 import { useRouter } from "next/router";
-import { setFilters } from "@/lib/filters";
+import { setFilters } from "@/lib/filterFunctions";
 
 const Shop = ({ products }) => {
   const [shownProducts, setShownProducts] = useState(products);
@@ -111,7 +111,7 @@ const Shop = ({ products }) => {
         </div>
         <div className="flex flex-row">
           <div className="basis-1/5 px-10 py-10">
-            <Filter filterProducts={filterProducts} />
+            <Filter />
           </div>
           <div className="basis-4/5">
             <ProductContainer products={shownProducts} />
