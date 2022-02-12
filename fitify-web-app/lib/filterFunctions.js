@@ -32,8 +32,8 @@ export const setFilters = (query) => {
   return newFilters;
 };
 
-export const createQuery = (queryFilters) => {
-  let query = "?";
+export const createQuery = (queryFilters, searchQuery) => {
+  let query = searchQuery != "" ? `?search=${searchQuery}` : "?";
 
   //Ako je query duzi od 1, znaci da je vec dodano nesto pa treba staviti izmedu znak &
   if (queryFilters.newCategory != "all") {

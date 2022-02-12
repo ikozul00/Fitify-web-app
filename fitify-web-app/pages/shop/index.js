@@ -131,7 +131,7 @@ const Shop = ({ products }) => {
         </div>
         <div className="flex flex-row">
           <div className="basis-1/5 px-10 py-10">
-            <Filter usedFilters={usedFilters} />
+            <Filter usedFilters={usedFilters} searchQuery={searchQuery} />
           </div>
           <div className="basis-4/5">
             <ProductContainer products={shownProducts} />

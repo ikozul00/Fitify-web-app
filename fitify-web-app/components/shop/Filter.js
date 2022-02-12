@@ -6,7 +6,7 @@ import InputRange from "react-input-range";
 import { createQuery } from "@/lib/filterFunctions";
 import "react-input-range/lib/css/index.css";
 
-const Filter = ({ usedFilters }) => {
+const Filter = ({ usedFilters, searchQuery }) => {
   const [brand, setBrand] = useState("all");
   const [category, setCategory] = useState("all");
   const [color, setColor] = useState("all");
@@ -29,16 +29,19 @@ const Filter = ({ usedFilters }) => {
 
   const handleClick = (e) => {
     e.preventDefault();
-    let query = createQuery({
-      newBrand: brand,
-      newCategory: category,
-      newColor: color,
-      newSize: size,
-      newGender: gender,
-      newSale: sale,
-      minimumPrice: price.min,
-      maximumPrice: price.max,
-    });
+    let query = createQuery(
+      {
+        newBrand: brand,
+        newCategory: category,
+        newColor: color,
+        newSize: size,
+        newGender: gender,
+        newSale: sale,
+        minimumPrice: price.min,
+        maximumPrice: price.max,
+      },
+      searchQuery
+    );
     router.push(`/shop/${query}`);
   };
 
