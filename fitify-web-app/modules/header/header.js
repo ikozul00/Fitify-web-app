@@ -1,7 +1,7 @@
 import Navbar from "../../components/navigation/navbar";
 import Logo from "../../components/logo";
 import RightNavbar from "../../components/navigation/rightNavbar";
-import HamburgerNavigationIcon from "@/components/navigation/hamburgerNavigationIcon";
+import BurgerNav from "@/components/navigation/burgerNav";
 
 
 const Header=()=>{
@@ -10,7 +10,7 @@ const Header=()=>{
                 <Logo/>
                 <Navbar/>
                 <RightNavbar/>
-                <HamburgerNavigationIcon/>
+                <BurgerNav isOpen={true}/>
             </div>
     )
 }
