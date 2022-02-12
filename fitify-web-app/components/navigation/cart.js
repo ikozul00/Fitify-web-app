@@ -6,7 +6,7 @@ const Cart = ({counter, isOpen}) => {
     const router = useRouter();
     
     return (
-        <div className = {`${isOpen ? '-translate-x-20' : ''} transform translate transition duration-500 ease-in-out pr-2`}>
+        <div className = {`${isOpen ? '-translate-x-20' : ''} transform translate transition duration-500 ease-in-out pr-4`}>
         <Link href="/cart" key="cart" passHref>
         <a className=" px-4 ">
             <div className={`hover:opacity-60 ${router.pathname=="/cart" ? "text-fitify-green" : "text-white"}`}>
