@@ -10,7 +10,7 @@ const BlogContainer = ({ posts }) => {
           BLOG
         </h1>
       </Link>
-      <div className="flex flex-row w-full">
+      <div className="flex flex-row w-full justify-between">
 
         {posts.map((post) => {
           const postDate = parseDate(post.date);

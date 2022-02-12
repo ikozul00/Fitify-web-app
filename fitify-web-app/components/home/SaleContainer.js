@@ -9,7 +9,7 @@ const SaleContainer = ({ products }) => {
           SALE
         </h1>
       </Link>
-      <div className="flex flex-row w-full">
+      <div className="flex justify-between w-full">
 
         {products.map((product) => {
           return (

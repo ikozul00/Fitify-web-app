@@ -29,10 +29,10 @@ export default function Home({ saleProducts, blogArticles }) {
             SHOP
           </h1>
         </Link>
-        <div className="flex flex-row">
+        <div className="flex justify-between flex-wrap">
           <Link href={`/shop?category=Clothes`}>
-            <div className="font-open-sans my-10 mx-10 basis-1/3">
-              <div className="w-full">
+            <div className="font-open-sans my-10 w-min hover:cursor-pointer hover:bg-fitify-green-light">
+              <div className="w-64 h-80 relative mx-auto">
                 <Image
                   src={require("public/Clothes.jpg")}
                   alt="Clothes"
