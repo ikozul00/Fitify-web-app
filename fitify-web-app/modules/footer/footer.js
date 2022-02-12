@@ -5,9 +5,10 @@ const Footer = () => {
     const facebookIcon='/FacebookIcon.png';
     return(
         <>
-        <section className=" bg-fitify-black flex justify-between items-center">
-        <div className="flex justify-between items-center w-3/6">
+        <section className=" bg-fitify-black flex justify-between items-center sm:flex-row flex-col">
         <Logo/>
+        <div className="flex justify-between items-center custom:w-2/6 sm:w-6/12 w-5/6 ">
+        
 
         <div className=" text-white font-open-sans py-10">
             <p className=" py-2 font-bold">Customer Support</p>
@@ -17,7 +18,7 @@ const Footer = () => {
             <p className=" py-2 font-light">Returns</p>
         </div>
 
-        <div className=" text-white font-open-sans py-10">
+        <div className=" text-white font-open-sans py-10 sm:ml-0 ml-8">
             <p className=" py-2 font-bold">Additional Information</p>
             <p className=" py-2 font-light">Contact Us</p>
             <p className=" py-2 font-light">Help</p>
@@ -25,7 +26,7 @@ const Footer = () => {
             <p className=" py-2 font-light">About Us</p>
         </div>
         </div>
-        <div className=" text-white font-open-sans pr-">
+        <div className=" text-white font-open-sans pb-10 sm:pb-0">
             <p className=" uppercase font-bold">Follow us:</p>
             <div className="flex pt-2">
                 <div className=" w-10 h-10 rounded-full flex items-center justify-around mr-5">
@@ -37,7 +38,7 @@ const Footer = () => {
                 <div className=" w-10 h-10 bg-fitify-gray rounded-full flex items-center justify-around mr-5">
                 <Image src='/SnapchatIcon.png' width={35} height={30} layout="fixed"/>
                 </div>
-                <div className=" w-10 h-10 rounded-full flex items-center justify-around mr-48">
+                <div className=" w-10 h-10 rounded-full flex items-center justify-around custom:mr-48 mr-5">
                 <Image src='/TwitterIconGray.png' width={40} height={40} alt="Twitter" layout="fixed"/>
                 </div>
 
