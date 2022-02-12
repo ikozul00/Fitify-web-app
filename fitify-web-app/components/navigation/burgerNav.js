@@ -18,9 +18,12 @@ const BurgerNav = () => {
         { title: "contact us", link: "contactUs" },
     ];
 
-
     const isActive = (pathname) => {
-        return router.pathname.split("/")[1] === pathname.split("/")[1];
+        if(router.pathname.split("/")[1]==="shop"){
+          return pathname.includes(router.query.category);
+        }
+        else
+          return router.pathname.split("/")[1] === pathname.split("/")[1];
     };
 
     return(
