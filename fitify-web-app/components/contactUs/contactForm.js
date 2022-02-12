@@ -46,11 +46,11 @@ const ContactForm = ({toggleForm}) => {
                 </div>
                 <div className="px-7 flex flex-col">
                 <label htmlFor="name">Full name:</label>
-                <input type="text" name="name" id="name" className="border-2 mb-5 border-fitify-purple form-field w-2/5" value={name} onChange={(e) => handleChange(e)} required/>
+                <input type="text" name="name" id="name" className="border-2 mb-5 border-fitify-purple form-field md:w-2/5 sm:w-3/6 w-full" value={name} onChange={(e) => handleChange(e)} required/>
                 <label htmlFor="username">Username:</label>
-                <input type="text" name="username" id="username" className="border-2 mb-5 border-fitify-purple form-field w-2/5" value={username} onChange={(e) => handleChange(e)} required/>
+                <input type="text" name="username" id="username" className="border-2 mb-5 border-fitify-purple form-field md:w-2/5 sm:w-3/6 w-ful" value={username} onChange={(e) => handleChange(e)} required/>
                 <label htmlFor="email">Email:</label>
-                <input type="text" name="email" id="email" className="border-2 mb-5 border-fitify-purple form-field w-2/5" value={email} onChange={(e) => handleChange(e)} required/>
+                <input type="text" name="email" id="email" className="border-2 mb-5 border-fitify-purple form-field md:w-2/5 sm:w-3/6 w-ful" value={email} onChange={(e) => handleChange(e)} required/>
                 <label htmlFor="message">Message:</label>
                 <textarea id="message" name="message" rows={6}  className="border-2 mb-5 border-fitify-purple form-field " value={message} onChange={(e) => handleChange(e)} required></textarea>
                 {errorMessage && <p className="mb-3 text-center font-bold">{errorMessage}</p>}

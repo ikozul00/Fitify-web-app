@@ -19,7 +19,7 @@ const ContactUs = () => {
 
     return(
         <>
-        <div className="ml-16 my-12 font-open-sans">
+        <div className="md:ml-16 ml-8 w-full my-12 font-open-sans">
             <h1 className="text-5xl uppercase text-gray-700 font-semibold">Contact Us</h1>
             <p className="font-bold mt-10 mb-3 text-lg">Have a question or just want to leave a comment:</p>
             <p><span className="font-semibold">Phone number:</span> +385 99 123 4567</p>
