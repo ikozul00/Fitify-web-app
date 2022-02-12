@@ -13,8 +13,8 @@ const HeadPost = ({ post }) => {
 
   return (
     <Link href={`blog/${post.slug}`}>
-    <div className="bg-fitify-green mx-auto mt-16 mb-16 flex h-80 border-4 border-fitify-green cursor-pointer hover:opacity-75">
-      <div className=" w-3/12 relative">
+    <div className="bg-fitify-green mx-auto mt-16 mb-16 flex sm:flex-row flex-col border-4 border-fitify-green cursor-pointer hover:opacity-75">
+      <div className=" md:w-4/12 sm:w-5/12 w-full relative sm:h-auto h-56">
       <Image
         src={post.thumbnailImage.url}
         alt={post.thumbnailImage.title}
@@ -22,15 +22,21 @@ const HeadPost = ({ post }) => {
         objectFit="cover"
       />
       </div>
-      <div className="w-7/12 ml-12">
-      <h2 className="text-xl my-8 text-white">
+      <div className="sm:w-7/12 w-11/12 sm:ml-12 mx-auto">
+      <h2 className="md:text-xl text-lg  sm:block hidden lg:my-8 my-6 text-white">
       {`${date.day}/${date.month}/${date.year}`}
       </h2>
       
-        <h1 className=" text-4xl my-8 text-white font-semibold">
+        <h1 className=" md:text-4xl text-2xl  lg:my-8 sm:my-6 mt-4 mb-2 text-white font-semibold">
           {post.title}
         </h1>
-      <p className="text-white text-xl">{post.description}</p>
+      <p className="text-white md:text-xl sm:text-lg text-base pb-2">{post.description}</p>
+      </div>
+      <div className="sm:hidden flex justify-between my-6 w-11/12 mx-auto">
+        <h2 className="text-base sm:hidden block text-white">
+          {`${date.day}/${date.month}/${date.year}`}
+        </h2>
+        <p className="text-base text-white font-semibold">{`Read more >>`}</p>
       </div>
     </div>
     </Link>

@@ -1,4 +1,5 @@
 import Link from "next/link";
+import {FaArrowLeft, FaArrowRight} from "react-icons/fa";
 
 const Pagination = (props) => {
   const { currentPage, totalPages } = props;
@@ -20,33 +21,32 @@ const Pagination = (props) => {
       <span>
         {prevDisabled && (
           <span
-            className="text-center p-1 m-2 text-4xl opacity-60"
-            aria-label="Previous page"
+            className="text-center p-1 m-2 sm:text-5xl text-4xl "
           >
-            <i className="fas fa-arrow-left mx-1" aria-hidden="true"></i>
+           <FaArrowLeft className="mr-3 opacity-60"/>
           </span>
         )}
         {!prevDisabled && (
           <Link href={prevPageUrl}>
-            <a className="text-center p-1 m-2 text-4xl">
-              <i className="  fas fa-arrow-left mx-1 hover:scale-105"></i>
+            <a className="text-center p-1 m-2 sm:text-5xl text-4xl">
+            <FaArrowLeft className="mr-3"/>
             </a>
           </Link>
         )}
       </span>
-      <span className="self-center text-xl">
+      <span className="self-center sm:text-xl text-lg">
         Page {currentPage} of {totalPages}
       </span>
       <span>
         {nextDisabled && (
-          <span className="text-center p-1 m-2 text-4xl opacity-60">
-            <i className="fas fa-arrow-right mx-1"></i>
+          <span className="text-center p-1 m-2 sm:text-5xl text-4xl ">
+            <FaArrowRight className="ml-3 opacity-60"/>
           </span>
         )}
         {!nextDisabled && (
           <Link href={nextPageUrl}>
-            <a className="text-center  p-1 m-2 text-4xl ">
-              <i className="fas fa-arrow-right mx-1 hover:scale-105"></i>
+            <a className="text-center  p-1 m-2 sm:text-5xl text-4xl ">
+              <FaArrowRight className="ml-3"/>
             </a>
           </Link>
         )}

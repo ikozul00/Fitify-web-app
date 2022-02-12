@@ -13,7 +13,7 @@ const Blog = (props) => {
   return (
     <>
     <div className="w-9/12 mx-auto font-open-sans">
-      <h1 className="text-5xl uppercase mt-12 text-gray-700 font-semibold">BLOG</h1>
+      <h1 className="text-5xl sm:text-left text-center uppercase mt-12 text-gray-700 font-semibold">BLOG</h1>
       <HeadPost post={posts[0]} />
       <PostList
         posts={posts.slice(1)}
