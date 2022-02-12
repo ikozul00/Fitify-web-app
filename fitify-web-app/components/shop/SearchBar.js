@@ -1,15 +1,22 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { BsSearch } from "react-icons/bs";
+import { useRouter } from "next/router";
 
 const SearchBar = ({ searchQuery }) => {
   const [query, setQuery] = useState("");
+  const router = useRouter();
+
+  useEffect(() => {
+    setQuery(searchQuery);
+  }, [searchQuery]);
 
   function handleSearchClick() {
-    searchQuery(query);
+    if (query != "") router.push(`/shop?search=${query}`);
   }
 
   function handleKeyDown(event) {
-    if (event.key === "Enter") searchQuery(query);
+    if (event.key === "Enter" && query != "")
+      router.push(`/shop?search=${query}`);
   }
 
   return (
