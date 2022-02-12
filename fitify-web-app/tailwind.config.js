@@ -16,7 +16,7 @@ module.exports = {
         'fitify-green':'#198C8C',
         'fitify-green-light':'#d1e8e8',
         'fitify-purple' : '#6E6FB3',
-        'fitify-gray' : '#8B8B8B'
+        'fitify-gray' : '#8E8EA5'
       },
       width: {
         '100': '15rem',
@@ -27,9 +27,6 @@ module.exports = {
       padding:{
         '3.2':'0.85rem'
       },
-      screens:{
-        'custom' : '975px',
-      }
     }
   },
   plugins: [],

@@ -11,7 +11,7 @@ const SaleContainer = ({ products }) => {
           SALE
         </h1>
       </Link>
-      <div className="bigger-custom:flex justify-between w-full flex-wrap grid md:grid-cols-3 grid-cols-2">
+      <div className="xl:flex justify-between w-full flex-wrap grid md:grid-cols-3 grid-cols-2">
         {products.map((product) => {
           counter++;
           return (

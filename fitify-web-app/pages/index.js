@@ -33,7 +33,7 @@ export default function Home({ saleProducts, blogArticles }) {
         <div className="flex justify-around flex-wrap mx-auto">
           <Link href={`/shop?category=Clothes`}>
             <div className="font-open-sans my-8 w-min hover:cursor-pointer hover:bg-fitify-green-light p-2">
-              <div className=" custom:w-80 w-96 h-96 relative mx-auto">
+              <div className=" lg:w-80 w-96 h-96 relative mx-auto">
                 <Image
                   src={require("public/Clothes.jpg")}
                   alt="Clothes"
@@ -49,7 +49,7 @@ export default function Home({ saleProducts, blogArticles }) {
           </Link>
           <Link href={`/shop?category=Shoes`}>
             <div className="font-open-sans my-8 w-min hover:cursor-pointer hover:bg-fitify-green-light p-2">
-              <div className="custom:w-80 w-96 h-96 relative mx-auto">
+              <div className="lg:w-80 w-96 h-96 relative mx-auto">
                 <Image
                   src={require("public/Shoes.jpg")}
                   alt="Shoes"
@@ -65,7 +65,7 @@ export default function Home({ saleProducts, blogArticles }) {
           </Link>
           <Link href={`/shop?category=Equipment`}>
             <div className="font-open-sans my-8 w-min hover:cursor-pointer hover:bg-fitify-green-light p-2">
-              <div className="custom:w-80 w-96 h-96 relative mx-auto">
+              <div className="lg:w-80 w-96 h-96 relative mx-auto">
                 <Image
                   src={require("public/Equipment.jpg")}
                   alt="Equipment"

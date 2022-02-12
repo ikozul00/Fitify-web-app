@@ -31,7 +31,7 @@ const Navbar = () => {
       return (
         <Link href={itemLink} key={item.title} passHref>
           <a
-            className={`  text-white text-base custom:text-lg px-2 font-open-sans whitespace-nowrap uppercase hover:bg-fitify-green custom:px-5 py-2  ${
+            className={`  text-white text-base lg:text-lg px-2 font-open-sans whitespace-nowrap uppercase hover:bg-fitify-green lg:px-5 py-2  ${
               number === numberOfItems ? "" : "border-r-2"
             } 
                 ${
