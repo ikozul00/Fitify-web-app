@@ -2,6 +2,7 @@ import Link from "next/link";
 import { useRouter } from 'next/router';
 import { useEffect, useState } from "react";
 import Cart from "./cart";
+import {FaUserAlt} from "react-icons/fa";
 
 const RightNavbar = ({counter, mobile}) => {
     const router = useRouter();
@@ -15,7 +16,6 @@ const RightNavbar = ({counter, mobile}) => {
 
     function LogOut(event){
         event.preventDefault();
-        console.log("evo");
         localStorage.removeItem("user");
         router.push("/");
     }
@@ -27,7 +27,7 @@ const RightNavbar = ({counter, mobile}) => {
             {!mobile &&
             <div className="relative dropdown px-8">
                 <button>
-                    <i className={`fas fa-user`}></i>
+                    <FaUserAlt/>
                 </button>
                 <div className="hidden dropdown-content absolute bg-fitify-black right-6 w-32 text-lg text-center z-10 shadow-2xl">
                     <Link href={user  ? `/profile/${user}` : "/login"} key="dropdown1" passHref>
