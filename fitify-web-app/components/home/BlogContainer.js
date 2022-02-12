@@ -6,7 +6,7 @@ const BlogContainer = ({ posts }) => {
   return (
     <div className="w-9/12 mx-auto my-10">
       <Link href={"/blog"}>
-        <h1 className="text-center text-5xl uppercase mt-12 text-gray-700 font-semibold">
+        <h1 className="text-center text-5xl uppercase mt-12 text-gray-700 font-semibold hover:cursor-pointer hover:scale-105">
           BLOG
         </h1>
       </Link>
@@ -17,7 +17,7 @@ const BlogContainer = ({ posts }) => {
           return (
             <Link href={`/blog/${post.slug}`} key={post.slug} id={post.slug}>
               <div className="font-open-sans my-10 bg-fitify-green w-min hover:cursor-pointer hover:opacity-70">
-                <div className="relative w-56 h-52">
+                <div className="relative w-64 h-72">
                   <Image
                     src={post.thumbnailImage.url}
                     alt={post.thumbnailImage.title}

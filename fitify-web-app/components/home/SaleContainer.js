@@ -5,7 +5,7 @@ const SaleContainer = ({ products }) => {
   return (
     <div className="w-9/12 mx-auto my-10">
       <Link href={"/shop?sale=true"}>
-        <h1 className="text-center text-5xl uppercase mt-12 text-gray-700 font-semibold">
+        <h1 className="text-center text-5xl uppercase mt-12 text-gray-700 font-semibold hover:cursor-pointer hover:scale-105">
           SALE
         </h1>
       </Link>
@@ -19,7 +19,7 @@ const SaleContainer = ({ products }) => {
               id={product.sys.id}
             >
               <div className="font-open-sans my-10 hover:cursor-pointer hover:bg-fitify-green-light">
-                <div className="w-44 h-44 relative mx-auto">
+                <div className=" w-52 h-56 relative mx-auto">
                   <Image
                     src={product.thumbnailImage.url}
                     alt="Product image"
