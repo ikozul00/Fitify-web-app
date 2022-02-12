@@ -7,7 +7,7 @@ const menuItems = [
   { title: "shoes", link: "shop?category=Shoes" },
   { title: "equipment", link: "shop?category=Equipment" },
   { title: "blog", link: "blog" },
-  { title: "contact us", link: "contact us" },
+  { title: "contact us", link: "contactUs" },
 ];
 
 const Navbar = () => {
@@ -16,6 +16,7 @@ const Navbar = () => {
   const isActive = (pathname) => {
     return router.pathname.split("/")[1] === pathname.split("/")[1];
   };
+
   
   const createItems = () => {
     let number = 0;

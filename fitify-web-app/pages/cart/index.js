@@ -2,7 +2,7 @@ import { connect} from "react-redux";
 import Image from "next/image";
 import { decreaseAmount, increaseAmount, removeFromCart } from "redux/actions/cartActions";
 import TotalContainer from "@/components/cart/totalContainer";
-import Product from "./product";
+import Product from "../../components/cart/product";
 
 const Cart = ({items, increaseAmount, decreaseAmount, removeItem}) => {
     return(

@@ -56,53 +56,53 @@ const ProductView = ({ product,addToCartRedux, counter}) => {
   }
 
   return (
-    <main className="w-2/3 mx-auto my-10 flex justify-between">
+    <main className="w-3/4 mx-auto my-10 flex justify-between font-open-sans">
       <div className="w-1/2">
         <div className="relative w-full h-full">
           <ImageSlider images={images} />
         </div>
       </div>
       <div className="font-open-sans text-left px-5 w-1/2">
-        <h1 className="text-3xl fitify-purple">{product.title}</h1>
-        <div className="flex text-2xl my-8">
-          <h2 className="text-gray-600">${product.price}</h2>
+        <h1 className="text-3xl font-semibold">{product.title}</h1>
+        <div className="flex text-2xl mt-8 mb-4">
+          <h2 className="font-extrabold">${product.price}</h2>
           {product.oldPrice != null && (
-            <h2 className="line-through text-gray-500">${product.oldPrice}</h2>
+            <h2 className="line-through font-bold ml-5 text-fitify-green">${product.oldPrice}</h2>
           )}
         </div>
-        <div>
-          <p>Select Size</p>
-          <div className="flex justify-around">
+        <p className="text-xl">Select Size:</p>
+          <div className="flex justify-start mb-5 flex-wrap">
             {product.sizes.map((size) => (
-              <button className={`rounded-full border-black border-2 ${pickedSize===size ? 'bg-fitify-green' : 'bg-white'}`} onClick={() => sizePicked(size)}>
+              <button className={`rounded-full border-black w-10 h-10 border-2 font-semibold mx-2 my-2 ${pickedSize===size ? 'bg-fitify-green text-white' : 'bg-white text-black'}`} onClick={() => sizePicked(size)}>
                 {size}
               </button>
             ))}
           </div>
-        </div>
+        <div className="flex flex-row w-full justify-between items-baseline">
         <div>
-          <MDXRemote {...product.mdxSource} components={components} lazy />
-          <p className="text-2xl">Material:</p>
-          {product.material}
-        </div>
-        <label htmlFor="amount" id="amount">Amount:</label>
-        <select name="amount" id="amount" value={pickedAmount} onChange={(e) => setPickedAmount(e.target.value)}>
+        <label htmlFor="amount" id="amount" className="mr-3 text-xl">Amount:</label>
+        <select name="amount" id="amount" className="w-20 text-center border-2 border-gray-500" value={pickedAmount} onChange={(e) => setPickedAmount(e.target.value)}>
           {
             amount.map((i) => <option value={`${i}`}>{i}</option>)
           }
         </select>
-        <button className="bg-fitify-green border-2 border-black" onClick={() => addToCart()}>Add to cart</button>
+        </div>
+        <button className=" bg-fitify-purple text-white text-xl px-4 py-2 hover:opacity-80" onClick={() => addToCart()}>Add to cart</button>
+        </div>
         {added && 
-          <div className=" bg-fitify-green">
-            <p>{`Product ${product.title} successfully added to cart!`}</p>
+          <div className=" border-2 border-fitify-green rounded-lg my-3">
+            <p>Product <span className="font-semibold">{product.title}</span> successfully added to cart!</p>
           </div>
         }
-
         {pickSize &&
-          <div className=" bg-fitify-green">
-            <p>{`Sorry you need to first pick a size then you can add product ${product.title} to cart.`}</p>
+          <div className=" border-2 border-fitify-green rounded-lg my-3">
+            <p>Sorry you need to first pick a size then you can add product <span className="font-semibold">product.title</span> to cart.</p>
           </div>
         }
+        <div>
+          <p className="font-semibold mt-3"><span className="font-bold text-lg">Material:</span> {product.material}</p>
+          <MDXRemote {...product.mdxSource} components={components} lazy />
+        </div>
       </div>
     </main>
   );

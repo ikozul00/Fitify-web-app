@@ -1,7 +1,9 @@
 import { FaArrowAltCircleRight, FaArrowAltCircleLeft } from "react-icons/fa";
 import { useState } from "react";
+import Image from "next/image";
+import styles from '../../styles/ImageSlider.module.css';
 
-const ImageSlider = ({ images }) => {
+const ImageSlider = ({ images,name }) => {
   const [current, setCurrent] = useState(0);
   const length = images.length;
 
@@ -20,14 +22,21 @@ const ImageSlider = ({ images }) => {
   // Ako je samo jedna slika, vrati samo sliku
   if (images.length == 1)
     return (
-      <div className="slide">
-        <img src={images[0].url} alt="Product image" className="image" />
+      <section className="slider relative">
+      <div className={`relative image-container ${styles.imageContainer}`}>
+      <Image
+        src={images[current].url}
+        alt={`Product ${name} image`}
+        layout="fill"
+        objectFit="cover"
+      />
       </div>
+    </section>
     );
 
   return (
-    <section className="slider">
-      <FaArrowAltCircleLeft className="left-arrow" onClick={prevSlide} />
+    <section className="slider relative mt-2">
+      {/* <FaArrowAltCircleLeft className="left-arrow" onClick={prevSlide} />
       {images.map((image, index) => {
         return (
           <div
@@ -40,7 +49,19 @@ const ImageSlider = ({ images }) => {
           </div>
         );
       })}
-      <FaArrowAltCircleRight className="right-arrow" onClick={nextSlide} />
+      <FaArrowAltCircleRight className="right-arrow" onClick={nextSlide} /> */}
+      <button className="text-5xl font-bold text-black absolute z-10 top-40" onClick={() => prevSlide()}>{`<`}</button>
+      <div className={`relative image-container ${styles.imageContainer}`}>
+      <Image
+        src={images[current].url}
+        alt={`Product ${name} image`}
+        layout="fill"
+        objectFit="cover"
+      >
+        </Image>
+      </div>
+      <button className="text-5xl font-bold text-black absolute z-10 top-40 right-8" onClick={() => nextSlide()}>{`>`}</button>
+      <p className="text-center mt-3">{current+1} of {length}</p>
     </section>
   );
 };
