@@ -9,7 +9,6 @@ function MyApp({ Component, pageProps }) {
     <>
       <Head>
         <meta name="viewport" content="width=device-width, initial-scale=1"/>
-        <script src="https://kit.fontawesome.com/b64f746d4d.js" crossorigin="anonymous"></script>
       </Head>
         <Provider store={configureStore()}>
         <Layout>

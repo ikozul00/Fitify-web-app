@@ -1,6 +1,7 @@
 import { connect } from "react-redux";
 import Link from "next/link";
 import { useRouter } from 'next/router';
+import {FaShoppingCart} from "react-icons/fa";
 
 const Cart = ({counter, isOpen}) => {
     const router = useRouter();
@@ -11,10 +12,9 @@ const Cart = ({counter, isOpen}) => {
         <a className=" px-4 ">
             <div className={`hover:opacity-60 ${router.pathname=="/cart" ? "text-fitify-green" : "text-white"}`}>
                 <div className="flex text-2xl">
-                    <i className={`fas fa-shopping-cart`}></i> 
+                   <FaShoppingCart/>
                     <p className="px-1">{counter}</p>
                 </div>
-                {/* <p className=" font-open-sans text-sm">Items</p> */}
             </div>
         </a>
     </Link>

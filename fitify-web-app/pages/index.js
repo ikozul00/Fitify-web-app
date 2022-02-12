@@ -17,6 +17,7 @@ export default function Home({ saleProducts, blogArticles }) {
           alt="Header image"
           layout="fill"
           objectFit="cover"
+          priority
         />
         <h1 className="text-7xl my-8 text-white font-extrabold absolute top-24 left-16">Shop here</h1>
         <p className="w-1/5 text-2xl my-12 text-white font-normal absolute top-44 left-16">
@@ -25,14 +26,14 @@ export default function Home({ saleProducts, blogArticles }) {
       </div>
       <div className="w-9/12 mx-auto my-10">
         <Link href={`/shop`}>
-          <h1 className="text-center text-5xl uppercase mt-12 text-gray-700 font-semibold">
+          <h1 className="text-center text-5xl uppercase mt-12 text-gray-700 font-semibold hover:cursor-pointer hover:scale-105">
             SHOP
           </h1>
         </Link>
         <div className="flex justify-between flex-wrap">
           <Link href={`/shop?category=Clothes`}>
             <div className="font-open-sans my-10 w-min hover:cursor-pointer hover:bg-fitify-green-light">
-              <div className="w-64 h-80 relative mx-auto">
+              <div className=" w-80 h-96 relative mx-auto">
                 <Image
                   src={require("public/Clothes.jpg")}
                   alt="Clothes"
@@ -48,7 +49,7 @@ export default function Home({ saleProducts, blogArticles }) {
           </Link>
           <Link href={`/shop?category=Shoes`}>
             <div className="font-open-sans my-10 w-min hover:cursor-pointer hover:bg-fitify-green-light">
-              <div className="w-64 h-80 relative mx-auto">
+              <div className="w-80 h-96 relative mx-auto">
                 <Image
                   src={require("public/Shoes.jpg")}
                   alt="Shoes"
@@ -64,7 +65,7 @@ export default function Home({ saleProducts, blogArticles }) {
           </Link>
           <Link href={`/shop?category=Equipment`}>
             <div className="font-open-sans my-10 w-min hover:cursor-pointer hover:bg-fitify-green-light">
-              <div className="w-64 h-80 relative mx-auto">
+              <div className="w-80 h-96 relative mx-auto">
                 <Image
                   src={require("public/Equipment.jpg")}
                   alt="Equipment"
