@@ -17,6 +17,7 @@ export default function Home({ saleProducts, blogArticles }) {
           alt="Header image"
           layout="fill"
           objectFit="cover"
+          priority
         />
         <h1 className="text-7xl my-8 text-white font-extrabold absolute top-24 left-16">Shop here</h1>
         <p className="w-1/5 text-2xl my-12 text-white font-normal absolute top-44 left-16">
