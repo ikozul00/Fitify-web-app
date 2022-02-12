@@ -56,11 +56,11 @@ const Login = () => {
                 <form onSubmit={(e)=>handleSubmit(e)} className="flex-col justify-end">
                     <div className="w-3/4 mx-auto mb-7">
                     <label for="username" className="pr-2">Username:</label>
-                    <input type="text" id="username" name="username" required className=" border-2 border-fitify-green w-3/6 h-9 form-field" value={username}  onChange={(e)=>onChange(e)}></input>
+                    <input type="text" id="username" name="username" required className=" border-2 border-fitify-purple w-3/6 h-9 form-field" value={username}  onChange={(e)=>onChange(e)}></input>
                     </div>
                     <div className="w-3/4 mx-auto">
                     <label for="password" className=" pr-3.2">Password:</label>
-                    <input type="password" id="password" name="password" required className=" border-2 border-fitify-green w-3/6 h-9 form-field " value={password} onChange={(e)=>onChange(e)}></input>
+                    <input type="password" id="password" name="password" required className=" border-2 border-fitify-purple w-3/6 h-9 form-field " value={password} onChange={(e)=>onChange(e)}></input>
                     </div>
                     <div className="w-3/4 flex justify-end">
                     <button type="submit" className="bg-fitify-purple px-10 py-2 font-medium uppercase hover:opacity-80 text-white border-none my-11">Login</button>

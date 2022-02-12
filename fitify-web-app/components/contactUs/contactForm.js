@@ -39,22 +39,22 @@ const ContactForm = ({toggleForm}) => {
     }
 
     return(
-        <form className=" max-w-xl border-2 border-black my-5 flex flex-col" >
+        <form className=" w-5/6 border-2 border-black my-5 flex flex-col" >
                 <div className=" w-full flex justify-between">
                     <h1 className="font-bold text-xl ml-7 my-3">Fill out form:</h1>
-                    <button onClick={() => toggleForm(false)} className="font-bold text-3xl mr-7 text-red-800">X</button>
+                    <button onClick={() => toggleForm(false)} className="font-bold text-3xl mr-4 p-4">X</button>
                 </div>
                 <div className="px-7 flex flex-col">
                 <label htmlFor="name">Full name:</label>
-                <input type="text" name="name" id="name" className="border-2 mb-5 border-fitify-green form-field" value={name} onChange={(e) => handleChange(e)} required/>
+                <input type="text" name="name" id="name" className="border-2 mb-5 border-fitify-purple form-field w-2/5" value={name} onChange={(e) => handleChange(e)} required/>
                 <label htmlFor="username">Username:</label>
-                <input type="text" name="username" id="username" className="border-2 mb-5 border-fitify-green form-field" value={username} onChange={(e) => handleChange(e)} required/>
+                <input type="text" name="username" id="username" className="border-2 mb-5 border-fitify-purple form-field w-2/5" value={username} onChange={(e) => handleChange(e)} required/>
                 <label htmlFor="email">Email:</label>
-                <input type="text" name="email" id="email" className="border-2 mb-5 border-fitify-green form-field" value={email} onChange={(e) => handleChange(e)} required/>
+                <input type="text" name="email" id="email" className="border-2 mb-5 border-fitify-purple form-field w-2/5" value={email} onChange={(e) => handleChange(e)} required/>
                 <label htmlFor="message">Message:</label>
-                <textarea id="message" name="message" rows={4} cols={5} className="border-2 mb-5 border-fitify-green form-field" value={message} onChange={(e) => handleChange(e)} required></textarea>
-                {errorMessage && <p className="mb-3">{errorMessage}</p>}
-                <button onClick={(e) => sendMessage(e)} className=" bg-fitify-purple text-white w-36 py-2 place-self-end mb-7 ">Send</button>
+                <textarea id="message" name="message" rows={6}  className="border-2 mb-5 border-fitify-purple form-field " value={message} onChange={(e) => handleChange(e)} required></textarea>
+                {errorMessage && <p className="mb-3 text-center font-bold">{errorMessage}</p>}
+                <button onClick={(e) => sendMessage(e)} className=" bg-fitify-purple text-white w-36 py-2 place-self-end mb-7">Send</button>
                 </div>
             </form>
     );
