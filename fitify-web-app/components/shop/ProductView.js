@@ -73,7 +73,7 @@ const ProductView = ({ product,addToCartRedux, counter}) => {
         <p className="text-xl">Select Size:</p>
           <div className="flex justify-start mb-5 flex-wrap">
             {product.sizes.map((size) => (
-              <button className={`rounded-full border-black w-10 h-10 border-2 font-semibold mx-2 my-2 ${pickedSize===size ? 'bg-fitify-green text-white' : 'bg-white text-black'}`} onClick={() => sizePicked(size)}>
+              <button className={`rounded-full border-black w-20 h-10 border-2 font-semibold mx-2 my-2 ${pickedSize===size ? 'bg-fitify-green text-white border-white' : 'bg-white text-black border-black'}`} onClick={() => sizePicked(size)}>
                 {size}
               </button>
             ))}
