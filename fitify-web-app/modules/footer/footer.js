@@ -7,7 +7,7 @@ const Footer = () => {
         <>
         <section className=" bg-fitify-black flex justify-between items-center sm:flex-row flex-col">
         <Logo/>
-        <div className="flex justify-between items-center custom:w-2/6 sm:w-6/12 w-5/6 ">
+        <div className="flex justify-between items-center lg:w-2/6 sm:w-6/12 w-5/6 ">
         
 
         <div className=" text-white font-open-sans py-10">
@@ -29,16 +29,16 @@ const Footer = () => {
         <div className=" text-white font-open-sans pb-10 sm:pb-0">
             <p className=" uppercase font-bold">Follow us:</p>
             <div className="flex pt-2">
-                <div className=" w-10 h-10 rounded-full flex items-center justify-around mr-5">
+                <div className=" w-10 h-10 rounded-full flex items-center justify-around md:mr-5 mr-3">
                 <Image src='/FacebookIconGray.png' width={40} height={40} alt="Facebook" layout="fixed"/>
                 </div>
-                <div className=" w-10 h-10 rounded-full flex items-center justify-around mr-5">
+                <div className=" w-10 h-10 rounded-full flex items-center justify-around md:mr-5 mr-3">
                 <Image src='/InstagramIconGray.png' layout="fixed" width={40} height={40} alt="Instagram"/>
                 </div>
-                <div className=" w-10 h-10 bg-fitify-gray rounded-full flex items-center justify-around mr-5">
+                <div className=" w-10 h-10 bg-fitify-gray rounded-full flex items-center justify-around md:mr-5 mr-3">
                 <Image src='/SnapchatIcon.png' width={35} height={30} layout="fixed"/>
                 </div>
-                <div className=" w-10 h-10 rounded-full flex items-center justify-around custom:mr-48 mr-5">
+                <div className=" w-10 h-10 rounded-full flex items-center justify-around lg:mr-48 md:mr-5 mr-3">
                 <Image src='/TwitterIconGray.png' width={40} height={40} alt="Twitter" layout="fixed"/>
                 </div>
 

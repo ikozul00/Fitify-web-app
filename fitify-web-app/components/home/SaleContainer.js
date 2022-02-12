@@ -2,6 +2,8 @@ import Image from "next/image";
 import Link from "next/link";
 
 const SaleContainer = ({ products }) => {
+  let counter=0;
+
   return (
     <div className="w-9/12 mx-auto my-10">
       <Link href={"/shop?sale=true"}>
@@ -9,17 +11,17 @@ const SaleContainer = ({ products }) => {
           SALE
         </h1>
       </Link>
-      <div className="flex justify-between w-full">
-
+      <div className="bigger-custom:flex justify-between w-full flex-wrap grid md:grid-cols-3 grid-cols-2">
         {products.map((product) => {
+          counter++;
           return (
             <Link
               href={`/shop/product/${product.sys.id}`}
               key={product.sys.id}
               id={product.sys.id}
             >
-              <div className="font-open-sans my-10 hover:cursor-pointer hover:bg-fitify-green-light p-2">
-                <div className=" w-52 h-56 relative mx-auto">
+              <div className={`font-open-sans my-6 hover:cursor-pointer hover:bg-fitify-green-light p-2 ${counter===5 ? "sm:block hidden" : ""}`}>
+                <div className=" sm:w-48 sm:h-56 w-36 h-40 relative mx-auto">
                   <Image
                     src={product.thumbnailImage.url}
                     alt="Product image"
@@ -46,7 +48,7 @@ const SaleContainer = ({ products }) => {
           );
         })}
       </div>
-      <div className="flex justify-end w-full">
+      <div className="flex md:justify-end justify-center w-full">
       <Link href={"/shop?sale=true"}>
         <a className=" text-white bg-fitify-purple font-semibold py-4 px-6 hover:opacity-80">
           {`DISCOVER MORE >>`}

@@ -28,7 +28,7 @@ module.exports = {
         '3.2':'0.85rem'
       },
       screens:{
-        'custom' : '975px'
+        'custom' : '975px',
       }
     }
   },
