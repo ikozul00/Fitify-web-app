@@ -7,42 +7,40 @@ import { sortProducts } from "@/lib/sorting";
 import { searchProducts } from "@/lib/search";
 import SearchBar from "@/components/shop/SearchBar";
 import { useRouter } from "next/router";
+import { setFilters } from "@/lib/filterFunctions";
 
 const Shop = ({ products }) => {
   const [shownProducts, setShownProducts] = useState(products);
   const [sortingOption, setSortingOption] = useState("");
+  const [searchQuery, setSearchQuery] = useState("");
+  const [usedFilters, setUsedFilters] = useState({
+    newCategory: "all",
+    newBrand: "all",
+    newColor: "all",
+    newSize: "all",
+    newGender: "all",
+    newSale: "all",
+    minimumPrice: 0,
+    maximumPrice: 200,
+  });
   const router = useRouter();
 
   useEffect(() => {
-    if (router.query.category) {
-      filterProducts({
-        newCategory: router.query.category,
-        newBrand: "all",
-        newColor: "all",
-        newSize: "all",
-        newGender: "all",
-        newSale: "all",
-        minimumPrice: 0,
-        maximumPrice: 200,
-      });
+    if (router.query.search) {
+      filterProducts(setFilters(router.query), router.query.search);
+    } else {
+      filterProducts(setFilters(router.query), "");
     }
-    if (router.query.sale) {
-      filterProducts({
-        newCategory: "all",
-        newBrand: "all",
-        newColor: "all",
-        newSize: "all",
-        newGender: "all",
-        newSale: "sale",
-        minimumPrice: 0,
-        maximumPrice: 200,
-      });
-    }
+    console.log(router.query);
   }, [router]);
 
-  const filterProducts = (filters) => {
-    // Uzmi sve produkte
-    const filteredProducts = products;
+  const filterProducts = (filters, searchValue) => {
+    // Ako postoji search query, izdvoji produkte, inace uzmi sve produkte
+    const filteredProducts =
+      searchValue != "" ? searchProducts(searchValue, products) : products;
+
+    setUsedFilters({ ...filters });
+    setSearchQuery(searchValue);
 
     // Filtrira se korak po korak, po svakom filtru
     // Ako je neki filter postavljen na all, preskače se
@@ -97,10 +95,6 @@ const Shop = ({ products }) => {
     setShownProducts(sortProducts(option, shownProducts));
   };
 
-  const handleSearchQuery = (query) => {
-    setShownProducts(searchProducts(query, products));
-  };
-
   return (
     <main className="full">
       <div className="font-open-sans text-left mx-10 my-10">
@@ -122,22 +116,22 @@ const Shop = ({ products }) => {
           athleisure aesthetic, we’ve got something to suit.`,
             }}
           />
-          <SearchBar searchQuery={handleSearchQuery} />
+          <SearchBar searchQuery={searchQuery} />
         </div>
       </div>
       <div>
         <div className="flex flex-row justify-between">
           <p className="mx-10 my-10">{shownProducts.length} Results</p>
-          {router.query.category && (
-            <h1 className="text-3xl fitify-purple my-8 text-center">
-              Results for: {router.query.category}
-            </h1>
+          {searchQuery != "" && (
+            <p className="mx-10 my-10 font-bold">
+              Results for: "{searchQuery}"
+            </p>
           )}
           <SortBy setSortingOption={handleSetSortingOption} />
         </div>
         <div className="flex flex-row">
           <div className="basis-1/5 px-10 py-10">
-            <Filter filterProducts={filterProducts} />
+            <Filter usedFilters={usedFilters} searchQuery={searchQuery} />
           </div>
           <div className="basis-4/5">
             <ProductContainer products={shownProducts} />

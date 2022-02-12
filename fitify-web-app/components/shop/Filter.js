@@ -1,10 +1,12 @@
 import { BsSliders } from "react-icons/bs";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useRouter } from "next/router";
 import { filters } from "../../constants/filters";
 import InputRange from "react-input-range";
+import { createQuery } from "@/lib/filterFunctions";
 import "react-input-range/lib/css/index.css";
 
-const Filter = ({ filterProducts }) => {
+const Filter = ({ usedFilters, searchQuery }) => {
   const [brand, setBrand] = useState("all");
   const [category, setCategory] = useState("all");
   const [color, setColor] = useState("all");
@@ -12,6 +14,36 @@ const Filter = ({ filterProducts }) => {
   const [gender, setGender] = useState("all");
   const [price, setPrice] = useState({ min: 0, max: 200 });
   const [sale, setSale] = useState("all");
+  const router = useRouter();
+
+  useEffect(() => {
+    // Kada se promijeni query url, dodu novi propsi (nove vrijednosti filtra)
+    setCategory(usedFilters.newCategory);
+    setBrand(usedFilters.newBrand);
+    setColor(usedFilters.newColor);
+    setSize(usedFilters.newSize);
+    setGender(usedFilters.newGender);
+    setPrice({ min: usedFilters.minimumPrice, max: usedFilters.maximumPrice });
+    setSale(usedFilters.newSale);
+  }, [usedFilters]);
+
+  const handleClick = (e) => {
+    e.preventDefault();
+    let query = createQuery(
+      {
+        newBrand: brand,
+        newCategory: category,
+        newColor: color,
+        newSize: size,
+        newGender: gender,
+        newSale: sale,
+        minimumPrice: price.min,
+        maximumPrice: price.max,
+      },
+      searchQuery
+    );
+    router.push(`/shop/${query}`);
+  };
 
   return (
     <main className="font-open-sans">
@@ -28,9 +60,13 @@ const Filter = ({ filterProducts }) => {
             onChange={(e) => setCategory(e.target.value)}
             value={category}
           >
-            <option value={"all"}>All Categories</option>
+            <option value={"all"} key={"all"}>
+              All Categories
+            </option>
             {filters.category.items.map((option) => (
-              <option value={option}>{option}</option>
+              <option value={option} key={option}>
+                {option}
+              </option>
             ))}
           </select>
         </div>
@@ -43,9 +79,13 @@ const Filter = ({ filterProducts }) => {
             onChange={(e) => setBrand(e.target.value)}
             value={brand}
           >
-            <option value={"all"}>All Brands</option>
+            <option value={"all"} key={"all"}>
+              All Brands
+            </option>
             {filters.brand.items.map((option) => (
-              <option value={option}>{option}</option>
+              <option value={option} key={option}>
+                {option}
+              </option>
             ))}
           </select>
         </div>
@@ -57,9 +97,13 @@ const Filter = ({ filterProducts }) => {
             onChange={(e) => setColor(e.target.value)}
             value={color}
           >
-            <option value={"all"}>All Colors</option>
+            <option value={"all"} key={"all"}>
+              All Colors
+            </option>
             {filters.color.items.map((option) => (
-              <option value={option}>{option}</option>
+              <option value={option} key={option}>
+                {option}
+              </option>
             ))}
           </select>
         </div>
@@ -72,9 +116,13 @@ const Filter = ({ filterProducts }) => {
             onChange={(e) => setSize(e.target.value)}
             value={size}
           >
-            <option value={"all"}>All Sizes</option>
+            <option value={"all"} key={"all"}>
+              All Sizes
+            </option>
             {filters.sizes.items.map((option) => (
-              <option value={option}>{option}</option>
+              <option value={option} key={option}>
+                {option}
+              </option>
             ))}
           </select>
         </div>
@@ -86,9 +134,13 @@ const Filter = ({ filterProducts }) => {
             onChange={(e) => setGender(e.target.value)}
             value={gender}
           >
-            <option value={"all"}>All Genders</option>
+            <option value={"all"} key={"all"}>
+              All Genders
+            </option>
             {filters.gender.items.map((option) => (
-              <option value={option}>{option}</option>
+              <option value={option} key={option}>
+                {option}
+              </option>
             ))}
           </select>
         </div>
@@ -127,18 +179,7 @@ const Filter = ({ filterProducts }) => {
 
         <button
           className="my-10 border-2 border-black w-full"
-          onClick={() =>
-            filterProducts({
-              newBrand: brand,
-              newCategory: category,
-              newColor: color,
-              newSize: size,
-              newGender: gender,
-              newSale: sale,
-              minimumPrice: price.min,
-              maximumPrice: price.max,
-            })
-          }
+          onClick={handleClick}
         >
           Apply
         </button>

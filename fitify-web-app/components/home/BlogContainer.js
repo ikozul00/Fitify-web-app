@@ -5,10 +5,13 @@ import Link from "next/link";
 const BlogContainer = ({ posts }) => {
   return (
     <div className="w-9/12 mx-auto my-10">
-      <h1 className="text-center text-5xl uppercase mt-12 text-gray-700 font-semibold">
-        BLOG
-      </h1>
-      <div className="flex flex-row w-full justify-between">
+      <Link href={"/blog"}>
+        <h1 className="text-center text-5xl uppercase mt-12 text-gray-700 font-semibold">
+          BLOG
+        </h1>
+      </Link>
+      <div className="flex flex-row w-full">
+
         {posts.map((post) => {
           const postDate = parseDate(post.date);
           return (

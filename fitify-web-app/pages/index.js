@@ -23,14 +23,16 @@ export default function Home({ saleProducts, blogArticles }) {
           Newest sport fashion and equipment
         </p>
       </div>
-      <div className="w-9/12 mx-auto mt-10">
-        <h1 className="text-center text-5xl uppercase mt-12 text-gray-700 font-semibold">
-          SHOP
-        </h1>
-        <div className="flex justify-between flex-wrap">
-          <Link href={`/shop?category=Clothes`} passHref>
-            <div className="font-open-sans my-10 w-min hover:cursor-pointer hover:bg-fitify-green-light">
-              <div className=" w-64 h-80 relative mx-auto">
+      <div className="w-9/12 mx-auto my-10">
+        <Link href={`/shop`}>
+          <h1 className="text-center text-5xl uppercase mt-12 text-gray-700 font-semibold">
+            SHOP
+          </h1>
+        </Link>
+        <div className="flex flex-row">
+          <Link href={`/shop?category=Clothes`}>
+            <div className="font-open-sans my-10 mx-10 basis-1/3">
+              <div className="w-full">
                 <Image
                   src={require("public/Clothes.jpg")}
                   alt="Clothes"
