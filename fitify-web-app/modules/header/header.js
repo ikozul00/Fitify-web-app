@@ -9,7 +9,9 @@ const Header=()=>{
             <div className=" bg-fitify-black flex justify-between items-center">
                 <Logo/>
                 <Navbar/>
-                <RightNavbar/>
+                <div className="md:flex hidden">
+                <RightNavbar mobile={false}/>
+                </div>
                 <BurgerNav isOpen={true}/>
             </div>
     )

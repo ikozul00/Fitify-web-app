@@ -1,9 +1,9 @@
 import Link from "next/link";
 import { useRouter } from 'next/router';
 import { useEffect, useState } from "react";
-import { connect } from "react-redux";
+import Cart from "./cart";
 
-const RightNavbar = ({counter}) => {
+const RightNavbar = ({counter, mobile}) => {
     const router = useRouter();
     const [user, setUser] = useState();
 
@@ -20,10 +20,12 @@ const RightNavbar = ({counter}) => {
         router.push("/");
     }
 
+
     return(
         <>
-        <nav className=" bg-fitify-black  md:text-2xl text-xl md:flex hidden text-white h-20 items-center">
-            <div className="relative dropdown md:px-5 px-2">
+        <nav className=" bg-fitify-black  text-2xl  flex text-white h-20 items-center font-open-sans">
+            {!mobile &&
+            <div className="relative dropdown px-8">
                 <button>
                     <i className={`fas fa-user`}></i>
                 </button>
@@ -33,35 +35,34 @@ const RightNavbar = ({counter}) => {
                     </Link>
                     <Link href={user  ? `/home` : "/registration"} key="dropdown2" passHref>
                         <a className="px-10 py-4 whitespace-nowrap hover:bg-fitify-green" onClick={user ? (e) => LogOut(e) : () => {}}>{user ? "Log Out" : "Sign Up"}</a>
-                    </Link>
+                    </Link>  
                 </div>
             </div>
-            {/* <Link href={user  ? `/profile/${user}` : "/login"} key="login" passHref>
-                <a className=" px-4">
-                    <div className="text-center hover:opacity-60">
-                        <i className={` ${(router.pathname=="/login" || router.pathname.includes(`/profile`)) ? "text-fitify-green" : "text-white"} fas fa-user`}></i>
-                        <p className=" font-open-sans text-sm">{user ? user : "Login"}</p>
-                    </div>
-                </a>
-            </Link> */}
-            <Link href="/cart" key="cart" passHref>
-                <a className=" md:px-4 px-1">
-                    <div className={`hover:opacity-60 ${router.pathname=="/cart" ? "text-fitify-green" : "text-white"}`}>
-                        <div className="flex">
-                            <i className={`fas fa-shopping-cart`}></i> 
-                            <p className="px-1">{counter}</p>
-                        </div>
-                        {/* <p className=" font-open-sans text-sm">Items</p> */}
-                    </div>
-                </a>
-            </Link>
+            }  
+            {/* how it will be displayed on smaller devices */}
+            {mobile && 
+            <div className="flex flex-col text-center mt-6 text-lg w-full">
+                 <Link href={user  ? `/profile/${user}` : "/login"} key="dropdown1" passHref>
+                    <a className={`px-6 py-4 whitespace-nowrap uppercase hover:bg-fitify-green ${
+                        (router.pathname.includes("profile") || router.pathname.includes("login"))
+                          ? "underline-offset-4 text-decoration-line: underline font-bold"
+                          : ""
+                      }`}>{user ? user : "Login"}</a>
+                </Link>
+                <Link href={user  ? `/home` : "/registration"} key="dropdown2" passHref>
+                    <a className={`px-6 py-4 whitespace-nowrap uppercase hover:bg-fitify-green ${
+                        (router.pathname.includes("registration") || router.pathname.includes("home"))
+                          ? "underline-offset-4 text-decoration-line: underline font-bold"
+                          : ""
+                      }`} onClick={user ? (e) => LogOut(e) : () => {}}>{user ? "Log Out" : "Sign Up"}</a>
+                </Link> 
+            </div> 
+            }     
+            {!mobile && <Cart isOpen={false}/>}
         </nav>
         </>
     );
 }
 
-const mapStateToProps = (state) => ({
-    counter:state.cartReducer.quantity[0],
-});
 
-export default connect(mapStateToProps, null)(RightNavbar); 
+export default RightNavbar; 

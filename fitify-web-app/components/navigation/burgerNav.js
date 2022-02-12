@@ -1,7 +1,9 @@
-import { useState } from "react";
+import { useState, } from "react";
 import BurgerNavIcon from "./burgerNavIcon";
 import Link from "next/link";
 import { useRouter } from "next/router";
+import RightNavbar from "./rightNavbar";
+import Cart from "./cart";
 
 const BurgerNav = () => {
     const [isOpen, setIsOpen] = useState(false);
@@ -23,18 +25,21 @@ const BurgerNav = () => {
 
     return(
         <div className="md:hidden flex flex-col">
+        <div className="flex justify-between items-center">
+        <Cart isOpen={isOpen}/>
         <BurgerNavIcon clicked={isOpen} setIsClicked={setIsOpen}/>
+        </div>
         <main className={`${
             !isOpen ? 'translate-x-full' : 'translate-x-0'
         }  transform translate fixed right-0 m-0 top-0 p-0 bg-fitify-black md:hidden transition duration-500 ease-in-out flex-col justify-center items-center h-screen z-20`}>
         <BurgerNavIcon clicked={isOpen} setIsClicked={setIsOpen} classes={" bg-red-800"}/>
-        <div className="flex flex-col text-center mt-6">
+        <div className="flex flex-col text-center mt-10">
         {menuItems.map((item) => {
             const itemLink = `/${item.link === "home" ? "" : item.link}`;
             return(
                 <Link href={itemLink} key={item.title} passHref>
                 <a
-                  className={`  text-white text-base custom:text-lg font-open-sans py-4 px-6 whitespace-nowrap uppercase hover:bg-fitify-green
+                  className={`  text-white text-lg font-open-sans py-4 px-6 whitespace-nowrap uppercase hover:bg-fitify-green
                       ${
                         isActive(itemLink)
                           ? "underline-offset-4 text-decoration-line: underline font-bold"
@@ -46,6 +51,7 @@ const BurgerNav = () => {
               </Link>
             );
         })}
+        <RightNavbar mobile={true}/>
         </div>
         </main>
         </div>
