@@ -98,8 +98,8 @@ const Shop = ({ products }) => {
   return (
     <main className="full">
       <div className="font-open-sans text-left mx-10 my-10">
-        <h1 className="text-5xl fitify-purple my-8">Shop</h1>
-        <div className="flex flex-row justify-between">
+        <h1 className="text-5xl uppercase mt-12 text-gray-700 font-semibold">Shop</h1>
+        <div className="flex flex-row justify-between mt-8 pb-5 border-b-2 border-gray-700">
           <p
             className="basis-1/2"
             dangerouslySetInnerHTML={{
@@ -119,24 +119,26 @@ const Shop = ({ products }) => {
           <SearchBar searchQuery={searchQuery} />
         </div>
       </div>
-      <div>
-        <div className="flex flex-row justify-between">
-          <p className="mx-10 my-10">{shownProducts.length} Results</p>
+      <div className="flex">
+          <div className=" basis-2/12 px-10 py-10">
+            <Filter usedFilters={usedFilters} searchQuery={searchQuery} />
+          </div>
+        <div className=" basis-10/12">
+        <div className={`flex flex-row ${searchQuery != "" ? "justify-between" : "justify-end"} `}>
           {searchQuery != "" && (
-            <p className="mx-10 my-10 font-bold">
+            <p className="mx-10 my-5 font-bold">
               Results for: "{searchQuery}"
             </p>
           )}
           <SortBy setSortingOption={handleSetSortingOption} />
         </div>
         <div className="flex flex-row">
-          <div className="basis-1/5 px-10 py-10">
-            <Filter usedFilters={usedFilters} searchQuery={searchQuery} />
-          </div>
-          <div className="basis-4/5">
+          <div>
+            <p className="mx-10">{shownProducts.length} Results</p>
             <ProductContainer products={shownProducts} />
           </div>
         </div>
+      </div>
       </div>
     </main>
   );

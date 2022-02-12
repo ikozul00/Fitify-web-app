@@ -164,8 +164,8 @@ const Filter = ({ usedFilters, searchQuery }) => {
           </select>
         </div>
 
-        <div className="my-5 w-full">
-          <p className="my-10">Price</p>
+        <div className="my-5 w-full slider">
+          <p className="my-5">Price</p>
           <InputRange
             draggableTrack
             minValue={0}
@@ -178,7 +178,7 @@ const Filter = ({ usedFilters, searchQuery }) => {
         </div>
 
         <button
-          className="my-10 border-2 border-black w-full"
+          className="my-5 w-full bg-fitify-purple text-white py-2 font-bold hover:opacity-70"
           onClick={handleClick}
         >
           Apply

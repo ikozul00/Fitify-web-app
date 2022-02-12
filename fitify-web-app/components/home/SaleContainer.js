@@ -18,7 +18,7 @@ const SaleContainer = ({ products }) => {
               key={product.sys.id}
               id={product.sys.id}
             >
-              <div className="font-open-sans my-10 hover:cursor-pointer hover:bg-fitify-green-light">
+              <div className="font-open-sans my-10 hover:cursor-pointer hover:bg-fitify-green-light p-2">
                 <div className=" w-52 h-56 relative mx-auto">
                   <Image
                     src={product.thumbnailImage.url}

@@ -11,11 +11,11 @@ const SortBy = ({ setSortingOption }) => {
   };
 
   return (
-    <div className="mx-10 my-10 w-60 border-black border-2">
+    <div className="mx-10 my-5 w-60 border-black border-2">
       <select
         name="sort"
         id="sort"
-        className="w-full"
+        className="w-full py-1"
         onChange={(e) => handleSetSortingOption(e.target.value)}
         value={option}
       >

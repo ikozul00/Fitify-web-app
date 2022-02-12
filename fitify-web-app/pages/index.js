@@ -32,7 +32,7 @@ export default function Home({ saleProducts, blogArticles }) {
         </Link>
         <div className="flex justify-between flex-wrap">
           <Link href={`/shop?category=Clothes`}>
-            <div className="font-open-sans my-10 w-min hover:cursor-pointer hover:bg-fitify-green-light">
+            <div className="font-open-sans my-10 w-min hover:cursor-pointer hover:bg-fitify-green-light p-2">
               <div className=" w-80 h-96 relative mx-auto">
                 <Image
                   src={require("public/Clothes.jpg")}
@@ -48,7 +48,7 @@ export default function Home({ saleProducts, blogArticles }) {
             </div>
           </Link>
           <Link href={`/shop?category=Shoes`}>
-            <div className="font-open-sans my-10 w-min hover:cursor-pointer hover:bg-fitify-green-light">
+            <div className="font-open-sans my-10 w-min hover:cursor-pointer hover:bg-fitify-green-light p-2">
               <div className="w-80 h-96 relative mx-auto">
                 <Image
                   src={require("public/Shoes.jpg")}
@@ -64,7 +64,7 @@ export default function Home({ saleProducts, blogArticles }) {
             </div>
           </Link>
           <Link href={`/shop?category=Equipment`}>
-            <div className="font-open-sans my-10 w-min hover:cursor-pointer hover:bg-fitify-green-light">
+            <div className="font-open-sans my-10 w-min hover:cursor-pointer hover:bg-fitify-green-light p-2">
               <div className="w-80 h-96 relative mx-auto">
                 <Image
                   src={require("public/Equipment.jpg")}

@@ -34,3 +34,18 @@ body {
   display: flex;
   flex-direction: column;
 }
+
+.input-range__label--value .input-range__label-container {
+  background: rgb(101, 101, 248);
+  color: white;
+  font-size: 1rem;
+  padding: 6px 5px;
+  border-radius: 2px;
+}
+
+.input-range__label--min .input-range__label-container,
+.input-range__label--max .input-range__label-container {
+  font-size: 1rem;
+  color: black;
+  left: 0;
+}
