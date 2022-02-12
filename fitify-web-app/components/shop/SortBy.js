@@ -19,11 +19,13 @@ const SortBy = ({ setSortingOption }) => {
         onChange={(e) => handleSetSortingOption(e.target.value)}
         value={option}
       >
-        <option value={""} selected disabled hidden>
+        <option value={""} disabled hidden>
           Sort By
         </option>
         {sortingOptions.map((option) => (
-          <option value={option.id}>{option.title}</option>
+          <option value={option.id} key={option.id}>
+            {option.title}
+          </option>
         ))}
       </select>
     </div>

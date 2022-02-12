@@ -4,7 +4,7 @@ const ProductContainer = ({ products }) => {
   return (
     <div className="grid lg:grid-cols-3">
       {products.map((product) => (
-        <ProductCard product={product}></ProductCard>
+        <ProductCard product={product} key={product.sys.id}></ProductCard>
       ))}
     </div>
   );

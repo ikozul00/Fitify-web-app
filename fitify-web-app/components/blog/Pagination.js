@@ -23,13 +23,13 @@ const Pagination = (props) => {
             className="text-center p-1 m-2 text-4xl opacity-60"
             aria-label="Previous page"
           >
-            <i class="fas fa-arrow-left mx-1" aria-hidden="true"></i>
+            <i className="fas fa-arrow-left mx-1" aria-hidden="true"></i>
           </span>
         )}
         {!prevDisabled && (
           <Link href={prevPageUrl}>
             <a className="text-center p-1 m-2 text-4xl">
-              <i class="  fas fa-arrow-left mx-1 hover:scale-105"></i>
+              <i className="  fas fa-arrow-left mx-1 hover:scale-105"></i>
             </a>
           </Link>
         )}
@@ -40,13 +40,13 @@ const Pagination = (props) => {
       <span>
         {nextDisabled && (
           <span className="text-center p-1 m-2 text-4xl opacity-60">
-            <i class="fas fa-arrow-right mx-1"></i>
+            <i className="fas fa-arrow-right mx-1"></i>
           </span>
         )}
         {!nextDisabled && (
           <Link href={nextPageUrl}>
             <a className="text-center  p-1 m-2 text-4xl ">
-              <i class="fas fa-arrow-right mx-1 hover:scale-105"></i>
+              <i className="fas fa-arrow-right mx-1 hover:scale-105"></i>
             </a>
           </Link>
         )}
