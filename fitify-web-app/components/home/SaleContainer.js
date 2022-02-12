@@ -20,7 +20,7 @@ const SaleContainer = ({ products }) => {
               key={product.sys.id}
               id={product.sys.id}
             >
-              <div className={`font-open-sans my-6 hover:cursor-pointer hover:bg-fitify-green-light p-2 ${counter===5 ? "sm:block hidden" : ""}`}>
+              <div className={`font-open-sans my-6 hover:cursor-pointer hover:bg-fitify-green-light p-2 ${counter===5 ? "md:block hidden" : ""}`}>
                 <div className=" sm:w-48 sm:h-56 w-36 h-40 relative mx-auto">
                   <Image
                     src={product.thumbnailImage.url}
