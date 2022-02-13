@@ -21,14 +21,14 @@ const Pagination = (props) => {
       <span>
         {prevDisabled && (
           <span
-            className="text-center p-1 m-2 sm:text-5xl text-4xl "
+            className="text-center p-1 m-2 sm:text-5xl text-3xl "
           >
            <FaArrowLeft className="mr-3 opacity-60"/>
           </span>
         )}
         {!prevDisabled && (
           <Link href={prevPageUrl}>
-            <a className="text-center p-1 m-2 sm:text-5xl text-4xl">
+            <a className="text-center p-1 m-2 sm:text-5xl text-3xl">
             <FaArrowLeft className="mr-3"/>
             </a>
           </Link>
@@ -39,7 +39,7 @@ const Pagination = (props) => {
       </span>
       <span>
         {nextDisabled && (
-          <span className="text-center p-1 m-2 sm:text-5xl text-4xl ">
+          <span className="text-center p-1 m-2 sm:text-5xl text-3xl ">
             <FaArrowRight className="ml-3 opacity-60"/>
           </span>
         )}

@@ -19,7 +19,6 @@ const RightNavbar = ({mobile }) => {
     setUser("");
     router.push("/");
   }
-
   return (
     <>
       <nav className=" bg-fitify-black  text-2xl  flex text-white h-20 items-center font-open-sans">
@@ -28,7 +27,7 @@ const RightNavbar = ({mobile }) => {
             <button>
               <FaUserAlt />
             </button>
-            <div className="hidden dropdown-content absolute bg-fitify-black right-6 w-32 text-lg text-center z-10 shadow-2xl">
+            <div className="hidden dropdown-content absolute bg-fitify-black uppercase right-6 w-32 text-lg text-center z-10 shadow-2xl">
               <Link
                 href={user ? `/profile/${user}` : "/login"}
                 key="dropdown1"

@@ -101,9 +101,10 @@ const Shop = ({ products }) => {
   return (
     <main className="w-11/12 mx-auto">
       <div className="font-open-sans md:text-left text-center my-10">
-        <h1 className="md:text-5xl text-4xl uppercase mt-12 text-gray-700 font-semibold">
+        <h1 className="md:text-5xl sm:text-4xl text-3xl uppercase mt-12 text-gray-700 font-semibold">
           Shop
         </h1>
+
         <div className="flex flex-row md:justify-between  justify-center mt-8 pb-5 border-b-2 border-gray-700">
           <p
             className="basis-1/2 md:block hidden"
@@ -132,11 +133,9 @@ const Shop = ({ products }) => {
             displayFilters={true}
           />
         </div>
-        <div className=" md:basis-10/12 w-full ml-10">
+        <div className=" md:basis-10/12 w-full md::ml-10 ml-0">
           <div
-            className={`flex flex-row md:${
-              searchQuery != "" ? "justify-between" : "justify-end"
-            } justify-between md:mb-0 mb-6`}
+            className={`flex flex-row md:${searchQuery != "" ? "justify-between" : "justify-end"} justify-between md:mb-0 mb-6`}
           >
             {searchQuery != "" && (
               <p className=" md:block hidden font-bold">
@@ -145,11 +144,11 @@ const Shop = ({ products }) => {
             )}
             <div className="md:hidden flex flex-col">
               <button
-                className="md:hidden flex items-center font-xl border-2 border-black px-3 w-40 h-9"
+                className="md:hidden flex items-center font-xl border-2 border-black px-3 sm:w-40 w-36 h-9"
                 onClick={() => setDisplayFilters(!displayFilters)}
               >
                 <BsSliders />
-                <span className="mr-14 ml-1">Filters</span>
+                <span className="sm:mr-14 mr-10 ml-1">Filters</span>
                 {!displayFilters && <FaArrowDown />}
                 {displayFilters && <FaArrowUp />}
               </button>
@@ -166,7 +165,8 @@ const Shop = ({ products }) => {
               Results for: {searchQuery}
             </p>
           )}
-          <div className="flex flex-row">
+
+          <div className="flex flex-row sm:ml-10 ml-0">
             <div className="w-full">
               <p className="">{shownProducts.length} Results</p>
               <ProductContainer products={shownProducts} />

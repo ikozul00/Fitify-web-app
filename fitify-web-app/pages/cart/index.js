@@ -16,7 +16,7 @@ const Cart = ({ items, increaseAmount, decreaseAmount, removeItem }) => {
           <TotalContainer items={items} mobile={true} />
         </div>
         <section className=" md:w-7/12 sm:w-8/12 w-11/12 sm:mx-0 mx-auto sm:mb-14 mb-6">
-          <h1 className="text-5xl  uppercase mt-12 text-gray-700 font-semibold mb-16">
+          <h1 className="md:text-5xl sm:text-4xl text-3xl  uppercase mt-12 text-gray-700 font-semibold mb-16">
             Shopping Cart
           </h1>
           {items.length === 0 && (
@@ -37,6 +37,7 @@ const Cart = ({ items, increaseAmount, decreaseAmount, removeItem }) => {
     </>
   );
 };
+
 
 const mapStateToProps = (state) => ({
   items: state.cartReducer.items,

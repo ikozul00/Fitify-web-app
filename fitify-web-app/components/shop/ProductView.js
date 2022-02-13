@@ -19,6 +19,7 @@ const components = {
   strong: Strong,
 };
 
+
 const ProductView = ({ product, addToCartRedux, counter }) => {
   const images = [product.thumbnailImage, ...product.imagesCollection.items];
   const [pickedSize, setPickedSize] = useState("0");

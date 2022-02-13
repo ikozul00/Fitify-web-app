@@ -5,12 +5,12 @@ const Footer = () => {
     const facebookIcon='/FacebookIcon.png';
     return(
         <>
-        <section className=" bg-fitify-black flex justify-between items-center sm:flex-row flex-col">
+        <section className=" bg-fitify-black flex justify-between items-center sm:flex-row flex-col mm:pt-0 pt-4">
         <Logo/>
         <div className="flex justify-between items-center lg:w-2/6 sm:w-6/12 w-5/6 ">
         
 
-        <div className=" text-white font-open-sans py-10">
+        <div className=" text-white font-open-sans py-10 sm:text-base text-sm">
             <p className=" py-2 font-bold">Customer Support</p>
             <p className=" py-2 font-light">FAQ</p>
             <p className=" py-2 font-light">Order Status</p>
@@ -18,7 +18,7 @@ const Footer = () => {
             <p className=" py-2 font-light">Returns</p>
         </div>
 
-        <div className=" text-white font-open-sans py-10 sm:ml-0 ml-8">
+        <div className=" text-white font-open-sans py-10 sm:ml-0 ml-8 sm:text-base text-sm">
             <p className=" py-2 font-bold">Additional Information</p>
             <p className=" py-2 font-light">Contact Us</p>
             <p className=" py-2 font-light">Help</p>
@@ -26,7 +26,7 @@ const Footer = () => {
             <p className=" py-2 font-light">About Us</p>
         </div>
         </div>
-        <div className=" text-white font-open-sans pb-10 sm:pb-0">
+        <div className=" text-white font-open-sans pb-10 sm:pb-0 sm:text-base text-sm">
             <p className=" uppercase font-bold">Follow us:</p>
             <div className="flex pt-2">
                 <div className=" w-10 h-10 rounded-full flex items-center justify-around md:mr-5 mr-3">

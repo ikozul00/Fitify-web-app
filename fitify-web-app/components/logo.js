@@ -4,7 +4,7 @@ const Logo = () => {
   return (
     <>
       <Link href={"/"} passHref>
-        <p className="text-white bg-fitify-black w-min px-3 sm:mt-0 mt-6 h-16 flex items-center hover:cursor-pointer">
+        <p className="text-white bg-fitify-black w-min px-3 mt-0 md:h-16 h-10 flex items-center hover:cursor-pointer">
           <span className=" w-min text-4xl uppercase font-logo-allerta-stencil">
             Fit
           </span>

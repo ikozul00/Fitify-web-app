@@ -20,10 +20,10 @@ const SearchBar = ({ searchQuery }) => {
   }
 
   return (
-    <div className="flex border-2 rounded-2xl md:h-12 h-10 border-black self-end md:w-auto w-2/3">
+    <div className="flex border-2 rounded-2xl md:h-12 h-10 border-black self-end md:w-auto w-2/3 sm:text-base text-sm">
       <button
         onClick={handleSearchClick}
-        className="flex items-center justify-center px-4 border-r border-black"
+        className="flex items-center justify-center sm:px-4 px-2 border-r border-black"
       >
         <BsSearch />
       </button>

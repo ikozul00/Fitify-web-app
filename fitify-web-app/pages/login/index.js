@@ -7,7 +7,6 @@ const Login = () => {
   const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const router = useRouter();
-  console.log(router.query);
 
 
   function onChange(event) {
@@ -48,11 +47,11 @@ const Login = () => {
   return (
     <>
       <div className=" font-open-sans text-center">
-        <div className="md:w-3/6 w-4/6 mx-auto mt-10 border-2 border-black flex flex-col text-center ">
-          <h1 className=" text-3xl font-semibold pt-10 pb-10 underline underline-offset-2">
+        <div className="md:w-3/6 w-4/6 mx-auto mt-10 border-2 border-black flex flex-col text-center  ">
+          <h1 className="md:text-3xl sm:text-xl text-lg font-semibold pt-10 pb-10 underline underline-offset-2">
             LOGIN
           </h1>
-          <form onSubmit={(e) => handleSubmit(e)} className="flex-col">
+          <form onSubmit={(e) => handleSubmit(e)} className="flex-col sm:text-base text-sm">
             <div className="sm:w-5/6 w-full mx-auto mb-7 sm:block flex flex-col px-10">
               <label
                 htmlFor="username"
@@ -98,7 +97,7 @@ const Login = () => {
             </div>
           </form>
         </div>
-        <p className=" text-lg mt-4 mb-10">
+        <p className="  sm:text-lg text-base mt-4 mb-10">
           Don’t have an account?
           <Link href="/registration" key="registration" passHref>
             <a className=" text-fitify-purple font-bold pl-2 hover:text-xl">
