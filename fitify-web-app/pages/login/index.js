@@ -7,6 +7,8 @@ const Login = () => {
   const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const router = useRouter();
+  console.log(router.query);
+
 
   function onChange(event) {
     event.preventDefault();

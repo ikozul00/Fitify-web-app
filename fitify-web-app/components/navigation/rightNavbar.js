@@ -4,19 +4,19 @@ import { useEffect, useState } from "react";
 import Cart from "./cart";
 import { FaUserAlt } from "react-icons/fa";
 
-const RightNavbar = ({ counter, mobile }) => {
+const RightNavbar = ({mobile }) => {
   const router = useRouter();
-  const [user, setUser] = useState();
+  const [user, setUser] = useState("");
 
-  if (typeof window !== "undefined") {
+
     useEffect(() => {
       setUser(localStorage.getItem("user"));
-    }, localStorage.getItem("user"));
-  }
+    });
 
   function LogOut(event) {
     event.preventDefault();
     localStorage.removeItem("user");
+    setUser("");
     router.push("/");
   }
 
