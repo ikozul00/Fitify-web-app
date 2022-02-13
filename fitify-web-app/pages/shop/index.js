@@ -9,7 +9,7 @@ import SearchBar from "@/components/shop/SearchBar";
 import { useRouter } from "next/router";
 import { setFilters } from "@/lib/filterFunctions";
 import { BsSliders } from "react-icons/bs";
-import {FaArrowDown, FaArrowUp} from "react-icons/fa";
+import { FaArrowDown, FaArrowUp } from "react-icons/fa";
 
 const Shop = ({ products }) => {
   const [shownProducts, setShownProducts] = useState(products);
@@ -101,7 +101,9 @@ const Shop = ({ products }) => {
   return (
     <main className="w-11/12 mx-auto">
       <div className="font-open-sans md:text-left text-center my-10">
-        <h1 className="md:text-5xl text-4xl uppercase mt-12 text-gray-700 font-semibold">Shop</h1>
+        <h1 className="md:text-5xl text-4xl uppercase mt-12 text-gray-700 font-semibold">
+          Shop
+        </h1>
         <div className="flex flex-row md:justify-between  justify-center mt-8 pb-5 border-b-2 border-gray-700">
           <p
             className="basis-1/2 md:block hidden"
@@ -116,46 +118,61 @@ const Shop = ({ products }) => {
           the weather. Similarly, moisture-wicking crop tops, t-shirts, leggings
           and shorts will keep you cool as your workout heats up. Whether you’re
           exercising at home, working out in the gym or channelling that
-          athleisure aesthetic, we’ve got something to suit.`,
+          athleisure aesthetic, we've got something to suit.`,
             }}
           />
           <SearchBar searchQuery={searchQuery} />
         </div>
       </div>
       <div className="flex w-full">
-          <div className="  basis-3/12 mt-10 md:block hidden">
-            <Filter usedFilters={usedFilters} searchQuery={searchQuery} displayFilters={true} />
-          </div>
+        <div className="basis-3/12 mt-10 md:block hidden">
+          <Filter
+            usedFilters={usedFilters}
+            searchQuery={searchQuery}
+            displayFilters={true}
+          />
+        </div>
         <div className=" md:basis-10/12 w-full ml-10">
-        <div className={`flex flex-row md:${searchQuery != "" ? "justify-between" : "justify-end"} justify-between md:mb-0 mb-6`}>
+          <div
+            className={`flex flex-row md:${
+              searchQuery != "" ? "justify-between" : "justify-end"
+            } justify-between md:mb-0 mb-6`}
+          >
+            {searchQuery != "" && (
+              <p className=" md:block hidden font-bold">
+                Results for: {searchQuery}
+              </p>
+            )}
+            <div className="md:hidden flex flex-col">
+              <button
+                className="md:hidden flex items-center font-xl border-2 border-black px-3 w-40 h-9"
+                onClick={() => setDisplayFilters(!displayFilters)}
+              >
+                <BsSliders />
+                <span className="mr-14 ml-1">Filters</span>
+                {!displayFilters && <FaArrowDown />}
+                {displayFilters && <FaArrowUp />}
+              </button>
+              <Filter
+                usedFilters={usedFilters}
+                searchQuery={searchQuery}
+                displayFilters={displayFilters}
+              />
+            </div>
+            <SortBy setSortingOption={handleSetSortingOption} />
+          </div>
           {searchQuery != "" && (
-            <p className=" md:block hidden font-bold">
-              Results for: "{searchQuery}"
-            </p>
-          )}
-          <div className="md:hidden flex flex-col">
-          <button className="md:hidden flex items-center font-xl border-2 border-black px-3 w-40 h-9" onClick={() => setDisplayFilters(!displayFilters)}>
-            <BsSliders/> 
-            <span className="mr-14 ml-1">Filters</span> 
-            {!displayFilters && <FaArrowDown/>}
-            {displayFilters && <FaArrowUp/>}
-            </button>
-          <Filter usedFilters={usedFilters} searchQuery={searchQuery} displayFilters={displayFilters} />
-          </div>
-          <SortBy setSortingOption={handleSetSortingOption} />
-        </div>
-        {searchQuery != "" && (
             <p className=" md:hidden block font-bold">
-              Results for: "{searchQuery}"
+              Results for: {searchQuery}
             </p>
           )}
-        <div className="flex flex-row">
-          <div className="w-full">
-            <p className="">{shownProducts.length} Results</p>
-            <ProductContainer products={shownProducts} />
+          <div className="flex flex-row">
+            <div className="w-full">
+              <p className="">{shownProducts.length} Results</p>
+              <ProductContainer products={shownProducts} />
+            </div>
           </div>
         </div>
-      </div>
       </div>
     </main>
   );

@@ -5,18 +5,22 @@ import Link from "next/link";
 const BlogContainer = ({ posts }) => {
   return (
     <div className="w-9/12 mx-auto my-10">
-      <Link href={"/blog"}>
+      <Link href={"/blog"} passHref>
         <h1 className="text-center text-5xl uppercase mt-12 text-gray-700 font-semibold hover:cursor-pointer hover:scale-105">
           BLOG
         </h1>
       </Link>
       <div className="xl:flex flex-row w-full justify-around mx-5 flex-wrap grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1">
-
         {posts.map((post) => {
           const postDate = parseDate(post.date);
           return (
-            <Link href={`/blog/${post.slug}`} key={post.slug} id={post.slug}>
-              <div className="font-open-sans md:my-10 my-6 bg-fitify-green w-min hover:cursor-pointer hover:opacity-70  justify-self-center" >
+            <Link
+              href={`/blog/${post.slug}`}
+              key={post.slug}
+              id={post.slug}
+              passHref
+            >
+              <div className="font-open-sans md:my-10 my-6 bg-fitify-green w-min hover:cursor-pointer hover:opacity-70  justify-self-center">
                 <div className="relative md:w-64 w-96 md:h-72 h-80">
                   <Image
                     src={post.thumbnailImage.url}
@@ -39,11 +43,11 @@ const BlogContainer = ({ posts }) => {
         })}
       </div>
       <div className="flex md:justify-end w-full justify-center">
-      <Link href={"/blog"}>
-        <a className="text-white bg-fitify-purple font-semibold py-4 px-6 hover:opacity-80 mb-20">
-        {`DISCOVER MORE >>`}
-        </a>
-      </Link>
+        <Link href={"/blog"} passHref>
+          <a className="text-white bg-fitify-purple font-semibold py-4 px-6 hover:opacity-80 mb-20">
+            {`DISCOVER MORE >>`}
+          </a>
+        </Link>
       </div>
     </div>
   );
