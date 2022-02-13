@@ -4,11 +4,11 @@ import { useEffect, useState } from "react/cjs/react.development";
 import { parseDate } from "parseDate";
 
 const HeadPost = ({ post }) => {
-  const [date, setDate] = useState("");
+  const date = parseDate(post.date);
 
-  useEffect(() => {
-    setDate(parseDate(post.date));
-  }, []);
+  // useEffect(() => {
+  //   setDate(parseDate(post.date));
+  // }, []);
 
   return (
     <Link href={`blog/${post.slug}`} passHref>
