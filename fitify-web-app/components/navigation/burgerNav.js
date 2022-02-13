@@ -42,7 +42,7 @@ const BurgerNav = () => {
             return(
                 <Link href={itemLink} key={item.title} passHref>
                 <a
-                  className={`  text-white text-lg font-open-sans py-4 px-6 whitespace-nowrap uppercase hover:bg-fitify-green
+                  className={`  text-white text-lg font-open-sans py-4 px-8 whitespace-nowrap uppercase hover:bg-fitify-green
                       ${
                         isActive(itemLink)
                           ? "underline-offset-4 text-decoration-line: underline font-bold"
