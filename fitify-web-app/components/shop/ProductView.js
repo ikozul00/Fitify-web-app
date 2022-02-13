@@ -20,7 +20,7 @@ const components = {
   strong: Strong,
 };
 
-const ProductView = ({ product,addToCartRedux, counter}) => {
+const ProductView = ({ product,addToCartRedux, counter,prevSize,prevAmount}) => {
   const images = [product.thumbnailImage, ...product.imagesCollection.items];
   const [pickedSize,setPickedSize] = useState("0");
   const [pickedAmount,setPickedAmount] = useState("1");
