@@ -27,6 +27,10 @@ module.exports = {
       padding:{
         '3.2':'0.85rem'
       },
+      screens: {
+        'custom' : '869px',
+        'customSmall':'360px'
+      }
     }
   },
   plugins: [],

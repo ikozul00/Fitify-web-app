@@ -48,3 +48,17 @@
   width: 35vw;
   height: 60vh;
 }
+
+@media screen and (max-width: 768px) {
+  .imageContainer {
+    width: 80vw;
+    height: 60vh;
+  }
+}
+
+@media screen and (max-width: 640px) {
+  .imageContainer {
+    width: 80vw;
+    height: 50vh;
+  }
+}

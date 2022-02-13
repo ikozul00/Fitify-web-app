@@ -35,23 +35,10 @@ const ImageSlider = ({ images,name }) => {
     );
 
   return (
-    <section className="slider relative mt-2">
-      {/* <FaArrowAltCircleLeft className="left-arrow" onClick={prevSlide} />
-      {images.map((image, index) => {
-        return (
-          <div
-            className={index === current ? "slide active" : "slide"}
-            key={index}
-          >
-            {index === current && (
-              <img src={image.url} alt="Product image" className="image" />
-            )}
-          </div>
-        );
-      })}
-      <FaArrowAltCircleRight className="right-arrow" onClick={nextSlide} /> */}
-      <button className="text-5xl font-bold text-black absolute z-10 top-40" onClick={() => prevSlide()}>{`<`}</button>
-      <div className={`relative image-container ${styles.imageContainer}`}>
+    <section className="slider mt-2">
+      
+      <div className={`relative image-container ${styles.imageContainer} mx-auto`}>
+      <button className="text-5xl font-bold text-black absolute z-10 top-40 left-2" onClick={() => prevSlide()}>{`<`}</button>
       <Image
         src={images[current].url}
         alt={`Product ${name} image`}
@@ -59,8 +46,9 @@ const ImageSlider = ({ images,name }) => {
         objectFit="cover"
       >
         </Image>
+        <button className="text-5xl font-bold text-black absolute z-10 top-40 right-2" onClick={() => nextSlide()}>{`>`}</button>
       </div>
-      <button className="text-5xl font-bold text-black absolute z-10 top-40 right-8" onClick={() => nextSlide()}>{`>`}</button>
+      
       <p className="text-center mt-3">{current+1} of {length}</p>
     </section>
   );

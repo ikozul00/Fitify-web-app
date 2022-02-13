@@ -1,4 +1,4 @@
-import Image from "next/image";
+
 import { MDXRemote } from "next-mdx-remote";
 import { H2, H3 } from "@/components/blog/heading";
 import { P, Strong } from "@/components/blog/text";
@@ -33,7 +33,7 @@ const ProductView = ({ product,addToCartRedux, counter}) => {
   useEffect(() => {
     if(!inital){
       setAdded(true);
-      setTimeout(() => setAdded(false), 2000);
+      setTimeout(() => setAdded(false), 2500);
     }
     setInital(false);
   }, [counter])
@@ -56,38 +56,39 @@ const ProductView = ({ product,addToCartRedux, counter}) => {
   }
 
   return (
-    <main className="w-3/4 mx-auto my-10 flex justify-between font-open-sans">
-      <div className="w-1/2">
+    <main className="custom:w-4/5 w-11/12 mx-auto my-10 flex md:flex-row flex-col justify-between md:items-start items-center font-open-sans">
+      <div className="md:w-1/2 w-full">
         <div className="relative w-full h-full">
           <ImageSlider images={images} />
         </div>
       </div>
-      <div className="font-open-sans text-left px-5 w-1/2">
-        <h1 className="text-3xl font-semibold">{product.title}</h1>
-        <div className="flex text-2xl mt-8 mb-4">
+      <div className="font-open-sans px-5 md:w-1/2 w-11/12 md:mt-0 mt-8 text-left ">
+      <h1 className="sm:text-4xl text-3xl font-bold">{product.brand}</h1>
+        <h1 className="sm:text-3xl text-2xl  font-semibold">{product.title}</h1>
+        <div className="flex sm:text-2xl text-xl  mt-8 mb-4">
           <h2 className="font-extrabold">${product.price}</h2>
           {product.oldPrice != null && (
             <h2 className="line-through font-bold ml-5 text-fitify-green">${product.oldPrice}</h2>
           )}
         </div>
-        <p className="text-xl">Select Size:</p>
+        <p className="sm:text-xl text-lg">Select Size:</p>
           <div className="flex justify-start mb-5 flex-wrap">
             {product.sizes.map((size) => (
-              <button className={`rounded-full border-black w-20 h-10 border-2 font-semibold mx-2 my-2 ${pickedSize===size ? 'bg-fitify-green text-white border-white' : 'bg-white text-black border-black'}`} onClick={() => sizePicked(size)}>
+              <button className={`rounded-full border-black sm:w-20 w-16 h-10 border-2 font-semibold mx-2 my-2 ${pickedSize===size ? 'bg-fitify-green text-white border-white' : 'bg-white text-black border-black'}`} onClick={() => sizePicked(size)}>
                 {size}
               </button>
             ))}
           </div>
-        <div className="flex flex-row w-full justify-between items-baseline">
+        <div className="flex custom:flex-row  ms:flex-col customSmall:flex-row flex-col w-full justify-between items-baseline">
         <div>
-        <label htmlFor="amount" id="amount" className="mr-3 text-xl">Amount:</label>
-        <select name="amount" id="amount" className="w-20 text-center border-2 border-gray-500" value={pickedAmount} onChange={(e) => setPickedAmount(e.target.value)}>
+        <label htmlFor="amount" id="amount" className="mr-3 sm:text-xl text-lg">Amount:</label>
+        <select name="amount" id="amount" className="sm:w-20 w-16 text-center border-2 border-gray-500" value={pickedAmount} onChange={(e) => setPickedAmount(e.target.value)}>
           {
             amount.map((i) => <option value={`${i}`}>{i}</option>)
           }
         </select>
         </div>
-        <button className=" bg-fitify-purple text-white text-xl px-4 py-2 hover:opacity-80" onClick={() => addToCart()}>Add to cart</button>
+        <button className=" bg-fitify-purple text-white sm:text-xl text-lg px-4 py-2 custom:mt-0 mt-4 hover:opacity-80" onClick={() => addToCart()}>Add to cart</button>
         </div>
         {added && 
           <div className=" border-2 border-fitify-green rounded-lg my-3">
@@ -96,11 +97,12 @@ const ProductView = ({ product,addToCartRedux, counter}) => {
         }
         {pickSize &&
           <div className=" border-2 border-fitify-green rounded-lg my-3">
-            <p>Sorry you need to first pick a size then you can add product <span className="font-semibold">product.title</span> to cart.</p>
+            <p>Sorry you need to first pick a size then you can add product <span className="font-semibold">{product.title}</span> to cart.</p>
           </div>
         }
         <div>
-          <p className="font-semibold mt-3"><span className="font-bold text-lg">Material:</span> {product.material}</p>
+          <h2 className="sm:text-2xl text-xl font-semibold uppercase mt-10">Product details</h2>
+          <p className="font-semibold mt-3"><span className="font-bold sm:text-lg text-base">Material:</span> {product.material}</p>
           <MDXRemote {...product.mdxSource} components={components} lazy />
         </div>
       </div>
