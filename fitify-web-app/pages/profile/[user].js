@@ -18,7 +18,7 @@ const Profile = ({data}) => {
         <div className="flex flex-col  w-full">
         <div className="flex w-full mt-10">
         <h1 className=" font-bold md:text-3xl text-2xl text-fitify-purple ml-10 ">My Profile</h1>
-        <button className=" bg-fitify-purple h-10 px-4 text-white sm:text-lg text-base hover:opacity-75 whitespace-nowrap sm:w-32 w-24 sm:ml-16 ml-6">Edit</button>
+        <button className=" bg-fitify-purple h-10 px-4 text-white sm:text-lg text-base hover:opacity-75 whitespace-nowrap sm:w-32 w-24 sm:ml-16 ml-6" onClick={() => router.push("/errorPage")}>Edit</button>
         </div>
         <div className=" ml-16 my-12 flex sm:flex-row flex-col justify-start ">
         <div className="relative sm:h-52 sm:w-52 h-44 w-44 mr-16">

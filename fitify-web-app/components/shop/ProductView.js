@@ -84,7 +84,7 @@ const ProductView = ({ product, addToCartRedux, counter }) => {
             return(
             <button
               key={size}
-              className={`rounded-full border-black sm:w-20 w-16 h-10 border-2 font-semibold mx-2 my-2 ${
+              className={`rounded-full border-black sm:w-20 w-16 mm:h-10 h-12 border-2 font-semibold mx-2 my-2 ${
                 pickedSize === size
                   ? "bg-fitify-green text-white border-white"
                   : "bg-white text-black border-black"

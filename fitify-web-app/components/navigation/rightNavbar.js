@@ -33,7 +33,7 @@ const RightNavbar = ({mobile }) => {
                 key="dropdown1"
                 passHref
               >
-                <a className="px-10 py-4 whitespace-nowrap hover:bg-fitify-green">
+                <a className="text-center py-4 whitespace-nowrap hover:bg-fitify-green">
                   {user ? user : "Login"}
                 </a>
               </Link>
@@ -43,7 +43,7 @@ const RightNavbar = ({mobile }) => {
                 passHref
               >
                 <a
-                  className="px-10 py-4 whitespace-nowrap hover:bg-fitify-green"
+                  className="text-center py-4 whitespace-nowrap hover:bg-fitify-green"
                   onClick={user ? (e) => LogOut(e) : () => {}}
                 >
                   {user ? "Log Out" : "Sign Up"}

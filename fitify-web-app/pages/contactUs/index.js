@@ -14,7 +14,6 @@ const ContactUs = () => {
 
     function messageSent(){
         setSent(true);
-        setTimeout(()=> setSent(false),3000);
     }
 
     return(

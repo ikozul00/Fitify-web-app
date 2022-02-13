@@ -42,14 +42,14 @@ const ContactForm = ({toggleForm}) => {
         <form className=" w-5/6 border-2 border-black my-5 flex flex-col" >
                 <div className=" w-full flex justify-between">
                     <h1 className="font-bold sm:text-xl text-lg ml-7 my-3">Fill out form:</h1>
-                    <button onClick={() => toggleForm(false)} className="font-bold text-3xl mr-4 p-4">X</button>
+                    <button onClick={() => toggleForm(false)} className="font-bold text-3xl mr-4 p-4 hover:scale-110">X</button>
                 </div>
                 <div className="px-7 flex flex-col sm:text-base text-sm">
-                <label htmlFor="name">Full name:</label>
+                <label htmlFor="name">Your full name:</label>
                 <input type="text" name="name" id="name" className="border-2 mb-5 border-fitify-purple form-field md:w-2/5 sm:w-3/6 w-full" value={name} onChange={(e) => handleChange(e)} required/>
-                <label htmlFor="username">Username:</label>
+                <label htmlFor="username">Your username:</label>
                 <input type="text" name="username" id="username" className="border-2 mb-5 border-fitify-purple form-field md:w-2/5 sm:w-3/6 w-ful" value={username} onChange={(e) => handleChange(e)} required/>
-                <label htmlFor="email">Email:</label>
+                <label htmlFor="email">Your email:</label>
                 <input type="text" name="email" id="email" className="border-2 mb-5 border-fitify-purple form-field md:w-2/5 sm:w-3/6 w-ful" value={email} onChange={(e) => handleChange(e)} required/>
                 <label htmlFor="message">Message:</label>
                 <textarea id="message" name="message" rows={6}  className="border-2 mb-5 border-fitify-purple form-field " value={message} onChange={(e) => handleChange(e)} required></textarea>
