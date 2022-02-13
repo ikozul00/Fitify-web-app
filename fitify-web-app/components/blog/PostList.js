@@ -8,7 +8,7 @@ const PostList = (props) => {
 
   return (
     <div className=" mx-auto my-0">
-      <h2 className=" sm:text-5xl text-4xl text-gray-700 mb-10">Recent articles</h2>
+      <h2 className=" sm:text-5xl text-3xl text-gray-700 mb-10">Recent articles</h2>
       <ul>
         {posts.map((post) => {
           const postDate = parseDate(post.date);
@@ -24,7 +24,7 @@ const PostList = (props) => {
                   />
                 </div>
                 <div className="sm:ml-7 sm:w-8/12 w-11/12 mx-auto">
-                  <h2 className="text-lg my-2 sm:block hidden">
+                  <h2 className="sm:text-lg text-base my-2 sm:block hidden">
                     {`${postDate.day}/${postDate.month}/${postDate.year}`}
                   </h2>
                   <h1 className="sm:text-3xl text-xl font-bold text-gray-700 mb-2 mt-3">

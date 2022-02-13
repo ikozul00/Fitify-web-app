@@ -47,7 +47,7 @@ const Filter = ({ usedFilters, searchQuery, displayFilters }) => {
 
   return (
     <main className="font-open-sans">
-      <div className=" md:flex-row justify-items-start hidden">
+      <div className=" md:flex-row justify-items-start md:block hidden">
         <BsSliders />
         <h1 className="md:text-3xl text-xl">Filters</h1>
       </div>

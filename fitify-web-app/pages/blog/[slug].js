@@ -27,11 +27,11 @@ const BlogPost = ({ post }) => {
   
   return(
   <main className="w-4/5 mx-auto mt-0 mb-20 font-open-sans">
-    <h3 className=" text-xl my-10 text-gray-600 text-right">
+    <h3 className=" md:text-xl sm:text-lg text-base my-10 text-gray-600 text-right">
       {`${date.day}/${date.month}/${date.year}`}
     </h3>
-    <h1 className="text-center text-6xl text-gray-700 font-semibold">{post.title}</h1>
-    <h2 className="text-center text-2xl mt-5 mb-16 text-gray-600">
+    <h1 className="text-center md:text-6xl sm:text-5xl text-4xl text-gray-700 font-semibold">{post.title}</h1>
+    <h2 className="text-center md:text-2xl sm:text-xl text-lg mt-5 mb-16 text-gray-600">
       {post.description}
     </h2>
     <div className="relative w-full h-96 mx-auto mb-10">

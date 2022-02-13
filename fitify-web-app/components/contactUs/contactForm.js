@@ -41,10 +41,10 @@ const ContactForm = ({toggleForm}) => {
     return(
         <form className=" w-5/6 border-2 border-black my-5 flex flex-col" >
                 <div className=" w-full flex justify-between">
-                    <h1 className="font-bold text-xl ml-7 my-3">Fill out form:</h1>
+                    <h1 className="font-bold sm:text-xl text-lg ml-7 my-3">Fill out form:</h1>
                     <button onClick={() => toggleForm(false)} className="font-bold text-3xl mr-4 p-4">X</button>
                 </div>
-                <div className="px-7 flex flex-col">
+                <div className="px-7 flex flex-col sm:text-base text-sm">
                 <label htmlFor="name">Full name:</label>
                 <input type="text" name="name" id="name" className="border-2 mb-5 border-fitify-purple form-field md:w-2/5 sm:w-3/6 w-full" value={name} onChange={(e) => handleChange(e)} required/>
                 <label htmlFor="username">Username:</label>

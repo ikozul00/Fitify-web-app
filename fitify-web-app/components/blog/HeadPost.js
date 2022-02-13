@@ -23,11 +23,11 @@ const HeadPost = ({ post }) => {
       />
       </div>
       <div className="sm:w-7/12 w-11/12 sm:ml-12 mx-auto">
-      <h2 className="md:text-xl text-lg  sm:block hidden lg:my-8 my-6 text-white">
+      <h2 className="md:text-xl sm:text-lg text-base  sm:block hidden lg:my-8 my-6 text-white">
       {`${date.day}/${date.month}/${date.year}`}
       </h2>
       
-        <h1 className=" md:text-4xl text-2xl  lg:my-8 sm:my-6 mt-4 mb-2 text-white font-semibold">
+        <h1 className=" md:text-4xl sm:text-2xl text-xl  lg:my-8 sm:my-6 mt-4 mb-2 text-white font-semibold">
           {post.title}
         </h1>
       <p className="text-white md:text-xl sm:text-lg text-base pb-2">{post.description}</p>

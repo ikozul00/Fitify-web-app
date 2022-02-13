@@ -26,14 +26,17 @@ export default function Home({ saleProducts, blogArticles }) {
       </div>
       <div className="w-9/12 mx-auto sm:my-10 my-8">
         <Link href={`/shop`}>
-          <h1 className="text-center text-5xl uppercase sm:mt-12 mt-8 text-gray-700 font-semibold hover:cursor-pointer hover:scale-105">
+          <h1 className="text-center sm:text-5xl md:text-4xl text-3xl uppercase sm:mt-12 mt-6 text-gray-700 font-semibold hover:cursor-pointer hover:scale-105">
             SHOP
           </h1>
         </Link>
+        <p className="md:w-1/5 sm:hidden block text-center text-base text-gray-700 mt-2 font-normal">
+          Newest sport fashion and equipment
+        </p>
         <div className="flex justify-around flex-wrap mx-auto">
           <Link href={`/shop?category=Clothes`}>
             <div className="font-open-sans my-8 w-min hover:cursor-pointer hover:bg-fitify-green-light p-2">
-              <div className=" lg:w-80 w-96 h-96 relative mx-auto">
+              <div className=" lg:w-80 sm:w-96 w-72 sm:h-96 h-80 relative mx-auto">
                 <Image
                   src={require("public/Clothes.jpg")}
                   alt="Clothes"
@@ -42,14 +45,14 @@ export default function Home({ saleProducts, blogArticles }) {
                 />
               </div>
               <div className="w-full text-center">
-                <h1 className="mb-2 mt-3 w-full font-bold text-lg">CLOTHES</h1>
-                <h2 className="mb-2 mt-1 w-full">{`SHOP NOW >>`}</h2>
+                <h1 className="mb-2 mt-3 w-full font-bold sm:text-lg text-base">CLOTHES</h1>
+                <h2 className="mb-2 mt-1 w-full sm:text-base text-sm">{`SHOP NOW >>`}</h2>
               </div>
             </div>
           </Link>
           <Link href={`/shop?category=Shoes`}>
             <div className="font-open-sans my-8 w-min hover:cursor-pointer hover:bg-fitify-green-light p-2">
-              <div className="lg:w-80 w-96 h-96 relative mx-auto">
+              <div className="lg:w-80 sm:w-96 w-72 sm:h-96 h-80 relative mx-auto">
                 <Image
                   src={require("public/Shoes.jpg")}
                   alt="Shoes"
@@ -58,14 +61,14 @@ export default function Home({ saleProducts, blogArticles }) {
                 />
               </div>
               <div className="w-full text-center">
-                <h1 className="mb-2 mt-3 w-full font-bold text-lg">SHOES</h1>
-                <h2 className="mb-2 mt-1 w-full">{`SHOP NOW >>`}</h2>
+                <h1 className="mb-2 mt-3 w-full font-bold sm:text-lg text-base">SHOES</h1>
+                <h2 className="mb-2 mt-1 w-full sm:text-base text-sm">{`SHOP NOW >>`}</h2>
               </div>
             </div>
           </Link>
           <Link href={`/shop?category=Equipment`}>
             <div className="font-open-sans my-8 w-min hover:cursor-pointer hover:bg-fitify-green-light p-2">
-              <div className="lg:w-80 w-96 h-96 relative mx-auto">
+              <div className="lg:w-80 sm:w-96 w-72 sm:h-96 h-80 relative mx-auto">
                 <Image
                   src={require("public/Equipment.jpg")}
                   alt="Equipment"
@@ -74,10 +77,10 @@ export default function Home({ saleProducts, blogArticles }) {
                 />
               </div>
               <div className="w-full text-center">
-                <h1 className="mb-2 mt-3 w-full font-bold text-lg">
+                <h1 className="mb-2 mt-3 w-full font-bold sm:text-lg text-base">
                   EQUIPMENT
                 </h1>
-                <h2 className="mb-2 mt-1 w-full">{`SHOP NOW >>`}</h2>
+                <h2 className="mb-2 mt-1 w-full sm:text-base text-sm">{`SHOP NOW >>`}</h2>
               </div>
             </div>
           </Link>

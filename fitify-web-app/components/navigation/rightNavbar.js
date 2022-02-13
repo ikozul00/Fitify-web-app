@@ -29,7 +29,7 @@ const RightNavbar = ({counter, mobile}) => {
                 <button>
                     <FaUserAlt/>
                 </button>
-                <div className="hidden dropdown-content absolute bg-fitify-black right-6 w-32 text-lg text-center z-10 shadow-2xl">
+                <div className="hidden dropdown-content absolute bg-fitify-black uppercase right-6 w-32 text-lg text-center z-10 shadow-2xl">
                     <Link href={user  ? `/profile/${user}` : "/login"} key="dropdown1" passHref>
                         <a className="px-10 py-4 whitespace-nowrap hover:bg-fitify-green">{user ? user : "Login"}</a>
                     </Link>
