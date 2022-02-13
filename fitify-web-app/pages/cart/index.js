@@ -9,6 +9,7 @@ import TotalContainer from "@/components/cart/totalContainer";
 import Product from "../../components/cart/product";
 
 const Cart = ({ items, increaseAmount, decreaseAmount, removeItem }) => {
+  console.log(items);
   return (
     <>
       <div className="font-open-sans w-full flex sm:flex-row flex-col justify-around">
@@ -24,7 +25,7 @@ const Cart = ({ items, increaseAmount, decreaseAmount, removeItem }) => {
           )}
           {items.map((item) => (
             <Product
-              key={item.id}
+              key={item.id+item.size}
               item={item}
               decreaseAmount={decreaseAmount}
               increaseAmount={increaseAmount}

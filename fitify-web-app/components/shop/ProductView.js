@@ -80,9 +80,10 @@ const ProductView = ({ product, addToCartRedux, counter }) => {
         </div>
         <p className="sm:text-xl text-lg">Select Size:</p>
         <div className="flex justify-start mb-5 flex-wrap">
-          {product.sizes.map((size) => (
+          {product.sizes.map((size) => {
+            return(
             <button
-              key={"size"}
+              key={size}
               className={`rounded-full border-black sm:w-20 w-16 h-10 border-2 font-semibold mx-2 my-2 ${
                 pickedSize === size
                   ? "bg-fitify-green text-white border-white"
@@ -92,7 +93,7 @@ const ProductView = ({ product, addToCartRedux, counter }) => {
             >
               {size}
             </button>
-          ))}
+          )})}
         </div>
         <div className="flex custom:flex-row  ms:flex-col customSmall:flex-row flex-col w-full justify-between items-baseline">
           <div>
@@ -111,7 +112,7 @@ const ProductView = ({ product, addToCartRedux, counter }) => {
               onChange={(e) => setPickedAmount(e.target.value)}
             >
               {amount.map((i) => (
-                <option key="i" value={`${i}`}>
+                <option key={i} value={`${i}`}>
                   {i}
                 </option>
               ))}
