@@ -11,7 +11,7 @@ const SortBy = ({ setSortingOption }) => {
   };
 
   return (
-    <div className="mx-10 my-5 w-60 border-black border-2">
+    <div className=" md:w-60 w-36 border-black border-2 md:h-auto h-9">
       <select
         name="sort"
         id="sort"

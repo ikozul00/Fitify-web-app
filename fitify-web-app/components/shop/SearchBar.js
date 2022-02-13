@@ -20,7 +20,7 @@ const SearchBar = ({ searchQuery }) => {
   }
 
   return (
-    <div className="flex border-2 rounded-2xl h-12 border-black self-end">
+    <div className="flex border-2 rounded-2xl md:h-12 h-10 border-black self-end md:w-auto w-2/3">
       <button
         onClick={handleSearchClick}
         className="flex items-center justify-center px-4 border-r border-black"
@@ -34,7 +34,7 @@ const SearchBar = ({ searchQuery }) => {
         onChange={(event) => setQuery(event.target.value)}
         onKeyDown={(event) => handleKeyDown(event)}
         value={query}
-        className="px-4 py-2 w-80 rounded-2xl rounded-l-none border-0"
+        className="px-4 py-2 md:w-80 w-full rounded-2xl rounded-l-none border-0"
       />
     </div>
   );

@@ -6,7 +6,7 @@ import InputRange from "react-input-range";
 import { createQuery } from "@/lib/filterFunctions";
 import "react-input-range/lib/css/index.css";
 
-const Filter = ({ usedFilters, searchQuery }) => {
+const Filter = ({ usedFilters, searchQuery, displayFilters }) => {
   const [brand, setBrand] = useState("all");
   const [category, setCategory] = useState("all");
   const [color, setColor] = useState("all");
@@ -47,11 +47,11 @@ const Filter = ({ usedFilters, searchQuery }) => {
 
   return (
     <main className="font-open-sans">
-      <div className="flex flex-row justify-items-start">
+      <div className=" md:flex-row justify-items-start hidden">
         <BsSliders />
-        <h1 className="text-3xl">Filters</h1>
+        <h1 className="md:text-3xl text-xl">Filters</h1>
       </div>
-      <div>
+      {displayFilters && <div>
         <div className="my-5 w-full border-black border-2">
           <select
             name="category"
@@ -184,6 +184,7 @@ const Filter = ({ usedFilters, searchQuery }) => {
           Apply
         </button>
       </div>
+    }
     </main>
   );
 };

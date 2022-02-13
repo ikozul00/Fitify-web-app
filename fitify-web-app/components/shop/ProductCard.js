@@ -4,8 +4,8 @@ import Link from "next/link";
 const ProductCard = ({ product }) => {
   return (
     <Link href={`/shop/product/${product.sys.id}`}>
-      <div className="font-open-sans my-12 mx-5 flex flex-col justify-between hover:bg-fitify-green-light hover:cursor-pointer p-2 w-min">
-        <div className=" w-96 h-96 relative">
+      <div className="font-open-sans my-8 flex flex-col justify-between hover:bg-fitify-green-light hover:cursor-pointer p-2 w-min">
+        <div className=" xl:w-80 sm:w-64 w-48 sm:h-72 h-52  relative">
           <Image
             src={product.thumbnailImage.url}
             alt="Product image"

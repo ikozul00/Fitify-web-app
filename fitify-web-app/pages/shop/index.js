@@ -8,6 +8,8 @@ import { searchProducts } from "@/lib/search";
 import SearchBar from "@/components/shop/SearchBar";
 import { useRouter } from "next/router";
 import { setFilters } from "@/lib/filterFunctions";
+import { BsSliders } from "react-icons/bs";
+import {FaArrowDown, FaArrowUp} from "react-icons/fa";
 
 const Shop = ({ products }) => {
   const [shownProducts, setShownProducts] = useState(products);
@@ -24,6 +26,7 @@ const Shop = ({ products }) => {
     maximumPrice: 200,
   });
   const router = useRouter();
+  const [displayFilters, setDisplayFilters] = useState(false);
 
   useEffect(() => {
     if (router.query.search) {
@@ -96,12 +99,12 @@ const Shop = ({ products }) => {
   };
 
   return (
-    <main className="full">
-      <div className="font-open-sans text-left mx-10 my-10">
-        <h1 className="text-5xl uppercase mt-12 text-gray-700 font-semibold">Shop</h1>
-        <div className="flex flex-row justify-between mt-8 pb-5 border-b-2 border-gray-700">
+    <main className="w-11/12 mx-auto">
+      <div className="font-open-sans md:text-left text-center my-10">
+        <h1 className="md:text-5xl text-4xl uppercase mt-12 text-gray-700 font-semibold">Shop</h1>
+        <div className="flex flex-row md:justify-between  justify-center mt-8 pb-5 border-b-2 border-gray-700">
           <p
-            className="basis-1/2"
+            className="basis-1/2 md:block hidden"
             dangerouslySetInnerHTML={{
               __html: `Define your activewear style with our fashion clothing. Everyday
           essentials include relaxed t-shirts, easy-to-wear sweatpants and
@@ -119,22 +122,36 @@ const Shop = ({ products }) => {
           <SearchBar searchQuery={searchQuery} />
         </div>
       </div>
-      <div className="flex">
-          <div className=" basis-2/12 px-10 py-10">
-            <Filter usedFilters={usedFilters} searchQuery={searchQuery} />
+      <div className="flex w-full">
+          <div className="  basis-3/12 mt-10 md:block hidden">
+            <Filter usedFilters={usedFilters} searchQuery={searchQuery} displayFilters={true} />
           </div>
-        <div className=" basis-10/12">
-        <div className={`flex flex-row ${searchQuery != "" ? "justify-between" : "justify-end"} `}>
+        <div className=" md:basis-10/12 w-full ml-10">
+        <div className={`flex flex-row md:${searchQuery != "" ? "justify-between" : "justify-end"} justify-between md:mb-0 mb-6`}>
           {searchQuery != "" && (
-            <p className="mx-10 my-5 font-bold">
+            <p className=" md:block hidden font-bold">
               Results for: "{searchQuery}"
             </p>
           )}
+          <div className="md:hidden flex flex-col">
+          <button className="md:hidden flex items-center font-xl border-2 border-black px-3 w-40 h-9" onClick={() => setDisplayFilters(!displayFilters)}>
+            <BsSliders/> 
+            <span className="mr-14 ml-1">Filters</span> 
+            {!displayFilters && <FaArrowDown/>}
+            {displayFilters && <FaArrowUp/>}
+            </button>
+          <Filter usedFilters={usedFilters} searchQuery={searchQuery} displayFilters={displayFilters} />
+          </div>
           <SortBy setSortingOption={handleSetSortingOption} />
         </div>
+        {searchQuery != "" && (
+            <p className=" md:hidden block font-bold">
+              Results for: "{searchQuery}"
+            </p>
+          )}
         <div className="flex flex-row">
-          <div>
-            <p className="mx-10">{shownProducts.length} Results</p>
+          <div className="w-full">
+            <p className="">{shownProducts.length} Results</p>
             <ProductContainer products={shownProducts} />
           </div>
         </div>
