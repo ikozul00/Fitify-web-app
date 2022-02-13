@@ -51,22 +51,22 @@ const Login = () => {
     return(
         <>
         <div className=" font-open-sans text-center">
-            <div className="w-2/4 mx-auto mt-10 border-2 border-black flex-col text-center ">
+            <div className="md:w-3/6 w-4/6 mx-auto mt-10 border-2 border-black flex flex-col text-center ">
                 <h1 className=" text-3xl font-semibold pt-10 pb-10 underline underline-offset-2">LOGIN</h1>
-                <form onSubmit={(e)=>handleSubmit(e)} className="flex-col justify-end">
-                    <div className="w-3/4 mx-auto mb-7">
-                    <label for="username" className="pr-2">Username:</label>
-                    <input type="text" id="username" name="username" required className=" border-2 border-fitify-purple w-3/6 h-9 form-field" value={username}  onChange={(e)=>onChange(e)}></input>
+                <form onSubmit={(e)=>handleSubmit(e)} className="flex-col">
+                    <div className="sm:w-5/6 w-full mx-auto mb-7 sm:block flex flex-col px-10">
+                    <label for="username" className="pr-2 sm:text-center text-left">Username:</label>
+                    <input type="text" id="username" name="username" required className=" border-2 border-fitify-purple sm:w-7/12 w-full h-9 form-field" value={username}  onChange={(e)=>onChange(e)}></input>
                     </div>
-                    <div className="w-3/4 mx-auto">
-                    <label for="password" className=" pr-3.2">Password:</label>
-                    <input type="password" id="password" name="password" required className=" border-2 border-fitify-purple w-3/6 h-9 form-field " value={password} onChange={(e)=>onChange(e)}></input>
+                    <div className="sm:w-5/6 w-full mx-auto mb-7 sm:block flex flex-col px-10">
+                    <label for="password" className=" pr-3.2 sm:text-center text-left">Password:</label>
+                    <input type="password" id="password" name="password" required className=" border-2 border-fitify-purple sm:w-7/12 w-full h-9 form-field " value={password} onChange={(e)=>onChange(e)}></input>
                     </div>
-                    <div className="w-3/4 flex justify-end">
-                    <button type="submit" className="bg-fitify-purple px-10 py-2 font-medium uppercase hover:opacity-80 text-white border-none my-11">Login</button>
+                    <p className="text-center mt-5 ml-6 font-bold">{errorMessage}</p>
+                    <div className="sm:w-3/4 w-full flex sm:justify-end justify-center">
+                    <button type="submit" className="bg-fitify-purple px-10 py-2 font-medium uppercase hover:opacity-80 text-white border-none mt-5 mb-10">Login</button>
                     </div>
                 </form>
-                <p>{errorMessage}</p>
             </div>
             <p className=" text-lg mt-4 mb-10">Don’t have an account? 
                 <Link href="/registration" key="registration" passHref>
