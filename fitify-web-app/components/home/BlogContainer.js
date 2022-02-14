@@ -10,7 +10,7 @@ const BlogContainer = ({ posts }) => {
           BLOG
         </h1>
       </Link>
-      <div className="xl:flex flex-row w-full justify-around mx-5 flex-wrap grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1">
+      <div className="xl:flex flex-row w-full justify-around flex-wrap grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1">
         {posts.map((post) => {
           const postDate = parseDate(post.date);
           return (
