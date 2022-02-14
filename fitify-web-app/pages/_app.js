@@ -7,7 +7,6 @@ import configureStore from 'redux/store';
 function MyApp({ Component, pageProps }) {
   return ( 
     <>
-    <Html lang="en">
       <Head>
         <meta name="viewport" content="width=device-width, initial-scale=1"/>
         <title>FITify</title>
@@ -20,7 +19,6 @@ function MyApp({ Component, pageProps }) {
           <Component {...pageProps} />
         </Layout>
       </Provider>
-      </Html>
     </>
     
   );
