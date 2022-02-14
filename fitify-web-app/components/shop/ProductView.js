@@ -106,7 +106,7 @@ const ProductView = ({ product, addToCartRedux, counter }) => {
             </label>
             <select
               name="amount"
-              id="amount"
+              id="amount-value"
               className="sm:w-20 w-16 text-center border-2 border-gray-500"
               value={pickedAmount}
               onChange={(e) => setPickedAmount(e.target.value)}

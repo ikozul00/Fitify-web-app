@@ -44,6 +44,7 @@ const ImageSlider = ({ images,name }) => {
         alt={`Product ${name} image`}
         layout="fill"
         objectFit="cover"
+        priority
       >
         </Image>
         <button className="text-5xl font-bold text-black absolute z-10 top-40 right-2" onClick={() => nextSlide()}>{`>`}</button>
