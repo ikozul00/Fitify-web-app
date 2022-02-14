@@ -1,6 +1,6 @@
 # HCI-project
 
-Excalidraw (wireframe): https://excalidraw.com/#json=dQeMc4HKYUbdXFlKkd2Ep,cOlojWOClHO8bpXIdQuWmA
+Excalidraw (wireframe): https://excalidraw.com/#json=dQeMc4HKYUbdXFlKkd2Ep,cOlojWOClHO8bpXIdQuWmA  
 Figma (low fidelity): https://www.figma.com/file/LfsdIFLlSap4YTQy2gHBSY/Fitify-Low-Fidelity?node-id=0%3A1  
 Figma (high fidelity): https://www.figma.com/file/Yo5h7hbHdXbK5AGXpzQfRz/Fitify-High-Fidelity?node-id=0%3A1  
 
