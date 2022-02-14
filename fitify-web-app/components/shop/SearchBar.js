@@ -24,6 +24,7 @@ const SearchBar = ({ searchQuery }) => {
       <button
         onClick={handleSearchClick}
         className="flex items-center justify-center sm:px-4 px-2 border-r border-black"
+        aria-label="Search button"
       >
         <BsSearch />
       </button>
