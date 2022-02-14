@@ -24,7 +24,7 @@ const RightNavbar = ({mobile }) => {
       <nav className=" bg-fitify-black  text-2xl  flex text-white h-20 items-center font-open-sans">
         {!mobile && (
           <div className="relative dropdown px-8">
-            <button>
+            <button className="user">
               <FaUserAlt />
             </button>
             <div className="hidden dropdown-content absolute bg-fitify-black uppercase right-6 w-32 text-lg text-center z-10 shadow-2xl">

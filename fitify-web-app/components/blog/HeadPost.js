@@ -18,7 +18,7 @@ const HeadPost = ({ post }) => {
           />
         </div>
         <div className="sm:w-7/12 w-11/12 sm:ml-12 mx-auto">
-          <h2 className="md:text-xl sm:text-lg text-base  sm:block hidden lg:my-8 my-6 text-white">
+          <h2 className="md:text-xl sm:text-lg text-base  sm:block hidden lg:my-8 my-6 text-white font-semibold">
             {`${date.day}/${date.month}/${date.year}`}
           </h2>
 
@@ -30,7 +30,7 @@ const HeadPost = ({ post }) => {
           </p>
         </div>
         <div className="sm:hidden flex justify-between my-6 w-11/12 mx-auto">
-          <h2 className="text-base sm:hidden block text-white">
+          <h2 className="text-base sm:hidden block text-white font-semibold">
             {`${date.day}/${date.month}/${date.year}`}
           </h2>
           <p className="text-base text-white font-semibold">{`Read more >>`}</p>

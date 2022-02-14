@@ -42,7 +42,7 @@ const PostList = (props) => {
                   </p>
                 </div>
                 <div className="sm:hidden flex my-4 w-11/12 mx-auto justify-between">
-                  <h2 className="sm:text-lg text-base">
+                  <h2 className="sm:text-lg text-base font-semibold">
                     {`${postDate.day}/${postDate.month}/${postDate.year}`}
                   </h2>
                   <p className="text-base font-semibold">{`Read more >>`}</p>
