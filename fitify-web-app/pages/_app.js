@@ -9,6 +9,7 @@ function MyApp({ Component, pageProps }) {
     <>
       <Head>
         <meta name="viewport" content="width=device-width, initial-scale=1"/>
+        <meta name="description" content="Fitify is an app that sells workout equipment and clothes"/>
         <title>FITify</title>
         <link rel = "icon" href = 
         "/favicon.ico" 
