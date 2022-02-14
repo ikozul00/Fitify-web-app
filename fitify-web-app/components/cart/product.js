@@ -29,7 +29,7 @@ const Product = ({item, decreaseAmount, increaseAmount, removeItem}) => {
 
     return(
         <div className="border-2 border-fitify-green my-5 w-full flex">
-        <Link href={`/shop/product/${item.id}`}>
+        <Link href={`/shop/product/${item.id}`} passHref>
         <div className=" w-56 h-56 relative hover:cursor-pointer">
         <Image
                 src={item.image.url}
@@ -40,7 +40,7 @@ const Product = ({item, decreaseAmount, increaseAmount, removeItem}) => {
         </div>
         </Link>
         <div className=" flex flex-col justify-center ml-10 text-lg w-5/6">
-            <Link href={`/shop/product/${item.id}`}><h2 className="font-bold md:text-xl sm:text-lg text-base hover:cursor-pointer">{item.title}</h2></Link>
+            <Link href={`/shop/product/${item.id}`} passHref><h2 className="font-bold md:text-xl sm:text-lg text-base hover:cursor-pointer">{item.title}</h2></Link>
             <p className="mt-2 sm:text-base text-sm">Size: {item.size}</p>
             <p className="p-0 m-0 flex content-center sm:text-base text-sm"> Amount: 
                 <button id={`decrease-button-${item.id}${item.size}`} className={`font-bold bg-fitify-purple mx-2 text-white rounded-2xl px-3 text-center ${!decreaseDisabled ? "hover:scale-105" : ""} disabled:opacity-60`} onClick={() => decreaseAmount(item.id,item.size)} > - </button>  

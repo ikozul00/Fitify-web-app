@@ -13,20 +13,34 @@ const Footer = () => {
 
         <div className=" text-white font-open-sans py-10 sm:text-base text-sm">
             <p className=" py-2 font-bold">Customer Support</p>
-            <p className=" py-2 font-light">FAQ</p>
-            <p className=" py-2 font-light">Order Status</p>
-            <p className=" py-2 font-light">Shipping and Delivery</p>
-            <p className=" py-2 font-light">Returns</p>
+            <Link href="/errorPage" passHref>
+            <p className=" py-2 font-light hover:cursor-pointer">FAQ</p>
+            </Link>
+            <Link href="/errorPage" passHref>
+            <p className=" py-2 font-light hover:cursor-pointer">Order Status</p>
+            </Link>
+            <Link href="/errorPage" passHref>
+            <p className=" py-2 font-light hover:cursor-pointer">Shipping and Delivery</p>
+            </Link>
+            <Link href="/errorPage" passHref>
+            <p className=" py-2 font-light hover:cursor-pointer">Returns</p>
+            </Link>
         </div>
 
         <div className=" text-white font-open-sans py-10 sm:ml-0 ml-8 sm:text-base text-sm">
             <p className=" py-2 font-bold">Additional Information</p>
             <Link href="/contactUs" passHref>
-            <p className=" py-2 font-light">Contact Us</p>
+            <p className=" py-2 font-light hover:cursor-pointer">Contact Us</p>
             </Link>
-            <p className=" py-2 font-light">Help</p>
-            <p className=" py-2 font-light">Terms and Conditions</p>
-            <p className=" py-2 font-light">About Us</p>
+            <Link href="/errorPage" passHref>
+            <p className=" py-2 font-light hover:cursor-pointer">Help</p>
+            </Link>
+            <Link href="/errorPage" passHref>
+            <p className=" py-2 font-light hover:cursor-pointer">Terms and Conditions</p>
+            </Link>
+            <Link href="/errorPage" passHref>
+            <p className=" py-2 font-light hover:cursor-pointer">About Us</p>
+            </Link>
         </div>
         </div>
         <div className=" text-white font-open-sans pb-10 sm:pb-0 sm:text-base text-sm">

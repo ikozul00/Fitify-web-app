@@ -37,10 +37,10 @@ const SaleContainer = ({ products }) => {
                   <h2 className="mt-1 sm:w-44 w-auto">{product.brand}</h2>
                   <h2 className=" mt-1 sm:w-44 w-auto">{product.title}</h2>
                   <div className="flex sm:flex-row flex-col sm:justify-around justify-start sm:w-44 w-auto px-4">
-                    <h1 className="line-through sm:mb-2 mb-0 sm:mt-2 mt-1 sm:text-xl text-base text-fitify-green font-bold">
+                    <h1 className="line-through sm:mb-2 mb-0 sm:mt-2 mt-1 sm:text-xl text-base font-bold">
                       ${product.oldPrice}
                     </h1>
-                    <h1 className="sm:text-xl text-base sm:my-2 my-0 font-black">
+                    <h1 className="sm:text-xl text-base sm:my-2 my-0 font-black text-fitify-pink">
                       ${product.price}
                     </h1>
                   </div>

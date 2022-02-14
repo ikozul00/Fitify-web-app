@@ -71,9 +71,9 @@ const ProductView = ({ product, addToCartRedux, counter }) => {
         <h1 className="sm:text-4xl text-3xl font-bold">{product.brand}</h1>
         <h1 className="sm:text-3xl text-2xl  font-semibold">{product.title}</h1>
         <div className="flex sm:text-2xl text-xl  mt-8 mb-4">
-          <h2 className="font-extrabold">${product.price}</h2>
+          <h2 className={`font-extrabold ${product.oldPrice ? "text-fitify-pink" : ""}`}>${product.price}</h2>
           {product.oldPrice != null && (
-            <h2 className="line-through font-bold ml-5 text-fitify-green">
+            <h2 className="line-through font-bold ml-5">
               ${product.oldPrice}
             </h2>
           )}

@@ -19,9 +19,9 @@ const ProductCard = ({ product }) => {
           <p className="font-semibold sm:text-base text-sm">{product.brand}</p>
           <p>{product.title}</p>
           <div className="flex justify-start w-full">
-            <p className="font-bold sm:text-lg text-base">${product.price}</p>
+            <p className={`font-bold sm:text-lg text-base ${product.oldPrice ? "text-fitify-pink" : ""}`}>${product.price}</p>
             {product.oldPrice != null && (
-              <p className="line-through text-fitify-green font-bold sm:text-xl text-lg ml-8">
+              <p className="line-through font-bold sm:text-xl text-lg ml-8">
                 ${product.oldPrice}
               </p>
             )}
