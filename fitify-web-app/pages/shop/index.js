@@ -133,12 +133,12 @@ const Shop = ({ products }) => {
             displayFilters={true}
           />
         </div>
-        <div className=" md:basis-10/12 w-full md::ml-10 ml-0">
+        <div className=" md:basis-10/12 w-full">
           <div
             className={`flex flex-row md:${searchQuery != "" ? "justify-between" : "justify-end"} justify-between md:mb-0 mb-6`}
           >
             {searchQuery != "" && (
-              <p className=" md:block hidden font-bold">
+              <p className=" md:block hidden font-bold ml-10">
                 Results for: {searchQuery}
               </p>
             )}
