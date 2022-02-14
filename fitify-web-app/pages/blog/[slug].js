@@ -40,6 +40,7 @@ const BlogPost = ({ post }) => {
       alt={post.headerImage.title}
       layout="fill"
       objectFit="cover"
+      priority
     />
     </div>
     <MDXRemote {...post.mdxSource} components={components} lazy />

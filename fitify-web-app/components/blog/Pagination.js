@@ -28,7 +28,7 @@ const Pagination = (props) => {
         )}
         {!prevDisabled && (
           <Link href={prevPageUrl}>
-            <a className="text-center p-1 m-2 sm:text-5xl text-3xl">
+            <a className="text-center p-1 m-2 sm:text-5xl text-3xl" aria-label="Left arrow">
             <FaArrowLeft className="mr-3"/>
             </a>
           </Link>
@@ -45,7 +45,7 @@ const Pagination = (props) => {
         )}
         {!nextDisabled && (
           <Link href={nextPageUrl}>
-            <a className="text-center  p-1 m-2 sm:text-5xl text-4xl ">
+            <a className="text-center  p-1 m-2 sm:text-5xl text-4xl " aria-label="Right arrow">
               <FaArrowRight className="ml-3"/>
             </a>
           </Link>
