@@ -7,8 +7,10 @@ import {
 } from "redux/actions/cartActions";
 import TotalContainer from "@/components/cart/totalContainer";
 import Product from "../../components/cart/product";
+import { useEffect } from "react";
 
 const Cart = ({ items, increaseAmount, decreaseAmount, removeItem }) => {
+
   return (
     <>
       <div className="font-open-sans w-full flex sm:flex-row flex-col justify-around">
@@ -40,7 +42,7 @@ const Cart = ({ items, increaseAmount, decreaseAmount, removeItem }) => {
 
 
 const mapStateToProps = (state) => ({
-  items: state.cartReducer,
+  items: state.cartReducer.items,
 });
 
 const mapDispatchToProps = (dispatch) => ({

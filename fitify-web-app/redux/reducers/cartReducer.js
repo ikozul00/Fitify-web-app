@@ -2,7 +2,7 @@ import {ADD_TO_CART, DECREASE_AMOUNT, INCREASE_AMOUNT, REMOVE_FROM_CART} from ".
 
 const initialState = {
     items:[],
-    quantity:0
+    quantity:{total:0}
 }
 
   
@@ -11,41 +11,30 @@ const cartReducer = (state = initialState, action) => {
     switch (action.type) {
         case ADD_TO_CART:
             {
-                console.log(state);
-                const itemExists=state.items.find((item) => (item.id===action.payload.id && item.size===action.payload.size));
+                let newState={...state};
+                const itemExists=newState.items.find((item) => (item.id===action.payload.id && item.size===action.payload.size));
                 const amount=(Number)(action.payload.amount);
                 if(!itemExists){
-                    return{
-                        ...state,
-                        items: [...state.items, action.payload],
-                        quantity:state.quantity + amount
-                    }
+                    newState.items.push(action.payload);
+                    newState.quantity.total= (Number)(newState.quantity.total)+amount;
                 }
                 else{
-                    return{
-                        ...state,
-                        items:state.items.map((item) => {
-                            if(item.id===action.payload.id && item.size===action.payload.size){
-                                item.amount = (Number)(item.amount)+amount;
-                                return item;
-                            }
-                            else{
-                                return item;
-                            }
-                        }),
-                        quantity: state.quantity+amount
-                    }
+
+                    itemExists.amount= (Number)(itemExists.amount) + amount;
+                    newState.quantity.total= (Number)(newState.quantity.total)+amount;
                 }
+                return newState;
             }
 
         case INCREASE_AMOUNT:
             {
-                const itemExists=state.items.find((item) => (item.id===action.payload.id && item.size===action.payload.size));
+                let newState={...state};
+                newState.items = [...newState.items];                
+                const itemExists=newState.items.find((item) => (item.id===action.payload.id && item.size===action.payload.size));
                 if(itemExists){
-                    itemExists.amount+=1;
-                    state.items=[...state.items];
-                    state.quantity[0]+=1;
-                    return {...state};
+                    itemExists.amount= (Number)(itemExists.amount)+1;
+                    newState.quantity.total+=1;
+                    return newState;
                 }
                 else{
                    return state;
@@ -54,12 +43,13 @@ const cartReducer = (state = initialState, action) => {
 
         case DECREASE_AMOUNT:
             {
-                const itemExists=state.items.find((item) => (item.id===action.payload.id && item.size===action.payload.size));
+                let newState={...state};
+                newState.items = [...newState.items]; 
+                const itemExists=newState.items.find((item) => (item.id===action.payload.id && item.size===action.payload.size));
                 if(itemExists){
-                    itemExists.amount-=1;
-                    state.items=[...state.items];
-                    state.quantity[0]-=1;
-                    return {...state};
+                    itemExists.amount= (Number)(itemExists.amount)-1;
+                    newState.quantity.total-=1;
+                    return newState;
                 }
                 else{
                     return state;
@@ -68,18 +58,18 @@ const cartReducer = (state = initialState, action) => {
 
         case REMOVE_FROM_CART:
             {
-                const itemExists=state.items.find((item) => (item.id===action.payload.id && item.size===action.payload.size));
+                let newState={...state};
+                const itemExists=newState.items.find((item) => (item.id===action.payload.id && item.size===action.payload.size));
                 if(itemExists){
-                    state.items = state.items.filter (item => (item.id!==action.payload.id || item.size!==action.payload.size))
-                    state.quantity[0]-=itemExists.amount;
-                    if(state.quantity[0]<0){
-                        state.quantity[0]=0;
+                    newState.items = newState.items.filter (item => {return((item.id!==action.payload.id) || (item.size!==action.payload.size))});
+                    newState.quantity.total-=itemExists.amount;
+                    if(newState.quantity.total<0){
+                        newState.quantity.total=0;
                     }
-                    return {...state};
                 }
-                else{
-                    return state;
-                }
+
+                return {...newState};
+
             }
 
         default:

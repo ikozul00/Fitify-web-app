@@ -1,4 +1,4 @@
-import { ADD_TO_CART, DECREASE_AMOUNT, INCREASE_AMOUNT, REMOVE_FROM_CART } from "../constants/actions";
+import { ADD_TO_CART, DECREASE_AMOUNT, INCREASE_AMOUNT, LOAD_CART, REMOVE_FROM_CART } from "../constants/actions";
 
 export const addToCart = (id,title,image,price,size,amount) => (dispatch) => {
     dispatch({

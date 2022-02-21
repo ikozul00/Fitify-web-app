@@ -4,18 +4,18 @@ import { useRouter } from 'next/router';
 import {FaShoppingCart} from "react-icons/fa";
 import { useEffect, useState } from "react";
 
-const Cart = ({items, isOpen}) => {
+const Cart = ({counter, isOpen}) => {
     const router = useRouter();
-    const [counter, setCounter] = useState(0);
+    // const [counter, setCounter] = useState(0);
     
-    useEffect(() => {
-        let c=0;
-        for(let i=0; i<items.lenght; i++){
-            c+=items[i].amount;
-        }
-        setCounter(c);
+    // useEffect(() => {
+    //     let c=0;
+    //     for(let i=0; i<items.lenght; i++){
+    //         c+=items[i].amount;
+    //     }
+    //     setCounter(c);
 
-    }, [items]);
+    // }, [items]);
     return (
         <div className = {`${isOpen ? ' -translate-x-20' : ''} transform translate transition duration-500 ease-in-out pr-4`}>
         <Link href="/cart" key="cart" passHref>
@@ -33,7 +33,7 @@ const Cart = ({items, isOpen}) => {
 }
 
 const mapStateToProps = (state) => ({
-    items:state.cartReducer,
+    counter:state.cartReducer.quantity.total,
 });
 
 export default connect(mapStateToProps, null)(Cart); 
