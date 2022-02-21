@@ -2,10 +2,20 @@ import { connect } from "react-redux";
 import Link from "next/link";
 import { useRouter } from 'next/router';
 import {FaShoppingCart} from "react-icons/fa";
+import { useEffect, useState } from "react";
 
-const Cart = ({counter, isOpen}) => {
+const Cart = ({items, isOpen}) => {
     const router = useRouter();
+    const [counter, setCounter] = useState(0);
     
+    useEffect(() => {
+        let c=0;
+        for(let i=0; i<items.lenght; i++){
+            c+=items[i].amount;
+        }
+        setCounter(c);
+
+    }, [items]);
     return (
         <div className = {`${isOpen ? ' -translate-x-20' : ''} transform translate transition duration-500 ease-in-out pr-4`}>
         <Link href="/cart" key="cart" passHref>
@@ -23,7 +33,7 @@ const Cart = ({counter, isOpen}) => {
 }
 
 const mapStateToProps = (state) => ({
-    counter:state.cartReducer.quantity[0],
+    items:state.cartReducer,
 });
 
 export default connect(mapStateToProps, null)(Cart); 

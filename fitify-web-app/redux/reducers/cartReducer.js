@@ -2,7 +2,7 @@ import {ADD_TO_CART, DECREASE_AMOUNT, INCREASE_AMOUNT, REMOVE_FROM_CART} from ".
 
 const initialState = {
     items:[],
-    quantity:[0]
+    quantity:0
 }
 
   
@@ -11,16 +11,31 @@ const cartReducer = (state = initialState, action) => {
     switch (action.type) {
         case ADD_TO_CART:
             {
+                console.log(state);
                 const itemExists=state.items.find((item) => (item.id===action.payload.id && item.size===action.payload.size));
-                const amount=(Number)(action.amount);
+                const amount=(Number)(action.payload.amount);
                 if(!itemExists){
-                    state.items.push({ ...action.payload, amount: amount });
+                    return{
+                        ...state,
+                        items: [...state.items, action.payload],
+                        quantity:state.quantity + amount
+                    }
                 }
                 else{
-                    itemExists.amount=amount+(Number)(itemExists.amount);
+                    return{
+                        ...state,
+                        items:state.items.map((item) => {
+                            if(item.id===action.payload.id && item.size===action.payload.size){
+                                item.amount = (Number)(item.amount)+amount;
+                                return item;
+                            }
+                            else{
+                                return item;
+                            }
+                        }),
+                        quantity: state.quantity+amount
+                    }
                 }
-                state.quantity[0]+=amount;
-                return {...state};
             }
 
         case INCREASE_AMOUNT:

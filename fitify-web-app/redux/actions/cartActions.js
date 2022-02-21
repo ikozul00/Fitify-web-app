@@ -9,8 +9,9 @@ export const addToCart = (id,title,image,price,size,amount) => (dispatch) => {
             image:image,
             price:price,
             size:size,
+            amount:amount
         },
-        amount:amount
+        
     })
 }
 

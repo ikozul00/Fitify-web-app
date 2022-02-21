@@ -9,7 +9,6 @@ import TotalContainer from "@/components/cart/totalContainer";
 import Product from "../../components/cart/product";
 
 const Cart = ({ items, increaseAmount, decreaseAmount, removeItem }) => {
-  console.log(items);
   return (
     <>
       <div className="font-open-sans w-full flex sm:flex-row flex-col justify-around">
@@ -41,7 +40,7 @@ const Cart = ({ items, increaseAmount, decreaseAmount, removeItem }) => {
 
 
 const mapStateToProps = (state) => ({
-  items: state.cartReducer.items,
+  items: state.cartReducer,
 });
 
 const mapDispatchToProps = (dispatch) => ({

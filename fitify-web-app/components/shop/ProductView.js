@@ -20,7 +20,7 @@ const components = {
 };
 
 
-const ProductView = ({ product, addToCartRedux, counter }) => {
+const ProductView = ({ product, addToCartRedux, items }) => {
   const images = [product.thumbnailImage, ...product.imagesCollection.items];
   const [pickedSize, setPickedSize] = useState("0");
   const [pickedAmount, setPickedAmount] = useState("1");
@@ -36,7 +36,8 @@ const ProductView = ({ product, addToCartRedux, counter }) => {
       setTimeout(() => setAdded(false), 2500);
     }
     setInital(false);
-  }, [counter]);
+  }, [items]);
+
 
   function sizePicked(size) {
     if (pickSize) {
@@ -162,7 +163,7 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 const mapStateToProps = (state) => ({
-  counter: state.cartReducer.quantity[0],
+  items: state.cartReducer,
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(ProductView);
