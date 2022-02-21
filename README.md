@@ -1,4 +1,4 @@
-# HCI-project
+# Fitify  
 
 Excalidraw (wireframe): https://excalidraw.com/#json=dQeMc4HKYUbdXFlKkd2Ep,cOlojWOClHO8bpXIdQuWmA  
 Figma (low fidelity): https://www.figma.com/file/LfsdIFLlSap4YTQy2gHBSY/Fitify-Low-Fidelity?node-id=0%3A1  
