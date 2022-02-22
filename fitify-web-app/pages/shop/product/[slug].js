@@ -1,4 +1,4 @@
-import { getAllProductIDs, getProductByID } from "@/lib/ContentfulAPI";
+import { getAllProductIDs, getProductByID } from "pages/api/ContentfulAPI";
 import { serialize } from "next-mdx-remote/serialize";
 import React from "react";
 import ProductView from "@/components/shop/ProductView";

@@ -1,5 +1,5 @@
 import axios from "axios";
-import { Config } from "./Config";
+import { Config } from "../../lib/Config";
 
 const { CONTENTFUL_SPACE_ID, CONTENTFUL_ACCESS_TOKEN } = process.env;
 

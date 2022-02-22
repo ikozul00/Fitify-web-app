@@ -1,4 +1,4 @@
-import { getPaginatedPosts, getNumberOfPosts } from "@/lib/ContentfulAPI";
+import { getPaginatedPosts, getNumberOfPosts } from "pages/api/ContentfulAPI";
 import { Config } from "@/lib/Config";
 import PostList from "@/components/blog/PostList";
 
@@ -7,13 +7,15 @@ export default function BlogPage(props) {
 
   return (
     <>
-    <div className="w-9/12 mx-auto font-open-sans">
-      <h1 className="sm:text-5xl text-3xl sm:text-left text-center uppercase mt-12 text-gray-700 font-semibold">BLOG</h1>
-      <PostList
-        posts={posts}
-        totalPages={totalPages}
-        currentPage={currentPage}
-      />
+      <div className="w-9/12 mx-auto font-open-sans">
+        <h1 className="sm:text-5xl text-3xl sm:text-left text-center uppercase mt-12 text-gray-700 font-semibold">
+          BLOG
+        </h1>
+        <PostList
+          posts={posts}
+          totalPages={totalPages}
+          currentPage={currentPage}
+        />
       </div>
     </>
   );

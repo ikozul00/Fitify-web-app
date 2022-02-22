@@ -3,7 +3,7 @@ import BlogContainer from "@/components/home/BlogContainer";
 import {
   getNewestBlogArticles,
   getNewestSaleProducts,
-} from "@/lib/ContentfulAPI";
+} from "pages/api/ContentfulAPI";
 import SaleContainer from "@/components/home/SaleContainer";
 import Link from "next/link";
 
@@ -46,7 +46,9 @@ export default function Home({ saleProducts, blogArticles }) {
                 />
               </div>
               <div className="w-full text-center">
-                <h1 className="mb-2 mt-3 w-full font-bold sm:text-lg text-base">CLOTHES</h1>
+                <h1 className="mb-2 mt-3 w-full font-bold sm:text-lg text-base">
+                  CLOTHES
+                </h1>
                 <h2 className="mb-2 mt-1 w-full sm:text-base text-sm">{`SHOP NOW >>`}</h2>
               </div>
             </div>
@@ -62,7 +64,9 @@ export default function Home({ saleProducts, blogArticles }) {
                 />
               </div>
               <div className="w-full text-center">
-                <h1 className="mb-2 mt-3 w-full font-bold sm:text-lg text-base">SHOES</h1>
+                <h1 className="mb-2 mt-3 w-full font-bold sm:text-lg text-base">
+                  SHOES
+                </h1>
                 <h2 className="mb-2 mt-1 w-full sm:text-base text-sm">{`SHOP NOW >>`}</h2>
               </div>
             </div>

@@ -1,4 +1,4 @@
-import { getAllProducts } from "@/lib/ContentfulAPI";
+import { getAllProducts } from "pages/api/ContentfulAPI";
 import ProductContainer from "@/components/shop/ProductContainer";
 import Filter from "@/components/shop/Filter";
 import { useEffect, useState } from "react";
@@ -135,7 +135,9 @@ const Shop = ({ products }) => {
         </div>
         <div className=" md:basis-10/12 w-full">
           <div
-            className={`flex flex-row md:${searchQuery != "" ? "justify-between" : "justify-end"} justify-between md:mb-0 mb-6`}
+            className={`flex flex-row md:${
+              searchQuery != "" ? "justify-between" : "justify-end"
+            } justify-between md:mb-0 mb-6`}
           >
             {searchQuery != "" && (
               <p className=" md:block hidden font-bold ml-10">

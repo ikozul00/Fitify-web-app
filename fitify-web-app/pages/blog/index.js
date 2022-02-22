@@ -1,4 +1,4 @@
-import { getPaginatedPosts } from "@/lib/ContentfulAPI";
+import { getPaginatedPosts } from "pages/api/ContentfulAPI";
 import { Config } from "@/lib/Config";
 import PostList from "@/components/blog/PostList";
 import HeadPost from "@/components/blog/HeadPost";
@@ -12,14 +12,16 @@ const Blog = (props) => {
 
   return (
     <>
-    <div className="w-9/12 mx-auto font-open-sans">
-      <h1 className="sm:text-5xl text-3xl sm:text-left text-center uppercase mt-12 text-gray-700 font-semibold">BLOG</h1>
-      <HeadPost post={posts[0]} />
-      <PostList
-        posts={posts.slice(1)}
-        totalPages={totalPages}
-        currentPage={currentPage}
-      />
+      <div className="w-9/12 mx-auto font-open-sans">
+        <h1 className="sm:text-5xl text-3xl sm:text-left text-center uppercase mt-12 text-gray-700 font-semibold">
+          BLOG
+        </h1>
+        <HeadPost post={posts[0]} />
+        <PostList
+          posts={posts.slice(1)}
+          totalPages={totalPages}
+          currentPage={currentPage}
+        />
       </div>
     </>
   );
