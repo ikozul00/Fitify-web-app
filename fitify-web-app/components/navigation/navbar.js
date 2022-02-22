@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { useRouter } from "next/router";
+import { signIn } from 'next-auth/react';
 
 const menuItems = [
   { title: "home", link: "home" },
@@ -29,7 +30,7 @@ const Navbar = () => {
       number++;
       const itemLink = `/${item.link === "home" ? "" : item.link}`;
       return (
-        <Link href={itemLink} key={item.title} passHref>
+        <Link href={itemLink} key={item.title} passHref >
           <a
             className={`  text-white text-base lg:text-lg px-2 font-open-sans whitespace-nowrap uppercase hover:bg-fitify-green lg:px-5 py-2  ${
               number === numberOfItems ? "" : "border-r-2"
@@ -39,6 +40,7 @@ const Navbar = () => {
                     ? "underline-offset-4 text-decoration-line: underline font-bold"
                     : ""
                 }`}
+                onClick = {(e) => {e.preventDefault(); signIn()}}
           >
             {item.title}{" "}
           </a>

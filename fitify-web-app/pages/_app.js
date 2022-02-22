@@ -3,8 +3,9 @@ import Layout from '../modules/layout';
 import Head from 'next/head';
 import { Provider } from "react-redux";
 import configureStore from 'redux/store';
+import { SessionProvider } from "next-auth/react";
 
-function MyApp({ Component, pageProps }) {
+function MyApp({ Component, pageProps, session }) {
   return ( 
     <>
       <Head>
@@ -15,11 +16,13 @@ function MyApp({ Component, pageProps }) {
         "/favicon.ico" 
         type = "image/x-icon"></link>
       </Head>
+      <SessionProvider session={session}>
         <Provider store={configureStore()}>
         <Layout>
           <Component {...pageProps} />
         </Layout>
       </Provider>
+      </SessionProvider>
     </>
     
   );
