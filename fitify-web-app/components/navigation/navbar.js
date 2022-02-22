@@ -40,7 +40,6 @@ const Navbar = () => {
                     ? "underline-offset-4 text-decoration-line: underline font-bold"
                     : ""
                 }`}
-                onClick = {(e) => {e.preventDefault(); signIn()}}
           >
             {item.title}{" "}
           </a>

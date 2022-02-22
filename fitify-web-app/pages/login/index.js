@@ -1,6 +1,7 @@
 import { useRouter } from "next/router";
 import { useState } from "react";
 import Link from "next/link";
+import { signIn } from "next-auth/react";
 
 const Login = () => {
   const [username, setUsername] = useState("");
@@ -96,6 +97,10 @@ const Login = () => {
               </button>
             </div>
           </form>
+        </div>
+        <div>
+          <button className=" bg-fitify-purple text-white text-xl px-3 py-1 mr-10 mt-4" onClick={() => signIn("google")}>Sign in using Google</button>
+          <button className=" bg-fitify-purple text-white text-xl px-3 py-1 mt-4" onClick={() => signIn("github")}>Sign in using Github</button>
         </div>
         <p className="  sm:text-lg text-base mt-4 mb-10">
           Don’t have an account?
