@@ -3,6 +3,7 @@ import GithubProvider from "next-auth/providers/github";
 import GoogleProvider from "next-auth/providers/google";
 import  CredentialsProvider from "next-auth/providers/credentials";
 import clientPromise from "lib/mongodb";
+import { compare } from "bcryptjs";
 
 const uri = process.env.MONGODB_URI;
 const options = {
@@ -25,12 +26,12 @@ export default NextAuth({
     
     CredentialsProvider({
       id: 'credentials',
-      name: 'custom-login',
+      name: 'login',
       credentials: {
-        email: {
-          label: 'email',
-          type: 'email',
-          placeholder: 'jsmith@example.com',
+        name: {
+          label: 'name',
+          type: 'name',
+          placeholder: 'johndoe',
         },
         password: { label: 'password', type: 'password' },
       },
@@ -41,22 +42,21 @@ export default NextAuth({
         const users = client.db().collection('users');
         //Find user with the email  
         const result = await users.findOne({
-          email: credentials.email,
+          name: credentials.name,
         });
             //Not found - send error res
         if (!result) {
           client.close();
           throw new Error('No user found with the email');
         }
-        // const checkPassword = await compare(credentials.passowrd, result.passowrd);
-        const checkPassword = (credentials.password == result.password);
+        const checkPassword = await compare(credentials.password, result.password);
         //Incorrect password - send response
         if (!checkPassword) {
           throw new Error(`Password doesnt match`);
         }
         //Else send success response
         client.close();
-        return { email: result.email, password:result.password };
+        return { name: result.name,email:result.email, credentials:result.credentials };
       },
     }),
   ],
