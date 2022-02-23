@@ -5,19 +5,14 @@ async function handler(req, res) {
     //Only POST mothod is accepted
     if (req.method === 'POST') {
         //Getting email and password from body
-        const { email, password } = req.body;
-        //Validate
-        if (!email || !email.includes('@') || !password) {
-            res.status(422).json({ message: 'Invalid Data' });
-            return;
-        }
+        const { name,email, password,firstName,lastName,phone,address,city,country } = req.body;
         //Connect with database
-        const client = clientPromise;
-        const db = client.db();
+        const client = await clientPromise;
+        const db = await client.db();
         //Check existing
         const checkExisting = await db
             .collection('users')
-            .findOne({ email: email });
+            .findOne({ email: email, name:name, credentials:"credentials" });
         //Send error response if duplicate user is found
         if (checkExisting) {
             res.status(422).json({ message: 'User already exists' });
@@ -26,8 +21,16 @@ async function handler(req, res) {
         }
         //Hash password
         const status = await db.collection('users').insertOne({
+            name,
             email,
             password: await hash(password, 12),
+            firstName,
+            lastName,
+            phone,
+            address,
+            city,
+            country,
+            credentials:"credentials"
         });
         //Send success response
         res.status(201).json({ message: 'User created', ...status });

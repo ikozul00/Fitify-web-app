@@ -1,12 +1,13 @@
 import Link from "next/link";
 import { useState } from "react";
-import { Country, State, City }  from 'country-state-city';
-console.log(Country.getAllCountries())
-console.log(State.getAllStates())
+import { Country, City }  from 'country-state-city';
+import { useRouter } from "next/router";
+
 
 const Registration = () => {
 
     const countries = Country.getAllCountries();
+    const router = useRouter();
 
     const [cities, setCities] = useState("");
     const [page, setPage] = useState(1);
@@ -86,6 +87,41 @@ const Registration = () => {
         setCities(City.getCitiesOfCountry(targetCountry.isoCode));
     }
 
+    async function handleSubmit(e){
+        e.preventDefault();
+        if(!validate1){
+            const res = await fetch("/api/auth/signup", {
+                body: JSON.stringify({
+                  name: name,
+                  email:email,
+                  firstName:firstName,
+                  lastName:lastName,
+                  password: pass,
+                  phone:phone,
+                  address:address,
+                  city:city,
+                  country:country
+                }),
+                headers: {
+                  "Content-Type": "application/json",
+                },
+                method: "POST",
+              });
+              console.log(res);
+            if(res.status===201){
+                router.push(`/login`);
+            }
+            else if(res.status===422){
+                setValidate1("Username already exists, try something else.");
+                setPage(1);
+            }
+              
+        }
+        else{
+            setPage(1);
+        }
+    }
+
     return(
         <>
         <div className=" font-open-sans text-center">
@@ -114,19 +150,22 @@ const Registration = () => {
                         <input type="text" id="surname" name="surname" value = {lastName} onChange={(e) => handleChange(e)} className=" sm:mt-5 mt-0 border-2 border-fitify-purple h-9 sm:w-4/6 w-11/12 sm:mx-0 mx-auto  form-field sm:col-span-2 col-span-3 "></input>
                         <label htmlFor="phone" className=" pr-3.2 mt-5 sm:w-full w-11/12 mx-auto">Phone number:</label>
                         <input type="text" id="phone" name="phone" value={phone} onChange={(e) => handleChange(e)} className=" sm:mt-5 border-2 border-fitify-purple h-9 sm:w-4/6 w-11/12 sm:mx-0 mx-auto  form-field sm:col-span-2 col-span-3"></input>
-                        <label htmlFor="address" className=" pr-3.2 mt-5 sm:w-full w-11/12 mx-auto">Address:</label>
-                        <input type="text" id="address" name="address" value={address} onChange={(e) => handleChange(e)} className="sm:mt-5 border-2 border-fitify-purple h-9 sm:w-4/6 w-11/12 sm:mx-0 mx-auto  form-field sm:col-span-2 col-span-3"></input>
-                        <label htmlFor="country" id="country" className="mr-3 sm:text-xl text-lg">Country:</label>
-                        <select name="country" id="country-value" className="sm:w-20 w-16 text-center border-2 border-gray-500" value={country} onChange={(e) => countryChanged(e)}>
+                        <label htmlFor="address" className=" pr-3.2 mt-16 sm:w-full w-11/12 mx-auto ">Address:</label>
+                        <input type="text" id="address" name="address" value={address} onChange={(e) => handleChange(e)} className="sm:mt-16 border-2 border-fitify-purple h-9 sm:w-4/6 w-11/12 sm:mx-0 mx-auto  form-field sm:col-span-2 col-span-3"></input>
+                        <div className="sm:col-span-3 w-8/12 mx-auto md:pl-20 pl-0 flex sm:flex-row flex-col text-left justify-around mt-5">
+                        <div className="flex flex-col md:w-2/4 sm:w-3/5 w-full ">
+                        <label htmlFor="country" id="country" className="mr-3">Country:</label>
+                        <select name="country" id="country-value" className=" text-center border-2 border-fitify-purple md:w-3/6 sm:w-5/6 w-full" value={country} onChange={(e) => countryChanged(e)}>
                             {countries.map((i) => (
-                                <option key={i.name} value={`${i.name}`}>
+                                <option key={i.name} value={`${i.name}`} >
                                     {i.name}
                                 </option>
                             ))}
                         </select>
-                        {country && <div>
-                        <label htmlFor="city" id="city" className="mr-3 sm:text-xl text-lg">City:</label>
-                        <select name="city" id="city-value" className="sm:w-20 w-16 text-center border-2 border-gray-500" value={city} onChange={(e) => setCity(e.target.value)}>
+                        </div>
+                        {country && <div className="flex flex-col md:w-2/4 sm:w-3/5 w-full" >
+                        <label htmlFor="city" id="city" className="mr-3">City:</label>
+                        <select name="city" id="city-value" className=" text-center border-2 border-fitify-purple md:w-3/6 sm:w-5/6 w-full" value={city} onChange={(e) => setCity(e.target.value)}>
                             {cities.map((i) => (
                                 <option key={i.name} value={`${i.name}`}>
                                     {i.name}
@@ -134,11 +173,13 @@ const Registration = () => {
                             ))}
                         </select>
                         </div>
+                        
                         }
+                        </div>
                         <div className="col-span-3 flex sm:justify-around justify-between sm:w-full w-11/12">
                         <button type="submit" className="bg-fitify-purple font-bold uppercase hover:opacity-80 text-white border-none my-11 col-start-2  sm:w-36 w-24 md:ml-10 sm:ml-6 ml-0" onClick={() => setPage(1)}>Back</button>
                         <Link href="/errorPage" passHref>
-                            <button type="submit" className="bg-fitify-pink font-bold uppercase py-2 hover:opacity-80 text-white border-none my-11 col-start-3 sm:w-36 w-24 md:mr-16 sm:mr-12 mr-0">Sign Up</button>
+                            <button type="submit" onClick = {(e) => handleSubmit(e)} className="bg-fitify-pink font-bold uppercase py-2 hover:opacity-80 text-white border-none my-11 col-start-3 sm:w-36 w-24 md:mr-16 sm:mr-12 mr-0">Sign Up</button>
                         </Link>
                         </div>
                         
