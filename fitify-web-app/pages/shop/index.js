@@ -10,6 +10,7 @@ import { useRouter } from "next/router";
 import { setFilters } from "@/lib/filterFunctions";
 import { BsSliders } from "react-icons/bs";
 import { FaArrowDown, FaArrowUp } from "react-icons/fa";
+import Link from "next/link";
 
 const Shop = ({ products }) => {
   const [shownProducts, setShownProducts] = useState(products);
@@ -122,6 +123,9 @@ const Shop = ({ products }) => {
           athleisure aesthetic, we've got something to suit.`,
             }}
           />
+          <Link href="/shop/addProduct" passHref>
+            <p className="mx-10 bg-red-500">Add new product</p>
+          </Link>
           <SearchBar searchQuery={searchQuery} />
         </div>
       </div>
