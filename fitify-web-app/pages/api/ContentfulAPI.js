@@ -54,7 +54,6 @@ export const getPaginatedPosts = async (page) => {
         blogCollection(limit: ${Config.pagination.pageSize}, skip: ${skip}, order: date_DESC) {
           total
           items {
-            id
             title
             date
             slug
@@ -122,7 +121,6 @@ export const getPostBySlug = async (slug) => {
         slug: "${slug}"
       }){
         items{
-          id
           title
           description
           date
