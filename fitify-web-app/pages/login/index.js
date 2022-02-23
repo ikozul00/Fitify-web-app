@@ -22,6 +22,8 @@ const Login = () => {
 
   async function handleSubmit(event) {
     event.preventDefault();
+    let res = await signIn("credentials",{redirect: false,email:username, password:password});
+    console.log(res);
     if (!(password.length === 0) && !(username.length === 0)) {
       const res = await fetch("/api/login", {
         body: JSON.stringify({
@@ -33,12 +35,14 @@ const Login = () => {
         },
         method: "POST",
       });
+      
       const responseData = await res.json();
       if (responseData.data.length === 0) {
         setErrorMessage("Wrong username or password!");
       } else {
         localStorage.setItem("user", username);
         router.push(`/profile/${username}`);
+        
       }
     } else {
       setErrorMessage("You must enter both username and password!");
@@ -52,7 +56,7 @@ const Login = () => {
           <h1 className="md:text-3xl sm:text-xl text-lg font-semibold pt-10 pb-10 underline underline-offset-2">
             LOGIN
           </h1>
-          <form onSubmit={(e) => handleSubmit(e)} className="flex-col sm:text-base text-sm">
+          <form className="flex-col sm:text-base text-sm">
             <div className="sm:w-5/6 w-full mx-auto mb-7 sm:block flex flex-col px-10">
               <label
                 htmlFor="username"
@@ -92,16 +96,14 @@ const Login = () => {
               <button
                 type="submit"
                 className="bg-fitify-purple px-10 py-2 font-medium uppercase hover:opacity-80 text-white border-none mt-5 mb-10"
+                onClick={(e) => handleSubmit(e) }
               >
                 Login
               </button>
             </div>
           </form>
         </div>
-        <div>
-          <button className=" bg-fitify-purple text-white text-xl px-3 py-1 mr-10 mt-4" onClick={() => signIn("google")}>Sign in using Google</button>
-          <button className=" bg-fitify-purple text-white text-xl px-3 py-1 mt-4" onClick={() => signIn("github")}>Sign in using Github</button>
-        </div>
+        
         <p className="  sm:text-lg text-base mt-4 mb-10">
           Don’t have an account?
           <Link href="/registration" key="registration" passHref>
@@ -111,6 +113,10 @@ const Login = () => {
           </Link>
         </p>
       </div>
+      <div>
+          <button className=" bg-fitify-purple text-white text-xl px-3 py-1 mr-10 mt-4" onClick={() => signIn("google")}>Sign in using Google</button>
+          <button className=" bg-fitify-purple text-white text-xl px-3 py-1 mt-4" onClick={() => signIn("github")}>Sign in using Github</button>
+        </div>
     </>
   );
 };
