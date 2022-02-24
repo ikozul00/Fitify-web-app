@@ -69,6 +69,7 @@ export default NextAuth({
     async jwt({ token, user, account }) {
       if (account && user) {
         token.user=user;
+        token.user.credentials=account.provider;
         let client = await clientPromise;
         const users = client.db().collection('users');
         if(account.provider==="github"){
@@ -96,7 +97,11 @@ export default NextAuth({
       return token;
     },
 
-    async session({ session}) {
+    async session({ session,token}) {
+      if(token){
+        session.user.credentials=token.user.credentials;
+      }
+      
       return session;
     },
   },

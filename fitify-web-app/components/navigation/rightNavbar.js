@@ -14,7 +14,7 @@ const RightNavbar = ({mobile }) => {
     if(session){
       setUser(session.user);
     }
-  });
+  },[session]);
 
   function LogOut(event) {
     event.preventDefault();
