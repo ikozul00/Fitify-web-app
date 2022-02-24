@@ -1,13 +1,18 @@
 import { useRouter } from "next/router";
 import { useState } from "react";
 import Link from "next/link";
-import { signIn } from "next-auth/react";
+import { signIn, useSession } from "next-auth/react";
 
 const Login = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const router = useRouter();
+  const { data:session } = useSession();
+
+  if(session){
+    router.push("/");
+  }
 
 
   function onChange(event) {
@@ -26,7 +31,7 @@ const Login = () => {
       let res = await signIn("credentials",{redirect: false,name:username, password:password});
       console.log(res);
       if(res.status===200 && !res.error){
-        router.push(`/profile/${username}`);
+        router.push(`/`);
       }
       else{
         setErrorMessage("Wrong username or password!");
@@ -91,8 +96,8 @@ const Login = () => {
             </div>
           </form>
           <div className="my-5 border-t-2 border-black flex sm:flex-row flex-col justify-around mx-auto w-11/12">
-          <button className=" bg-fitify-purple text-white text-xl px-3 py-1 mt-4" onClick={() => signIn("google")}>Sign in using Google</button>
-          <button className=" bg-fitify-purple text-white text-xl px-3 py-1 mt-4" onClick={() => signIn("github")}>Sign in using Github</button>
+          <button className=" bg-fitify-purple text-white text-xl px-3 py-1 mt-4" onClick={() => signIn("google", { callbackUrl: 'http://localhost:3000/' })}>Sign in using Google</button>
+          <button className=" bg-fitify-purple text-white text-xl px-3 py-1 mt-4" onClick={() => signIn("github", { callbackUrl: 'http://localhost:3000/' })}>Sign in using Github</button>
         </div>
         </div>
         

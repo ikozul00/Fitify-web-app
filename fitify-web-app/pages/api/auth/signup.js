@@ -30,7 +30,8 @@ async function handler(req, res) {
             address,
             city,
             country,
-            credentials:"credentials"
+            credentials:"credentials",
+            role:"user"
         });
         //Send success response
         res.status(201).json({ message: 'User created', ...status });

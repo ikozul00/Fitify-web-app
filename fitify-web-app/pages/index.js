@@ -6,10 +6,8 @@ import {
 } from "pages/api/ContentfulAPI";
 import SaleContainer from "@/components/home/SaleContainer";
 import Link from "next/link";
-import { useSession, signOut } from "next-auth/react";
 
 export default function Home({ saleProducts, blogArticles }) {
-  const { data: session } = useSession()
   return (
     <main className="font-open-sans flex flex-col">
       <div className="relative sm:block hidden h-100 w-full">
@@ -28,10 +26,6 @@ export default function Home({ saleProducts, blogArticles }) {
         </p>
       </div>
       <div className="w-9/12 mx-auto sm:my-10 my-8">
-        {console.log(session)}
-        {session && <p>Logged</p>}
-        {!session && <p>Not logged</p>}
-        <button onClick={() => signOut("github")} className="bg-fitify-purple text-white text-xl">Log out</button>
         <Link href={`/shop`} passHref>
           <h1 className="text-center sm:text-5xl md:text-4xl text-3xl uppercase sm:mt-12 mt-6 text-gray-700 font-semibold hover:cursor-pointer hover:scale-105">
             SHOP

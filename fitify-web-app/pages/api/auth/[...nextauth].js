@@ -5,12 +5,6 @@ import  CredentialsProvider from "next-auth/providers/credentials";
 import clientPromise from "lib/mongodb";
 import { compare } from "bcryptjs";
 
-const uri = process.env.MONGODB_URI;
-const options = {
-  useUnifiedTopology: true,
-  useNewUrlParser: true,
-}
-
 export default NextAuth({
   // Configure one or more authentication providers
   providers: [
@@ -83,7 +77,7 @@ export default NextAuth({
             credentials:"github"
           });
           if(!result){
-            let newUser = await users.insertOne({...user, credentials:"github"});
+            let newUser = await users.insertOne({...user, credentials:"github",role:"user"});
           }
         }
 
@@ -93,7 +87,7 @@ export default NextAuth({
             credentials:"google"
           });
           if(!result){
-            let newUser = await users.insertOne({...user, credentials:"google"});
+            let newUser = await users.insertOne({...user, credentials:"google",role:"user"});
           }
         }
         client.close();
