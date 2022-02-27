@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { createNewProduct } from "pages/api/ModifyProducts";
+import { createNewProduct, fetchEntry } from "pages/api/ModifyProducts";
 import { filters } from "@/constants/filters";
 
 const AddProduct = () => {
@@ -9,6 +9,12 @@ const AddProduct = () => {
   const [gender, setGender] = useState(filters.gender.items[0]);
   const [category, setCategory] = useState(filters.category.items[0]);
   const [brand, setBrand] = useState(filters.brand.items[0]);
+  const [color, setColor] = useState(filters.color.items[0]);
+  const [sizes, setSizes] = useState(filters.sizes.items[0]);
+  const [details, setDetails] = useState("");
+  const [material, setMaterial] = useState("");
+  const [thumbnailImage, setThumbnailImage] = useState("");
+  const [images, setImages] = useState([]);
 
   const sendMessage = (e) => {
     e.preventDefault();
@@ -19,10 +25,17 @@ const AddProduct = () => {
       category: category,
       gender: gender,
       brand: brand,
+      color: color,
+      sizes: sizes,
+      material: material,
+      productDetails: details,
+      thumbnailImage: thumbnailImage,
+      images: images,
     };
 
     console.log(newProduct);
     createNewProduct(newProduct);
+    //fetchEntry();
   };
 
   function handleChange(e) {
@@ -119,6 +132,71 @@ const AddProduct = () => {
               </option>
             ))}
           </select>
+          <label htmlFor="color">Color:</label>
+          <select
+            name="color"
+            id="color"
+            className="w-full"
+            onChange={(e) => setColor(e.target.value)}
+            value={color}
+          >
+            {filters.color.items.map((option) => (
+              <option value={option} key={option}>
+                {option}
+              </option>
+            ))}
+          </select>
+          <label htmlFor="sizes">Sizes:</label>
+          <select
+            name="sizes"
+            id="sizes"
+            className="w-full"
+            onChange={(e) => setSizes(e.target.value)}
+            value={sizes}
+          >
+            {filters.sizes.items.map((option) => (
+              <option value={option} key={option}>
+                {option}
+              </option>
+            ))}
+          </select>
+          <label htmlFor="material">Material:</label>
+          <textarea
+            id="material"
+            name="material"
+            rows={1}
+            className="border-2 mb-5 border-fitify-purple form-field "
+            value={material}
+            onChange={(e) => setMaterial(e.target.value)}
+            required
+          ></textarea>
+          <label htmlFor="details">Details:</label>
+          <textarea
+            id="details"
+            name="details"
+            rows={6}
+            className="border-2 mb-5 border-fitify-purple form-field "
+            value={details}
+            onChange={(e) => setDetails(e.target.value)}
+            required
+          ></textarea>
+
+          <label htmlFor="thumbnailImage">Thumbnail image:</label>
+          <input
+            type="file"
+            id="thumbnailImage"
+            name="thumbnailImage"
+            onChange={(e) => setThumbnailImage(e.target.files[0])}
+          />
+          <label htmlFor="images">Images:</label>
+          <input
+            type="file"
+            id="images"
+            name="images"
+            onChange={(e) => setImages(e.target.files)}
+            multiple
+          />
+
           <button
             onClick={sendMessage}
             className=" bg-fitify-purple text-white w-36 py-2 place-self-end mb-7"
