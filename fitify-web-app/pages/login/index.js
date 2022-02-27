@@ -29,7 +29,6 @@ const Login = () => {
     event.preventDefault();
     if (!(password.length === 0) && !(username.length === 0)) {
       let res = await signIn("credentials",{redirect: false,name:username, password:password});
-      console.log(res);
       if(res.status===200 && !res.error){
         router.push(`/`);
       }

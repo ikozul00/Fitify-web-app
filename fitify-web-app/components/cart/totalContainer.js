@@ -1,10 +1,13 @@
 import { useEffect, useState} from "react";
 import { useRouter } from "next/router";
+import { useSession } from "next-auth/react";
 
 const TotalContainer = ({items, mobile}) => {
     const [totalPrice, setTotalPrice] = useState(0);
     const [total, setTotal] = useState(0);
+    const [login, setLogin] = useState("");
     const router=useRouter();
+    const { data:session } = useSession();
 
     useEffect(()=> {
         let price=0;
@@ -15,8 +18,13 @@ const TotalContainer = ({items, mobile}) => {
 
     const Buy = (e) => {
         e.preventDefault();
-        if(!(totalPrice<=0)){
-            router.push("/errorPage");
+        if(!(totalPrice<=2)){
+            if(session){
+                router.push("/buy");
+            }
+            else{
+                setLogin("Please log in first.")
+            }
         }
         
     }
@@ -30,6 +38,7 @@ const TotalContainer = ({items, mobile}) => {
             {!mobile && <hr className="border-2 border-solid border-fitify-green my-2 bg-fitify-green"></hr>}
             <p className={`md:text-2xl sm:text-xl text-lg  font-bold ${!mobile ? "uppercase " : " "}`}>Total: ${total}</p>
             <button className={` md:w-48 sm:w-40 w-36 ${mobile ? "my-0" : "my-5 mx-auto"} py-2 bg-fitify-pink text-white font-bold sm:text-2xl text-xl ${totalPrice<=0 ? "opacity-50 hover:cursor-default" : "hover:opacity-70 hover:cursor-pointer"} `} onClick = {(e) => Buy(e)}>BUY</button>
+            {login && <p className="text-center font-semibold text-2xl">{login}</p>}
         </section>
     );
 }
