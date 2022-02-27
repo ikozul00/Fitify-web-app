@@ -7,6 +7,7 @@ import ImageSlider from "../imageSlider/ImageSlider";
 import { useEffect, useState } from "react";
 import { connect } from "react-redux";
 import { addToCart } from "redux/actions/cartActions";
+import Link from "next/link";
 
 const components = {
   h2: H2,
@@ -18,7 +19,6 @@ const components = {
   a: A,
   strong: Strong,
 };
-
 
 const ProductView = ({ product, addToCartRedux, counter }) => {
   const images = [product.thumbnailImage, ...product.imagesCollection.items];
@@ -71,29 +71,40 @@ const ProductView = ({ product, addToCartRedux, counter }) => {
         <h1 className="sm:text-4xl text-3xl font-bold">{product.brand}</h1>
         <h1 className="sm:text-3xl text-2xl  font-semibold">{product.title}</h1>
         <div className="flex sm:text-2xl text-xl  mt-8 mb-4">
-          <h2 className={`font-extrabold ${product.oldPrice ? "text-fitify-pink" : ""}`}>${product.price}</h2>
+          <h2
+            className={`font-extrabold ${
+              product.oldPrice ? "text-fitify-pink" : ""
+            }`}
+          >
+            ${product.price}
+          </h2>
           {product.oldPrice != null && (
-            <h2 className="line-through font-bold ml-5">
-              ${product.oldPrice}
-            </h2>
+            <h2 className="line-through font-bold ml-5">${product.oldPrice}</h2>
           )}
+          <Link
+            href={`/shop/product/modifyProduct?id=${product.sys.id}`}
+            passHref
+          >
+            <p className="mx-10 bg-red-500">Add new product</p>
+          </Link>
         </div>
         <p className="sm:text-xl text-lg">Select Size:</p>
         <div className="flex justify-start mb-5 flex-wrap">
           {product.sizes.map((size) => {
-            return(
-            <button
-              key={size}
-              className={`rounded-full border-black sm:w-20 w-16 mm:h-10 h-12 border-2 font-semibold mx-2 my-2 ${
-                pickedSize === size
-                  ? "bg-fitify-green text-white border-white"
-                  : "bg-white text-black border-black"
-              }`}
-              onClick={() => sizePicked(size)}
-            >
-              {size}
-            </button>
-          )})}
+            return (
+              <button
+                key={size}
+                className={`rounded-full border-black sm:w-20 w-16 mm:h-10 h-12 border-2 font-semibold mx-2 my-2 ${
+                  pickedSize === size
+                    ? "bg-fitify-green text-white border-white"
+                    : "bg-white text-black border-black"
+                }`}
+                onClick={() => sizePicked(size)}
+              >
+                {size}
+              </button>
+            );
+          })}
         </div>
         <div className="flex custom:flex-row  ms:flex-col customSmall:flex-row flex-col w-full justify-between items-baseline">
           <div>

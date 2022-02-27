@@ -122,12 +122,11 @@ export const createNewProduct = async (newProduct) => {
   entry = await entry.publish();
 };
 
-// export const fetchEntry = async () => {
-//   client
-//     .getSpace(process.env.CONTENTFUL_SPACE_ID)
-//     .then((space) => space.getEnvironment("master"))
-//     .then((environment) => environment.getEntry("33Zc88vISN3UZHbHM3WGKT"))
-//     .then((entry) => console.log(entry))
-//     .catch(console.error);
-//   return 0;
-// };
+export const fetchEntryById = async (entryId) => {
+  return client
+    .getSpace(process.env.CONTENTFUL_SPACE_ID)
+    .then((space) => space.getEnvironment("master"))
+    .then((environment) => environment.getEntry(entryId))
+    .then((entry) => entry)
+    .catch((error) => error);
+};
