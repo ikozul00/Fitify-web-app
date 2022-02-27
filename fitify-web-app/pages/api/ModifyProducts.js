@@ -33,6 +33,7 @@ export const createNewProduct = async (newProduct) => {
   const space = await client.getSpace(process.env.CONTENTFUL_SPACE_ID);
   const environment = await space.getEnvironment("master");
 
+  // Unos novih asseta za svaku sliku
   const imageData = [];
   for (let i = 0; i < newProduct.images.length; i++) {
     let assetId = await createNewAsset(newProduct.images[i]).then(
@@ -107,9 +108,7 @@ export const createNewProduct = async (newProduct) => {
     asset = await asset.processForAllLocales();
     asset = await asset.publish();
 
-    /**
-     * Update entry with new asset
-     */
+    //Update entry with new asset
     entry.fields.thumbnailImage["en-US"] = {
       sys: {
         id: asset.sys.id,
@@ -119,23 +118,6 @@ export const createNewProduct = async (newProduct) => {
     };
     entry = await entry.update();
   }
-
-  // const imageData = [];
-  // for (let i = 0; i < newProduct.images.length; i++) {
-  //   let assetId = await createNewAsset(newProduct.images[i]).then(
-  //     (value) => value
-  //   );
-  //   imageData.push({
-  //     sys: {
-  //       id: assetId,
-  //       linkType: "Asset",
-  //       type: "Link",
-  //     },
-  //   });
-  // }
-  // console.log("Image data:", imageData);
-  // entry.fields.images["en-US"] = { ...imageData };
-  // entry = await entry.update();
 
   entry = await entry.publish();
 };

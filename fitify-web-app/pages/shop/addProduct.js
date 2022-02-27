@@ -1,11 +1,12 @@
 import { useState } from "react";
-import { createNewProduct, fetchEntry } from "pages/api/ModifyProducts";
+import { createNewProduct } from "pages/api/ModifyProducts";
 import { filters } from "@/constants/filters";
+import { checkProduct } from "@/lib/errorChecking";
 
 const AddProduct = () => {
   const [title, setTitle] = useState("");
-  const [price, setPrice] = useState();
-  const [oldPrice, setOldPrice] = useState();
+  const [price, setPrice] = useState("");
+  const [oldPrice, setOldPrice] = useState("");
   const [gender, setGender] = useState(filters.gender.items[0]);
   const [category, setCategory] = useState(filters.category.items[0]);
   const [brand, setBrand] = useState(filters.brand.items[0]);
@@ -15,13 +16,14 @@ const AddProduct = () => {
   const [material, setMaterial] = useState("");
   const [thumbnailImage, setThumbnailImage] = useState("");
   const [images, setImages] = useState([]);
+  const [errorMessage, setErrorMessage] = useState("");
 
   const sendMessage = (e) => {
     e.preventDefault();
     let newProduct = {
       title: title,
       price: price,
-      oldPrice: oldPrice,
+      oldPrice: oldPrice ? oldPrice : null,
       category: category,
       gender: gender,
       brand: brand,
@@ -34,8 +36,11 @@ const AddProduct = () => {
     };
 
     console.log(newProduct);
-    createNewProduct(newProduct);
-    //fetchEntry();
+    let errorCheck = checkProduct(newProduct);
+    if (errorCheck.error == false) {
+      createNewProduct(newProduct);
+      setErrorMessage("");
+    } else setErrorMessage(errorCheck.errorMsg);
   };
 
   const handleSizeChange = (e) => {
@@ -48,6 +53,7 @@ const AddProduct = () => {
       setSizes(sizes.splice(index, 1));
     }
   };
+
   const handleColorChange = (e) => {
     const isChecked = e.target.checked;
     // Ako je true dodaj u listu sizes, inace izvadi iz liste
@@ -59,63 +65,62 @@ const AddProduct = () => {
     }
   };
 
-  function handleChange(e) {
-    const value = e.target.value;
-    switch (e.target.name) {
-      case "title":
-        setTitle(value);
-        break;
-      case "price":
-        setPrice(value);
-        break;
-      case "oldPrice":
-        setOldPrice(value);
-        break;
-      default:
-        console.log("Error with form");
-    }
-  }
   return (
     <div className="md:ml-16 ml-8 w-11/12 my-12 font-open-sans">
-      <h1 className="md:text-5xl sm:text-4xl text-3xl uppercase text-gray-700 font-semibold">
-        Add new product
-      </h1>
+      <div className="flex flex-row">
+        <h1 className="md:text-5xl sm:text-4xl text-3xl uppercase text-gray-700 font-semibold basis-5/6">
+          Add new product
+        </h1>
+        {errorMessage && (
+          <p className="border-2 border-fitify-pink text-2xl p-2 basis-1/6">
+            {errorMessage}
+          </p>
+        )}
+      </div>
       <form className=" w-5/6 my-5 flex flex-col">
         <div className="px-7 flex flex-col sm:text-base text-sm">
-          <label htmlFor="title">Title:</label>
+          <label htmlFor="title" className="mt-5 text-xl">
+            Title:
+          </label>
           <input
             type="text"
             name="title"
             id="title"
             className="border-2 mb-5 border-fitify-purple form-field md:w-2/5 sm:w-3/6 w-full"
             value={title}
-            onChange={(e) => handleChange(e)}
+            onChange={(e) => setTitle(e.target.value)}
             required
           />
-          <label htmlFor="price">Price:</label>
+          <label htmlFor="price" className="mt-5 text-xl">
+            Price:
+          </label>
           <input
-            type="number"
+            type="text"
             name="price"
             id="price"
-            className="border-2 mb-5 border-fitify-purple form-field md:w-2/5 sm:w-3/6 w-ful"
+            className="border-2 mb-5 border-fitify-purple form-field md:w-2/5 sm:w-3/6 w-full"
             value={price}
-            onChange={(e) => handleChange(e)}
+            onChange={(e) => setPrice(e.target.value)}
             required
           />
-          <label htmlFor="oldPrice">Old Price:</label>
+          <label htmlFor="oldPrice" className="mt-5 text-xl">
+            Old Price:
+          </label>
           <input
-            type="number"
+            type="text"
             name="oldPrice"
             id="oldPrice"
-            className="border-2 mb-5 border-fitify-purple form-field md:w-2/5 sm:w-3/6 w-ful"
+            className="border-2 mb-5 border-fitify-purple form-field md:w-2/5 sm:w-3/6 w-full"
             value={oldPrice}
-            onChange={(e) => handleChange(e)}
+            onChange={(e) => setOldPrice(e.target.value)}
           />
-          <label htmlFor="category">Category:</label>
+          <label htmlFor="category" className="mt-5 text-xl">
+            Category:
+          </label>
           <select
             name="category"
             id="category"
-            className="w-full"
+            className="md:w-2/5 sm:w-3/6 w-full border-2 border-black"
             onChange={(e) => setCategory(e.target.value)}
             value={category}
           >
@@ -125,11 +130,13 @@ const AddProduct = () => {
               </option>
             ))}
           </select>
-          <label htmlFor="gender">Gender:</label>
+          <label htmlFor="gender" className="mt-5 text-xl">
+            Gender:
+          </label>
           <select
             name="gender"
             id="gender"
-            className="w-full"
+            className="md:w-2/5 sm:w-3/6 w-full  border-2 border-black"
             onChange={(e) => setGender(e.target.value)}
             value={gender}
           >
@@ -139,11 +146,13 @@ const AddProduct = () => {
               </option>
             ))}
           </select>
-          <label htmlFor="brand">Brand:</label>
+          <label htmlFor="brand" className="mt-5 text-xl">
+            Brand:
+          </label>
           <select
             name="brand"
             id="brand"
-            className="w-full"
+            className="md:w-2/5 sm:w-3/6 w-full border-2 border-black"
             onChange={(e) => setBrand(e.target.value)}
             value={brand}
           >
@@ -153,7 +162,7 @@ const AddProduct = () => {
               </option>
             ))}
           </select>
-          <p>Colors:</p>
+          <p className="mt-5 text-xl">Colors:</p>
           {filters.color.items.map((option) => {
             return (
               <div>
@@ -164,11 +173,13 @@ const AddProduct = () => {
                   value={option}
                   onChange={handleColorChange}
                 />
-                <label htmlFor={option}>{option}</label>
+                <label htmlFor={option} className="mx-2">
+                  {option}
+                </label>
               </div>
             );
           })}
-          <p>Sizes:</p>
+          <p className="mt-5 text-xl">Sizes:</p>
           {filters.sizes.items.map((option) => {
             return (
               <div>
@@ -179,11 +190,15 @@ const AddProduct = () => {
                   value={option}
                   onChange={handleSizeChange}
                 />
-                <label htmlFor={option}>{option}</label>
+                <label htmlFor={option} className="mx-2">
+                  {option}
+                </label>
               </div>
             );
           })}
-          <label htmlFor="material">Material:</label>
+          <label htmlFor="material" className="mt-5 text-xl">
+            Material:
+          </label>
           <textarea
             id="material"
             name="material"
@@ -193,7 +208,9 @@ const AddProduct = () => {
             onChange={(e) => setMaterial(e.target.value)}
             required
           ></textarea>
-          <label htmlFor="details">Details:</label>
+          <label htmlFor="details" className="mt-5 text-xl">
+            Details:
+          </label>
           <textarea
             id="details"
             name="details"
@@ -204,14 +221,18 @@ const AddProduct = () => {
             required
           ></textarea>
 
-          <label htmlFor="thumbnailImage">Thumbnail image:</label>
+          <label htmlFor="thumbnailImage" className="mt-5 text-xl">
+            Thumbnail image:
+          </label>
           <input
             type="file"
             id="thumbnailImage"
             name="thumbnailImage"
             onChange={(e) => setThumbnailImage(e.target.files[0])}
           />
-          <label htmlFor="images">Images:</label>
+          <label htmlFor="images" className="mt-5 text-xl">
+            Images:
+          </label>
           <input
             type="file"
             id="images"
