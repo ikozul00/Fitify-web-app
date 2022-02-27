@@ -68,10 +68,10 @@ export const createNewProduct = async (newProduct) => {
         "en-US": newProduct.brand,
       },
       color: {
-        "en-US": [newProduct.color],
+        "en-US": newProduct.color,
       },
       sizes: {
-        "en-US": [newProduct.sizes],
+        "en-US": newProduct.sizes,
       },
       material: {
         "en-US": newProduct.material,

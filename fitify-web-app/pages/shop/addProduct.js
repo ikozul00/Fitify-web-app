@@ -9,8 +9,8 @@ const AddProduct = () => {
   const [gender, setGender] = useState(filters.gender.items[0]);
   const [category, setCategory] = useState(filters.category.items[0]);
   const [brand, setBrand] = useState(filters.brand.items[0]);
-  const [color, setColor] = useState(filters.color.items[0]);
-  const [sizes, setSizes] = useState(filters.sizes.items[0]);
+  const [color, setColor] = useState([]);
+  const [sizes, setSizes] = useState([]);
   const [details, setDetails] = useState("");
   const [material, setMaterial] = useState("");
   const [thumbnailImage, setThumbnailImage] = useState("");
@@ -36,6 +36,27 @@ const AddProduct = () => {
     console.log(newProduct);
     createNewProduct(newProduct);
     //fetchEntry();
+  };
+
+  const handleSizeChange = (e) => {
+    const isChecked = e.target.checked;
+    // Ako je true dodaj u listu sizes, inace izvadi iz liste
+    if (isChecked) {
+      setSizes([...sizes, e.target.value]);
+    } else {
+      let index = sizes.indexOf(e.target.value);
+      setSizes(sizes.splice(index, 1));
+    }
+  };
+  const handleColorChange = (e) => {
+    const isChecked = e.target.checked;
+    // Ako je true dodaj u listu sizes, inace izvadi iz liste
+    if (isChecked) {
+      setColor([...color, e.target.value]);
+    } else {
+      let index = color.indexOf(e.target.value);
+      setColor(color.splice(index, 1));
+    }
   };
 
   function handleChange(e) {
@@ -132,34 +153,36 @@ const AddProduct = () => {
               </option>
             ))}
           </select>
-          <label htmlFor="color">Color:</label>
-          <select
-            name="color"
-            id="color"
-            className="w-full"
-            onChange={(e) => setColor(e.target.value)}
-            value={color}
-          >
-            {filters.color.items.map((option) => (
-              <option value={option} key={option}>
-                {option}
-              </option>
-            ))}
-          </select>
-          <label htmlFor="sizes">Sizes:</label>
-          <select
-            name="sizes"
-            id="sizes"
-            className="w-full"
-            onChange={(e) => setSizes(e.target.value)}
-            value={sizes}
-          >
-            {filters.sizes.items.map((option) => (
-              <option value={option} key={option}>
-                {option}
-              </option>
-            ))}
-          </select>
+          <p>Colors:</p>
+          {filters.color.items.map((option) => {
+            return (
+              <div>
+                <input
+                  type="checkbox"
+                  name={option}
+                  key={option}
+                  value={option}
+                  onChange={handleColorChange}
+                />
+                <label htmlFor={option}>{option}</label>
+              </div>
+            );
+          })}
+          <p>Sizes:</p>
+          {filters.sizes.items.map((option) => {
+            return (
+              <div>
+                <input
+                  type="checkbox"
+                  name={option}
+                  key={option}
+                  value={option}
+                  onChange={handleSizeChange}
+                />
+                <label htmlFor={option}>{option}</label>
+              </div>
+            );
+          })}
           <label htmlFor="material">Material:</label>
           <textarea
             id="material"
