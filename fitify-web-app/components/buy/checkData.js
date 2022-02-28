@@ -1,29 +1,11 @@
 const { useEffect, useState } = require("react");
 import { useSession } from "next-auth/react";
 
-const CheckData = ({changeStep}) => {
+const CheckData = ({changeStep, user, setUser}) => {
     const { data:session } = useSession();
-    const [user, setUser] = useState();
     const [error, setError] = useState();
 
-    useEffect(async ()=>{
-        if(session){
-            const res = await fetch("/api/user", {
-                    method: 'POST',
-                    headers: {
-                    'Content-Type': 'application/json;charset=utf-8'
-                },
-                body: JSON.stringify(session.user)
-            });
-            if(res.status===200){
-                const userData = await res.json();
-                setUser(userData.data);
-            }
-            else{
-                setError("Error retriving data please try later.");
-            }
-        }
-    },[]);
+    
 
     function handleChange(e){
         let field = e.target.name;

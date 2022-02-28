@@ -1,5 +1,4 @@
 import { connect } from "react-redux";
-import Image from "next/image";
 import {
   decreaseAmount,
   increaseAmount,
@@ -9,7 +8,6 @@ import TotalContainer from "@/components/cart/totalContainer";
 import Product from "../../components/cart/product";
 
 const Cart = ({ items, increaseAmount, decreaseAmount, removeItem }) => {
-  console.log(items);
   return (
     <>
       <div className="font-open-sans w-full flex sm:flex-row flex-col justify-around">

@@ -1,4 +1,4 @@
-import {ADD_TO_CART, DECREASE_AMOUNT, INCREASE_AMOUNT, REMOVE_FROM_CART} from "../constants/actions";
+import {ADD_TO_CART, DECREASE_AMOUNT, INCREASE_AMOUNT, REMOVE_ALL, REMOVE_FROM_CART} from "../constants/actions";
 
 const initialState = {
     items:[],
@@ -66,6 +66,13 @@ const cartReducer = (state = initialState, action) => {
                     return state;
                 }
             }
+
+            case REMOVE_ALL:
+                {
+                    state.items=[];
+                    state.quantity[0]=0;
+                    return {...state};
+                }
 
         default:
             return state
