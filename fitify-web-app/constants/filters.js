@@ -15,7 +15,7 @@ const brand = {
 };
 
 const color = {
-  title: "Color",
+  title: "Colors",
   items: [
     "beige",
     "black",

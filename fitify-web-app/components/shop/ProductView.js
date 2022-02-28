@@ -85,7 +85,7 @@ const ProductView = ({ product, addToCartRedux, counter }) => {
             href={`/shop/product/modifyProduct?id=${product.sys.id}`}
             passHref
           >
-            <p className="mx-10 bg-red-500">Add new product</p>
+            <p className="mx-10 bg-red-500">Modify product</p>
           </Link>
         </div>
         <p className="sm:text-xl text-lg">Select Size:</p>
