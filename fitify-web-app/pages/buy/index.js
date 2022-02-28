@@ -10,6 +10,7 @@ const Buy = () => {
     const[error, setError] = useState();
     const [user, setUser] = useState({});
     const { data:session } = useSession();
+    const [ordered, setOrdered] = useState(false);
     const router = useRouter();
 
     useEffect(() => {
@@ -41,7 +42,7 @@ const Buy = () => {
     },[]);
 
     function changeStep(value){
-        if(step!=3 && value<step){
+        if(!(step===3 && ordered) && value<step){
             setStep(value);
         }
     }
@@ -79,7 +80,7 @@ const Buy = () => {
         </div>
         {(step==1) && <CheckData changeStep={setStep} user={user} setUser={setUser}/>}
         {(step==2) && <Payment changeStep={setStep} user={user} setUser={setUser}/>}
-        {(step==3) && <Success user={user}/>}
+        {(step==3) && <Success user={user} ordered={ordered} setOrdered={setOrdered}/>}
         </div>
         }
         </>
