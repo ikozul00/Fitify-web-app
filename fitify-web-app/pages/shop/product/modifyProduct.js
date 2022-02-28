@@ -12,6 +12,9 @@ const ModifyProduct = () => {
   const [category, setCategory] = useState("");
   const [brand, setBrand] = useState("");
   const [sizes, setSizes] = useState([]);
+  const [color, setColor] = useState([]);
+  const [details, setDetails] = useState("");
+  const [material, setMaterial] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const router = useRouter();
 
@@ -29,12 +32,20 @@ const ModifyProduct = () => {
       setCategory(entry.category["en-US"]);
       setBrand(entry.brand["en-US"]);
       setSizes(entry.sizes["en-US"]);
+      setColor(entry.color["en-US"]);
+      setDetails(entry.productDetails["en-US"]);
+      setMaterial(entry.material["en-US"]);
     }
   }, [router]);
 
   const handleSizeChange = (selectedSizes) => {
     setSizes(selectedSizes);
     console.log("Selected Sizes:", selectedSizes);
+  };
+
+  const handleColorChange = (selectedColors) => {
+    setColor(selectedColors);
+    console.log("Selected Colors:", selectedColors);
   };
 
   return (
@@ -132,6 +143,35 @@ const ModifyProduct = () => {
             preselectedValues={sizes}
             setSelectedValues={handleSizeChange}
           />
+          <Checkbox
+            options={filters.color}
+            preselectedValues={color}
+            setSelectedValues={handleColorChange}
+          />
+          <label htmlFor="material" className="mt-5 text-xl">
+            Material:
+          </label>
+          <textarea
+            id="material"
+            name="material"
+            rows={1}
+            className="border-2 mb-5 border-fitify-purple form-field "
+            value={material}
+            onChange={(e) => setMaterial(e.target.value)}
+            required
+          ></textarea>
+          <label htmlFor="details" className="mt-5 text-xl">
+            Details:
+          </label>
+          <textarea
+            id="details"
+            name="details"
+            rows={6}
+            className="border-2 mb-5 border-fitify-purple form-field "
+            value={details}
+            onChange={(e) => setDetails(e.target.value)}
+            required
+          ></textarea>
         </div>
       </form>
     </div>
