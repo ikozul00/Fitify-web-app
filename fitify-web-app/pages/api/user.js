@@ -22,7 +22,8 @@ export default async function (req, res) {
             address:result.address,
             city:result.city,
             country:result.country,
-            image:result.image
+            image:result.image,
+            id:result._id
          }
         res.status(200).json({ data: user });
     } 

@@ -1,8 +1,6 @@
-const { useEffect, useState } = require("react");
-import { useSession } from "next-auth/react";
+const { useState } = require("react");
 
 const CheckData = ({changeStep, user, setUser}) => {
-    const { data:session } = useSession();
     const [error, setError] = useState();
 
     

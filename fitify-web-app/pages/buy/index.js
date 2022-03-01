@@ -8,7 +8,7 @@ import { useEffect, useState } from "react";
 const Buy = () => {
     const [step, setStep] = useState(1);
     const[error, setError] = useState();
-    const [user, setUser] = useState({});
+    const [user, setUser] = useState({firstName:"", lastName:"", phone:"", address:"", city:"", country:""});
     const { data:session } = useSession();
     const [ordered, setOrdered] = useState(false);
     const router = useRouter();
@@ -33,6 +33,7 @@ const Buy = () => {
             });
             if(res.status===200){
                 const userData = await res.json();
+                console.log(userData.data);
                 setUser(userData.data);
             }
             else{
