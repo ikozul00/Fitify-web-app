@@ -8,7 +8,7 @@ import { Ul, Li, Ol } from "../../components/blog/list";
 import { A } from "../../components/blog/link";
 import { CustomImage } from "@/components/blog/image";
 import React from "react";
-import { parseDate } from "parseDate";
+import { parseDate } from "@/lib/parseDate";
 
 const components = {
   h2: H2,

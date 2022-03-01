@@ -1,10 +1,9 @@
 import { signOut, useSession, getSession } from "next-auth/react";
 import Image from "next/image";
 import { useRouter } from "next/router";
-import { useEffect, useState } from "react";
-import { FaEdit } from "react-icons/fa";
+import { ParseDate } from "@/lib/parseDateMongo";
 
-const Profile = ({ user }) => {
+const Profile = ({ user, orders }) => {
   const router = useRouter();
   const { data:session } = useSession({
     required: true,
@@ -85,7 +84,26 @@ const Profile = ({ user }) => {
             </button>
           </div>
         </div>
-      </div>}
+      <div className="w-11/12 mx-auto my-10">
+        <h2 className="font-bold text-xl">Orders</h2>
+        {orders.map((order) => {
+          return(
+            <div key={order.id} className="border-2 border-black p-3 my-3 w-3/5 flex flex-col">
+              <p className="font-semibold text-lg">{ParseDate(order.date)}</p>
+              {order.items.map((item) => {
+                return(
+                  <div key={`${order.id}-${item.title}-${item.size}`} className="ml-3">
+                    <p><span className="mr-4 font-semibold">{item.amount}X </span><span>{item.title}</span> <span className="font-semibold">${item.price}</span></p>
+                  </div>
+                )
+              })}
+              <p className="place-self-end font-bold text-xl">${order.price}</p>
+            </div>
+          )
+        })}
+      </div>
+      </div>
+      }
       {!user.name && 
         <div className="flex justify-center items-center py-20 w-full text-3xl font-semibold">
           <p>Sorry data about user is not found, try again later.</p>
@@ -108,16 +126,22 @@ export async function getServerSideProps(context) {
     if(res.status===200){
       const user = await res.json();
       const resOrders = await fetch(`http://localhost:3000/api/getOrders?id=${user.data.id}`);
-      const orders=await resOrders.json();
-      console.log(orders);
-      return { props: { user:user.data, session: session } };
+      console.log(resOrders);
+      if(resOrders.status===200){
+        const orders=await resOrders.json();
+        console.log(orders);
+        return { props: { user:user.data, session: session, orders:orders.userOrders } };
+      }
+      else{
+        return { props: { user:{}, session: session, orders:{} } };
+      }
     }
     else{
-      return { props: { user:{}, session: session } };
+      return { props: { user:{}, session: session, orders:{} } };
     }
   }
   else{
-    return {props: {user:{}, session:session}}
+    return {props: {user:{}, session:session, orders:{}}}
   }
   
 }
