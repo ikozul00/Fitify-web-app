@@ -107,6 +107,9 @@ export async function getServerSideProps(context) {
     });
     if(res.status===200){
       const user = await res.json();
+      const resOrders = await fetch(`http://localhost:3000/api/getOrders?id=${user.data.id}`);
+      const orders=await resOrders.json();
+      console.log(orders);
       return { props: { user:user.data, session: session } };
     }
     else{
