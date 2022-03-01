@@ -18,12 +18,12 @@ const AddProduct = () => {
   const [images, setImages] = useState([]);
   const [errorMessage, setErrorMessage] = useState("");
 
-  const sendMessage = (e) => {
+  const sendProduct = (e) => {
     e.preventDefault();
     let newProduct = {
       title: title,
       price: price,
-      oldPrice: oldPrice ? oldPrice : null,
+      oldPrice: oldPrice,
       category: category,
       gender: gender,
       brand: brand,
@@ -242,7 +242,7 @@ const AddProduct = () => {
           />
 
           <button
-            onClick={sendMessage}
+            onClick={sendProduct}
             className=" bg-fitify-purple text-white w-36 py-2 place-self-end mb-7"
           >
             Add

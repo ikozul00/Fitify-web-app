@@ -1,7 +1,8 @@
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
-import { fetchEntryById } from "pages/api/ModifyProducts";
+import { fetchEntryById, updateProduct } from "pages/api/ModifyProducts";
 import { filters } from "@/constants/filters";
+import { checkProduct } from "@/lib/errorChecking";
 import Checkbox from "@/components/shop/Checkbox";
 
 const ModifyProduct = () => {
@@ -22,19 +23,18 @@ const ModifyProduct = () => {
     if (router.query.id) {
       let entry = await fetchEntryById(router.query.id);
       entry = entry.fields;
-      //console.log(entry);
+      console.log(entry);
       setTitle(entry.title["en-US"]);
       setPrice(entry.price["en-US"]);
       //Ako postoji stara cijena (product snizen)
       if (entry.oldPrice) setOldPrice(entry.oldPrice["en-US"]);
-
       setGender(entry.gender["en-US"]);
       setCategory(entry.category["en-US"]);
       setBrand(entry.brand["en-US"]);
       setSizes(entry.sizes["en-US"]);
       setColor(entry.color["en-US"]);
       setDetails(entry.productDetails["en-US"]);
-      setMaterial(entry.material["en-US"]);
+      if (entry.material) setMaterial(entry.material["en-US"]);
     }
   }, [router]);
 
@@ -46,6 +46,26 @@ const ModifyProduct = () => {
   const handleColorChange = (selectedColors) => {
     setColor(selectedColors);
     console.log("Selected Colors:", selectedColors);
+  };
+
+  const sendProduct = (e) => {
+    e.preventDefault();
+    let newProduct = {
+      id: router.query.id,
+      title: title,
+      price: price,
+      oldPrice: oldPrice,
+      category: category,
+      gender: gender,
+      brand: brand,
+      color: color,
+      sizes: sizes,
+      material: material,
+      productDetails: details,
+    };
+
+    //let errorCheck = checkProduct(newProduct);
+    updateProduct(newProduct);
   };
 
   return (
@@ -172,6 +192,12 @@ const ModifyProduct = () => {
             onChange={(e) => setDetails(e.target.value)}
             required
           ></textarea>
+          <button
+            onClick={sendProduct}
+            className=" bg-fitify-purple text-white w-36 py-2 place-self-end mb-7"
+          >
+            Apply changes
+          </button>
         </div>
       </form>
     </div>

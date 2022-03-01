@@ -4,7 +4,7 @@ const client = contentful.createClient({
   accessToken: process.env.CONTENT_MANAGEMENT_API_KEY,
 });
 
-const createNewAsset = async (image) => {
+export const createNewAsset = async (image) => {
   const space = await client.getSpace(process.env.CONTENTFUL_SPACE_ID);
   const environment = await space.getEnvironment("master");
 
@@ -57,7 +57,7 @@ export const createNewProduct = async (newProduct) => {
         "en-US": Number(newProduct.price),
       },
       oldPrice: {
-        "en-US": Number(newProduct.oldPrice),
+        "en-US": newProduct.oldPrice ? Number(newProduct.price) : null,
       },
       category: {
         "en-US": newProduct.category,
@@ -129,4 +129,36 @@ export const fetchEntryById = async (entryId) => {
     .then((environment) => environment.getEntry(entryId))
     .then((entry) => entry)
     .catch((error) => error);
+};
+
+export const updateProduct = async (product) => {
+  const space = await client.getSpace(process.env.CONTENTFUL_SPACE_ID);
+  const environment = await space.getEnvironment("master");
+  const entry = await environment.getEntry(product.id);
+
+  entry.fields.title["en-US"] = product.title;
+  entry.fields.price["en-US"] = Number(product.price);
+
+  if (!entry.fields.oldPrice)
+    entry.fields.oldPrice = { "en-US": Number(product.oldPrice) };
+  // Ako ne postoji vec polje oldPrice, treba ga dodati
+  else entry.fields.oldPrice["en-US"] = Number(product.oldPrice); // Ako postoji, samo se postavi
+  if (entry.fields.oldPrice["en-US"] == 0)
+    entry.fields.oldPrice["en-US"] = null; //Ako je stara cijena 0, postavi na null ovo polje
+
+  entry.fields.title["en-US"] = product.title;
+  entry.fields.category["en-US"] = product.category;
+  entry.fields.gender["en-US"] = product.gender;
+  entry.fields.brand["en-US"] = product.brand;
+  entry.fields.sizes["en-US"] = [...product.sizes];
+  entry.fields.color["en-US"] = [...product.color];
+  entry.fields.productDetails["en-US"] = product.productDetails;
+
+  if (!entry.fields.material)
+    entry.fields.material = { "en-US": product.material };
+  else entry.fields.material["en-US"] = product.material;
+
+  entry = await entry.update();
+
+  entry = await entry.publish();
 };

@@ -11,6 +11,7 @@ const brand = {
     "Manduka",
     "New Balance",
     "Nike",
+    "Puma",
   ],
 };
 
