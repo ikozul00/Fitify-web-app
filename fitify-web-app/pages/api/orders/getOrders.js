@@ -1,8 +1,6 @@
 import clientPromise from "lib/mongodb";
-import { ObjectId } from "mongodb";
 
 export default async function (req, res) {
-    console.log(req.query);
     let userOrders=[];
     let client = await clientPromise;
     const orders=client.db().collection('orders');
@@ -10,15 +8,6 @@ export default async function (req, res) {
         id:req.query.id
     });
      await results.forEach((order) => userOrders.push({
-        // firstName:order.firstName, 
-        // lastName: order.lastName, 
-        // phone:order.phone,
-        // address:order.address,
-        // city: order.city,
-        // country:order.country,
-        // payment:order.payment,
-        // card:order.card,
-        // cardNumber:order.cardNumber,
         items:order.items,
         price:order.price,
         date:order.date,

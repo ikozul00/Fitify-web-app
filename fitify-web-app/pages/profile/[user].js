@@ -2,6 +2,7 @@ import { signOut, useSession, getSession } from "next-auth/react";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import { ParseDate } from "@/lib/parseDateMongo";
+import Link from "next/link";
 
 const Profile = ({ user, orders }) => {
   const router = useRouter();
@@ -86,8 +87,10 @@ const Profile = ({ user, orders }) => {
         </div>
       <div className="w-11/12 mx-auto my-10">
         <h2 className="font-bold text-xl">Orders</h2>
+        {orders.length===0 && <p>No orders made yet.</p>}
         {orders.map((order) => {
           return(
+            <Link href={`/profile/order/${order.id}`} passHref>
             <div key={order.id} className="border-2 border-black p-3 my-3 w-3/5 flex flex-col">
               <p className="font-semibold text-lg">{ParseDate(order.date)}</p>
               {order.items.map((item) => {
@@ -99,6 +102,7 @@ const Profile = ({ user, orders }) => {
               })}
               <p className="place-self-end font-bold text-xl">${order.price}</p>
             </div>
+            </Link>
           )
         })}
       </div>
@@ -125,23 +129,21 @@ export async function getServerSideProps(context) {
     });
     if(res.status===200){
       const user = await res.json();
-      const resOrders = await fetch(`http://localhost:3000/api/getOrders?id=${user.data.id}`);
-      console.log(resOrders);
+      const resOrders = await fetch(`http://localhost:3000/api/orders/getOrders?id=${user.data.id}`);
       if(resOrders.status===200){
         const orders=await resOrders.json();
-        console.log(orders);
         return { props: { user:user.data, session: session, orders:orders.userOrders } };
       }
       else{
-        return { props: { user:{}, session: session, orders:{} } };
+        return { props: { user:user.data, session: session, orders:[] } };
       }
     }
     else{
-      return { props: { user:{}, session: session, orders:{} } };
+      return { props: { user:{}, session: session, orders:[] } };
     }
   }
   else{
-    return {props: {user:{}, session:session, orders:{}}}
+    return {props: {user:{}, session:session, orders:[]}}
   }
   
 }
