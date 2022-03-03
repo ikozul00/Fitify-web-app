@@ -158,6 +158,18 @@ export const updateProduct = async (product) => {
     entry.fields.material = { "en-US": product.material };
   else entry.fields.material["en-US"] = product.material;
 
+  if (product.thumbnailImage) {
+    // Ako je dodana nova slika
+    let assetId = await createNewAsset(product.thumbnailImage);
+    entry.fields.thumbnailImage["en-US"] = {
+      sys: {
+        id: assetId,
+        linkType: "Asset",
+        type: "Link",
+      },
+    };
+  }
+
   entry = await entry.update();
 
   entry = await entry.publish();

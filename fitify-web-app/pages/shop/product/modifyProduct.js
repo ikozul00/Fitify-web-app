@@ -4,6 +4,7 @@ import { fetchEntryById, updateProduct } from "pages/api/ModifyProducts";
 import { filters } from "@/constants/filters";
 import { checkProduct } from "@/lib/errorChecking";
 import Checkbox from "@/components/shop/Checkbox";
+import ImageChanger from "@/components/shop/ImageChanger";
 
 const ModifyProduct = () => {
   const [title, setTitle] = useState("");
@@ -16,6 +17,7 @@ const ModifyProduct = () => {
   const [color, setColor] = useState([]);
   const [details, setDetails] = useState("");
   const [material, setMaterial] = useState("");
+  const [thumbnailImage, setThumbnailImage] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const router = useRouter();
 
@@ -35,6 +37,7 @@ const ModifyProduct = () => {
       setColor(entry.color["en-US"]);
       setDetails(entry.productDetails["en-US"]);
       if (entry.material) setMaterial(entry.material["en-US"]);
+      setThumbnailImage(entry.thumbnailImage["en-US"]);
     }
   }, [router]);
 
@@ -62,10 +65,15 @@ const ModifyProduct = () => {
       sizes: sizes,
       material: material,
       productDetails: details,
+      thumbnailImage: thumbnailImage,
     };
 
     //let errorCheck = checkProduct(newProduct);
     updateProduct(newProduct);
+  };
+
+  const handleNewThumbnailImage = (newImage) => {
+    setThumbnailImage(newImage);
   };
 
   return (
@@ -74,7 +82,7 @@ const ModifyProduct = () => {
         Modify product
       </h1>
       <form className=" w-5/6 my-5 flex flex-col">
-        <div className="px-7 flex flex-col sm:text-base text-sm">
+        <div className="px-7 flex flex-col sm:text-base text-sm relative">
           <label htmlFor="title" className="mt-5 text-xl">
             Title:
           </label>
@@ -192,6 +200,11 @@ const ModifyProduct = () => {
             onChange={(e) => setDetails(e.target.value)}
             required
           ></textarea>
+          <p className="mt-5 text-xl">Thumbnail image:</p>
+          <ImageChanger
+            imageId={thumbnailImage?.sys?.id}
+            setNewImage={handleNewThumbnailImage}
+          />
           <button
             onClick={sendProduct}
             className=" bg-fitify-purple text-white w-36 py-2 place-self-end mb-7"
