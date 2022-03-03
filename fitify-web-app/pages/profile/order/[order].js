@@ -28,7 +28,9 @@ const Order = ({ data }) => {
                 <p className="font-bold mt-5 text-xl">Items:</p>
                 {data.items.map((item) => {
                     return(
+                        <div key={`${item.id}+${item.size}`}>
                         <Product order={true} item={item}/>
+                        </div>
                     )
                 })}
             </div>

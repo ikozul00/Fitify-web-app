@@ -1,11 +1,15 @@
 import { signOut, useSession, getSession } from "next-auth/react";
 import Image from "next/image";
 import { useRouter } from "next/router";
+import { useState } from "react";
 import { ParseDate } from "@/lib/parseDateMongo";
 import Link from "next/link";
+import Edit from "@/components/profile/edit";
 
-const Profile = ({ user, orders }) => {
+const Profile = ({ userData, orders }) => {
   const router = useRouter();
+  const [user, setUser] = useState(userData);
+  const [edit, setEdit] = useState(false);
   const { data:session } = useSession({
     required: true,
     onUnauthenticated() {
@@ -28,14 +32,14 @@ const Profile = ({ user, orders }) => {
           <h1 className=" font-bold md:text-3xl text-2xl text-fitify-purple ml-10 ">
             My Profile
           </h1>
-          <button
+          {!edit && <button
             className=" bg-fitify-purple h-10 px-4 text-white sm:text-lg text-base hover:opacity-75 whitespace-nowrap sm:w-32 w-24 sm:ml-16 ml-6"
-            onClick={() => router.push("/errorPage")}
+            onClick={() => setEdit(true)}
           >
             Edit
-          </button>
+          </button>}
         </div>
-        <div className=" ml-16 my-12 flex sm:flex-row flex-col justify-start ">
+        {!edit && <div className=" ml-16 my-12 flex sm:flex-row flex-col justify-start ">
           <div className="relative sm:h-52 sm:w-52 h-44 w-44 mr-16">
             <Image
               src={user.image ? user.image : "/profileImage.png"}
@@ -44,6 +48,7 @@ const Profile = ({ user, orders }) => {
               objectFit="cover"
             />
           </div>
+          <div className="flex w-9/12 justify-between">
           <div className=" flex flex-col sm:mt-0 mt-10">
             <p className=" mb-3 sm:text-lg text-base">
               <span className=" font-semibold">Username:</span>{" "}
@@ -54,13 +59,15 @@ const Profile = ({ user, orders }) => {
               <span>{user.email ? user.email : "  /  "}</span>
             </p>
             <p className=" my-3 sm:text-lg text-base">
-              <span className=" font-semibold">Name:</span>{" "}
+              <span className=" font-semibold">First name:</span>{" "}
               <span>{user.firstName ? user.firstName : "  /  "}</span>
             </p>
             <p className=" my-3 sm:text-lg text-base">
-              <span className=" font-semibold">Surname:</span>{" "}
+              <span className=" font-semibold">Last name:</span>{" "}
               <span>{user.lastName ? user.lastName : "/"}</span>
             </p>
+            </div>
+            <div className=" flex flex-col sm:mt-0 mt-10">
             <p className=" my-3 sm:text-lg text-base">
               <span className=" font-semibold">Phone number:</span>{" "}
               <span>{user.phone ? user.phone : "  /  "}</span>
@@ -77,21 +84,24 @@ const Profile = ({ user, orders }) => {
               <span className=" font-semibold">Country:</span>{" "}
               <span>{user.country ? user.country : "  /  "}</span>
             </p>
+            </div>
+            
             <button
               onClick={(e) => LogOut(e)}
-              className=" bg-fitify-pink uppercase h-10 px-4 py-2 text-white sm:text-lg text-base hover:opacity-75 whitespace-nowrap w-32 mt-5 sm:ml-0 ml-6"
+              className=" bg-fitify-pink uppercase h-10 px-4 py-2 text-white sm:text-lg text-base hover:opacity-75 whitespace-nowrap w-32 mt-5 sm:ml-0 ml-6 justify-self-end"
             >
               Log Out
             </button>
-          </div>
-        </div>
+            </div>
+        </div>}
+        {edit && <Edit setEdit={setEdit} user={user} setUser={setUser}/>}
       <div className="w-11/12 mx-auto my-10">
         <h2 className="font-bold text-xl">Orders</h2>
         {orders.length===0 && <p>No orders made yet.</p>}
         {orders.map((order) => {
           return(
-            <Link href={`/profile/order/${order.id}`} passHref>
-            <div key={order.id} className="border-2 border-black p-3 my-3 w-3/5 flex flex-col hover:cursor-pointer hover:bg-fitify-green-light">
+            <Link href={`/profile/order/${order.id}`} passHref  key={order.id}>
+            <div className="border-2 border-black p-3 my-3 w-3/5 flex flex-col hover:cursor-pointer hover:bg-fitify-green-light">
               <p className="font-semibold text-lg">{ParseDate(order.date)}</p>
               {order.items.map((item) => {
                 return(
@@ -132,18 +142,18 @@ export async function getServerSideProps(context) {
       const resOrders = await fetch(`http://localhost:3000/api/orders/getOrders?id=${user.data.id}`);
       if(resOrders.status===200){
         const orders=await resOrders.json();
-        return { props: { user:user.data, session: session, orders:orders.userOrders } };
+        return { props: { userData:user.data, session: session, orders:orders.userOrders } };
       }
       else{
-        return { props: { user:user.data, session: session, orders:[] } };
+        return { props: { userData:user.data, session: session, orders:[] } };
       }
     }
     else{
-      return { props: { user:{}, session: session, orders:[] } };
+      return { props: { userData:{}, session: session, orders:[] } };
     }
   }
   else{
-    return {props: {user:{}, session:session, orders:[]}}
+    return {props: {userData:{}, session:session, orders:[]}}
   }
   
 }
