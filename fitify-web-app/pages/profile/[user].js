@@ -91,7 +91,7 @@ const Profile = ({ user, orders }) => {
         {orders.map((order) => {
           return(
             <Link href={`/profile/order/${order.id}`} passHref>
-            <div key={order.id} className="border-2 border-black p-3 my-3 w-3/5 flex flex-col">
+            <div key={order.id} className="border-2 border-black p-3 my-3 w-3/5 flex flex-col hover:cursor-pointer hover:bg-fitify-green-light">
               <p className="font-semibold text-lg">{ParseDate(order.date)}</p>
               {order.items.map((item) => {
                 return(

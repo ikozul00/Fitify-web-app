@@ -1,12 +1,13 @@
-import { useEffect } from "react";
+
 import React from "react";
+import Product from "@/components/cart/product";
 
 const Order = ({ data }) => {
 
     return(
-        <section className="w-8/12 mx-auto flex flex-col">
-            <h2 className="text-2xl font-bold text-center">Order info</h2>
-            <div className="flex justify-between mt-5">
+        <section className="w-8/12 mx-auto flex flex-col my-10 font-open-sans">
+            <h2 className="text-3xl text-gray-700 font-bold text-center uppercase">Order info</h2>
+            <div className="flex justify-between mt-8">
             <div >
             <p className="my-1"><span className="font-semibold">First name:</span> {data.firstName}</p>
             <p className="my-1"><span className="font-semibold">Last name:</span> {data.lastName}</p>
@@ -20,16 +21,18 @@ const Order = ({ data }) => {
                 {(data.payment==="card") && <p className="my-1"><span className="font-semibold">Card:</span> {data.card}</p>}
                 {(data.payment==="card") && <p className="my-1"><span className="font-semibold">Card number:</span> {data.cardNumber}</p>}
             </div>
+            <p className="font-bold text-xl">Total price: ${data.total+2}</p>
+            </div>
+            
             <div>
-                <p className="font-bold">Items:</p>
+                <p className="font-bold mt-5 text-xl">Items:</p>
                 {data.items.map((item) => {
                     return(
-                        <p key={`${item.id}+${item.size}`} className="mx-2"><span className="mr-4 font-semibold">{item.amount}X </span><span>{item.title}</span> <span className="font-semibold">${item.price}</span></p>
+                        <Product order={true} item={item}/>
                     )
                 })}
-                <p className="font-bold text-xl mt-5">Total price: ${data.total+2}</p>
             </div>
-            </div>
+            
         </section>
     )
 }

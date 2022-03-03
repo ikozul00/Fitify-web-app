@@ -1,7 +1,6 @@
 import { useEffect } from "react";
 
 const Payment = ({user, setUser, changeStep}) => {
-
     useEffect(() => {
         if(!user.payment && !user.card)
             setUser({...user, payment:"cash",card:"Amex"})
