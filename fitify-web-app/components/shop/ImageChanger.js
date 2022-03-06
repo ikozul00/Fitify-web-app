@@ -19,7 +19,7 @@ const ImageChanger = ({ imageId, setNewImage }) => {
       title: e.target.files[0].name,
     });
 
-    setNewImage(e.target.files[0]);
+    setNewImage({ ...e.target.files[0], id: "" });
   };
 
   return (

@@ -5,6 +5,7 @@ import { filters } from "@/constants/filters";
 import { checkProduct } from "@/lib/errorChecking";
 import Checkbox from "@/components/shop/Checkbox";
 import ImageChanger from "@/components/shop/ImageChanger";
+import MultipleImagesChanger from "@/components/shop/MultipleImagesChanger";
 
 const ModifyProduct = () => {
   const [title, setTitle] = useState("");
@@ -18,6 +19,7 @@ const ModifyProduct = () => {
   const [details, setDetails] = useState("");
   const [material, setMaterial] = useState("");
   const [thumbnailImage, setThumbnailImage] = useState("");
+  const [images, setImages] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const router = useRouter();
 
@@ -38,6 +40,8 @@ const ModifyProduct = () => {
       setDetails(entry.productDetails["en-US"]);
       if (entry.material) setMaterial(entry.material["en-US"]);
       setThumbnailImage(entry.thumbnailImage["en-US"]);
+      if (entry.images)
+        setImages(entry.images["en-US"].map((image) => image.sys.id));
     }
   }, [router]);
 
@@ -53,7 +57,7 @@ const ModifyProduct = () => {
 
   const sendProduct = (e) => {
     e.preventDefault();
-    let newProduct = {
+    let product = {
       id: router.query.id,
       title: title,
       price: price,
@@ -66,21 +70,38 @@ const ModifyProduct = () => {
       material: material,
       productDetails: details,
       thumbnailImage: thumbnailImage,
+      images: images,
     };
 
-    //let errorCheck = checkProduct(newProduct);
-    updateProduct(newProduct);
+    // let errorCheck = checkProduct(product);
+    // if (errorCheck.error == false) {
+    //   updateProduct(product);
+    //   setErrorMessage("");
+    // } else setErrorMessage(errorCheck.errorMsg);
+    updateProduct(product);
   };
 
   const handleNewThumbnailImage = (newImage) => {
     setThumbnailImage(newImage);
   };
 
+  const handleUpdateImages = (newImagesArray) => {
+    setImages([...newImagesArray]);
+    console.log(images);
+  };
+
   return (
     <div>
-      <h1 className="md:text-5xl sm:text-4xl text-3xl uppercase text-gray-700 font-semibold basis-5/6">
-        Modify product
-      </h1>
+      <div className="flex flex-row">
+        <h1 className="md:text-5xl sm:text-4xl text-3xl uppercase text-gray-700 font-semibold basis-5/6">
+          Modify product
+        </h1>
+        {errorMessage && (
+          <p className="border-2 border-fitify-pink text-2xl p-2 basis-1/6">
+            {errorMessage}
+          </p>
+        )}
+      </div>
       <form className=" w-5/6 my-5 flex flex-col">
         <div className="px-7 flex flex-col sm:text-base text-sm relative">
           <label htmlFor="title" className="mt-5 text-xl">
@@ -201,10 +222,19 @@ const ModifyProduct = () => {
             required
           ></textarea>
           <p className="mt-5 text-xl">Thumbnail image:</p>
-          <ImageChanger
-            imageId={thumbnailImage?.sys?.id}
-            setNewImage={handleNewThumbnailImage}
-          />
+          {thumbnailImage && (
+            <ImageChanger
+              imageId={thumbnailImage.sys.id}
+              setNewImage={handleNewThumbnailImage}
+            />
+          )}
+          <p className="mt-5 text-xl">Images:</p>
+          {images && (
+            <MultipleImagesChanger
+              imageIds={images}
+              updateImages={handleUpdateImages}
+            />
+          )}
           <button
             onClick={sendProduct}
             className=" bg-fitify-purple text-white w-36 py-2 place-self-end mb-7"

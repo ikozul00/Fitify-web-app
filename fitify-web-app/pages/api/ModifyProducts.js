@@ -158,8 +158,8 @@ export const updateProduct = async (product) => {
     entry.fields.material = { "en-US": product.material };
   else entry.fields.material["en-US"] = product.material;
 
-  if (product.thumbnailImage) {
-    // Ako je dodana nova slika
+  if (product.thumbnailImage.type) {
+    // Ako je dodana nova slika (tada je tipa file pa ima type polje za razliku od vec postojece slike)
     let assetId = await createNewAsset(product.thumbnailImage);
     entry.fields.thumbnailImage["en-US"] = {
       sys: {
@@ -170,7 +170,35 @@ export const updateProduct = async (product) => {
     };
   }
 
-  entry = await entry.update();
+  let processedImages = [];
+  for (let i = 0; i < product.images.length; i++) {
+    if (product.images[i].id) {
+      // Rijec je o postojecoj slici
+      processedImages.push({
+        sys: {
+          id: product.images[i].id,
+          linkType: "Asset",
+          type: "Link",
+        },
+      });
+    } else {
+      //Rijec je o novoj slici
+      console.log("File data:", product.images[i].file);
+      let assetId = await createNewAsset(product.images[i].file);
+      processedImages.push({
+        sys: {
+          id: assetId,
+          linkType: "Asset",
+          type: "Link",
+        },
+      });
+    }
+  }
 
+  // Ako dosada nije bilo slika
+  if (!entry.fields.images) entry.fields.images = { "en-US": processedImages };
+  else entry.fields.images["en-US"] = [...processedImages];
+
+  entry = await entry.update();
   entry = await entry.publish();
 };
