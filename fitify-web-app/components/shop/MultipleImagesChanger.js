@@ -41,8 +41,8 @@ const MultipleImagesChanger = ({ imageIds, updateImages }) => {
     if (index > -1) {
       arr.splice(index, 1);
       setImages(arr); // 2nd parameter means remove one item only
+      updateImages([...arr]);
     }
-    updateImages([...arr]);
   };
 
   return (

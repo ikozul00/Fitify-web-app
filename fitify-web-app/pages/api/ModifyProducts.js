@@ -202,3 +202,17 @@ export const updateProduct = async (product) => {
   entry = await entry.update();
   entry = await entry.publish();
 };
+
+export const deleteProduct = async (productId) => {
+  let isDeleted = await client
+    .getSpace(process.env.CONTENTFUL_SPACE_ID)
+    .then((space) => space.getEnvironment("master"))
+    .then((environment) => environment.getEntry(productId))
+    .then((entry) => entry.unpublish())
+    .then((entry) => entry.delete())
+    .then(() => true)
+    .catch(() => false);
+
+  console.log("Is product deleted:", isDeleted);
+  return isDeleted;
+};

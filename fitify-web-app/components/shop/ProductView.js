@@ -8,6 +8,8 @@ import { useEffect, useState } from "react";
 import { connect } from "react-redux";
 import { addToCart } from "redux/actions/cartActions";
 import Link from "next/link";
+import { useRouter } from "next/router";
+import { deleteProduct } from "pages/api/ModifyProducts";
 
 const components = {
   h2: H2,
@@ -27,6 +29,7 @@ const ProductView = ({ product, addToCartRedux, counter }) => {
   const [added, setAdded] = useState(false);
   const [inital, setInital] = useState(true);
   const [pickSize, setPickSize] = useState(false);
+  const router = useRouter();
 
   const amount = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
@@ -59,6 +62,11 @@ const ProductView = ({ product, addToCartRedux, counter }) => {
       );
     }
   }
+  function handleDeleteButtonClick() {
+    if (deleteProduct(product.sys.id)) {
+      router.push("/");
+    }
+  }
 
   return (
     <main className="custom:w-4/5 w-11/12 mx-auto my-10 flex md:flex-row flex-col justify-between md:items-start items-center font-open-sans">
@@ -87,6 +95,12 @@ const ProductView = ({ product, addToCartRedux, counter }) => {
           >
             <p className="mx-10 bg-red-500">Modify product</p>
           </Link>
+          <button
+            className="mx-10 bg-red-500"
+            onClick={() => handleDeleteButtonClick()}
+          >
+            Delete product
+          </button>
         </div>
         <p className="sm:text-xl text-lg">Select Size:</p>
         <div className="flex justify-start mb-5 flex-wrap">

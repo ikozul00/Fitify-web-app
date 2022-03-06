@@ -39,7 +39,7 @@ const AddProduct = () => {
     let errorCheck = checkProduct(newProduct);
     if (errorCheck.error == false) {
       createNewProduct(newProduct);
-      setErrorMessage("");
+      setErrorMessage(errorCheck.errorMsg);
     } else setErrorMessage(errorCheck.errorMsg);
   };
 
