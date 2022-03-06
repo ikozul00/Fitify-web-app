@@ -5,8 +5,9 @@ const Edit = ({setEdit, user, setUser}) => {
     const [modified, setModified] = useState(false);
     const [newUser, setNewUser] = useState(user);
     const [cities, setCities] = useState("");
+    const [error, setError] = useState("");
     const countries = Country.getAllCountries();
-
+    
     function handleChange(e){
         setModified(true);
         let field = e.target.name;
@@ -43,12 +44,35 @@ const Edit = ({setEdit, user, setUser}) => {
         setCities(City.getCitiesOfCountry(targetCountry.isoCode));
     }
 
-    function saveChanges(e){
+    async function saveChanges(e){
         e.preventDefault();
         if(modified){
-            setUser(newUser);
+            const res = await fetch("/api/profile/modify", {
+                body: JSON.stringify({
+                  ...newUser
+                }),
+                headers: {
+                  "Content-Type": "application/json",
+                },
+                method: "POST",
+              });
+              if(res.status==200){
+                setUser(newUser);
+                setEdit(false);
+              }
+              else{
+                setError("Sorry problem occured try again later.");
+              }
         }
-        setEdit(false);
+        else{
+            setEdit(false);
+        }
+        
+    }
+
+    function changeCity(e){
+        setNewUser({...newUser, city:e.target.value});
+        setModified(true);
     }
 
     return(
@@ -81,7 +105,7 @@ const Edit = ({setEdit, user, setUser}) => {
                 </div>
                 {newUser.country && <div className="flex flex-col md:w-2/4 sm:w-3/5 w-full" >
                 <label htmlFor="city" id="city" className="mr-3">City:</label>
-                    <select name="city" id="city-value" className=" text-center border-2 border-fitify-purple md:w-3/6 sm:w-5/6 w-full" value={newUser.city} onChange={(e) => {setNewUser({...newUser, city:e.target.value});setModified(true)}}>
+                    <select name="city" id="city-value" className=" text-center border-2 border-fitify-purple md:w-3/6 sm:w-5/6 w-full" value={newUser.city} onChange={(e) => changeCity(e)}>
                         {cities.map((i) => (
                             <option key={i.name} value={`${i.name}`}>
                                 {i.name}
@@ -90,6 +114,7 @@ const Edit = ({setEdit, user, setUser}) => {
                     </select>
                 </div>}
                 </div>
+                {error && <p className='text-left text-lg'>{error}</p>}
                 <button onClick = {(e) => saveChanges(e)} className='bg-fitify-purple text-white uppercase text-lg font-bold py-2 w-52 mt-5 place-self-end hover:opacity-70 hover:cursor-pointer'>Save changes</button>
             </form>
         </div>

@@ -130,7 +130,7 @@ export async function getServerSideProps(context) {
   const session = await getSession(context);
   if(session){
       // Fetch data from external API
-    const res = await fetch("http://localhost:3000/api/user", {
+    const res = await fetch("http://localhost:3000/api/profile/user", {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json;charset=utf-8'

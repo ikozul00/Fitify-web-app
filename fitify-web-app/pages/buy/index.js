@@ -24,7 +24,7 @@ const Buy = () => {
 
     useEffect(async ()=>{
         if(session){
-            const res = await fetch("/api/user", {
+            const res = await fetch("/api/profile/user", {
                     method: 'POST',
                     headers: {
                     'Content-Type': 'application/json;charset=utf-8'
@@ -33,7 +33,6 @@ const Buy = () => {
             });
             if(res.status===200){
                 const userData = await res.json();
-                console.log(userData.data);
                 setUser(userData.data);
             }
             else{
