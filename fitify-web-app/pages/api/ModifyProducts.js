@@ -90,28 +90,11 @@ export const createNewProduct = async (newProduct) => {
   });
 
   if (newProduct.thumbnailImage) {
-    let asset = await environment.createAssetFromFiles({
-      fields: {
-        title: {
-          "en-US": newProduct.thumbnailImage.name,
-        },
-        file: {
-          "en-US": {
-            contentType: newProduct.thumbnailImage.type,
-            fileName: newProduct.thumbnailImage.name,
-            file: newProduct.thumbnailImage,
-          },
-        },
-      },
-    });
-    // reassign `asset` to have the latest version number
-    asset = await asset.processForAllLocales();
-    asset = await asset.publish();
-
+    let assetId = await createNewAsset(product.thumbnailImage);
     //Update entry with new asset
     entry.fields.thumbnailImage["en-US"] = {
       sys: {
-        id: asset.sys.id,
+        id: assetId,
         linkType: "Asset",
         type: "Link",
       },

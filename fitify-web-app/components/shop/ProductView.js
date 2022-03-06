@@ -10,6 +10,7 @@ import { addToCart } from "redux/actions/cartActions";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { deleteProduct } from "pages/api/ModifyProducts";
+import ModalWindow from "../modalWindow/ModalWindow";
 
 const components = {
   h2: H2,
@@ -29,6 +30,7 @@ const ProductView = ({ product, addToCartRedux, counter }) => {
   const [added, setAdded] = useState(false);
   const [inital, setInital] = useState(true);
   const [pickSize, setPickSize] = useState(false);
+  const [modalOpened, setModalOpened] = useState(false);
   const router = useRouter();
 
   const amount = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
@@ -62,10 +64,12 @@ const ProductView = ({ product, addToCartRedux, counter }) => {
       );
     }
   }
-  function handleDeleteButtonClick() {
-    if (deleteProduct(product.sys.id)) {
-      router.push("/");
-    }
+  function handleOptionChoice(choice) {
+    if (choice) {
+      if (deleteProduct(product.sys.id)) {
+        router.push("/");
+      }
+    } else setModalOpened(false);
   }
 
   return (
@@ -97,7 +101,7 @@ const ProductView = ({ product, addToCartRedux, counter }) => {
           </Link>
           <button
             className="mx-10 bg-red-500"
-            onClick={() => handleDeleteButtonClick()}
+            onClick={() => setModalOpened(true)}
           >
             Delete product
           </button>
@@ -177,6 +181,9 @@ const ProductView = ({ product, addToCartRedux, counter }) => {
           <MDXRemote {...product.mdxSource} components={components} lazy />
         </div>
       </div>
+      {modalOpened && (
+        <ModalWindow chooseOption={handleOptionChoice} title={product.title} />
+      )}
     </main>
   );
 };
