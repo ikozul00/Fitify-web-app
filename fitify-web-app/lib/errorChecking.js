@@ -40,10 +40,12 @@ export const checkProduct = (product) => {
     };
 
   if (
+    product.thumbnailImage.type &&
     !["image/jpeg", "image/png", "image/webp", "image/gif"].includes(
       product.thumbnailImage.type
     )
   )
+    //Ako je dodan novi file, provjerava se je li ok tip
     return {
       error: true,
       errorMsg: "Thumbnail image format is not accepted.",
@@ -51,6 +53,7 @@ export const checkProduct = (product) => {
 
   for (let i = 0; i < product.images.length; i++)
     if (
+      product.images[i].type &&
       !["image/jpeg", "image/png", "image/webp", "image/gif"].includes(
         product.images[i].type
       )
@@ -62,5 +65,7 @@ export const checkProduct = (product) => {
 
   return {
     error: false,
+    errorMsg:
+      "Product successfully modified. Change will be visible after several minutes.",
   };
 };

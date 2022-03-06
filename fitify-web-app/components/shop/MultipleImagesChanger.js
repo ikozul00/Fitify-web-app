@@ -14,6 +14,7 @@ const MultipleImagesChanger = ({ imageIds, updateImages }) => {
     }
 
     setImages([...imagesInfo]);
+    updateImages([...imagesInfo]); // Ovaj poziv je da bi se informacije u parentu postavile u pravi format
     console.log("Original images:", imagesInfo);
   }, []);
 

@@ -73,12 +73,11 @@ const ModifyProduct = () => {
       images: images,
     };
 
-    // let errorCheck = checkProduct(product);
-    // if (errorCheck.error == false) {
-    //   updateProduct(product);
-    //   setErrorMessage("");
-    // } else setErrorMessage(errorCheck.errorMsg);
-    updateProduct(product);
+    let errorCheck = checkProduct(product);
+    if (errorCheck.error == false) {
+      updateProduct(product);
+      setErrorMessage(errorCheck.errorMsg);
+    } else setErrorMessage(errorCheck.errorMsg);
   };
 
   const handleNewThumbnailImage = (newImage) => {
