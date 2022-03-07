@@ -1,6 +1,7 @@
 import { useState } from "react";
 import ImageChanger from "@/components/dataModification/ImageChanger";
 import { checkPost } from "@/lib/errorChecking";
+import { createNewBlogPost } from "pages/api/ModifyBlogPosts";
 
 const AddPost = () => {
   const [title, setTitle] = useState("");
@@ -10,7 +11,7 @@ const AddPost = () => {
   const [headerImage, setHeaderImage] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
 
-  const sendPost = (e) => {
+  const sendPost = async (e) => {
     e.preventDefault();
     let newPost = {
       title: title,
@@ -25,7 +26,12 @@ const AddPost = () => {
     if (errorCheck.error) {
       setErrorMessage(errorCheck.errorMsg);
     } else {
-      setErrorMessage("Post is published!");
+      errorCheck = await createNewBlogPost(newPost);
+      if (errorCheck.error) setErrorMessage(errorCheck.errorMsg);
+      else
+        setErrorMessage(
+          "Post is successfully published! Change will be visible in several minutes."
+        );
     }
   };
 
