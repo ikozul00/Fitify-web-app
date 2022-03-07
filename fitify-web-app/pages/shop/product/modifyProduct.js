@@ -3,9 +3,9 @@ import { useEffect, useState } from "react";
 import { fetchEntryById, updateProduct } from "pages/api/ModifyProducts";
 import { filters } from "@/constants/filters";
 import { checkProduct } from "@/lib/errorChecking";
-import Checkbox from "@/components/shop/Checkbox";
-import ImageChanger from "@/components/shop/ImageChanger";
-import MultipleImagesChanger from "@/components/shop/MultipleImagesChanger";
+import Checkbox from "@/components/dataModification/Checkbox";
+import ImageChanger from "@/components/dataModification/ImageChanger";
+import MultipleImagesChanger from "@/components/dataModification/MultipleImagesChanger";
 
 const ModifyProduct = () => {
   const [title, setTitle] = useState("");
@@ -39,7 +39,7 @@ const ModifyProduct = () => {
       setColor(entry.color["en-US"]);
       setDetails(entry.productDetails["en-US"]);
       if (entry.material) setMaterial(entry.material["en-US"]);
-      setThumbnailImage(entry.thumbnailImage["en-US"]);
+      setThumbnailImage(entry.thumbnailImage["en-US"].sys);
       if (entry.images)
         setImages(entry.images["en-US"].map((image) => image.sys.id));
     }
@@ -69,7 +69,7 @@ const ModifyProduct = () => {
       sizes: sizes,
       material: material,
       productDetails: details,
-      thumbnailImage: thumbnailImage,
+      thumbnailImage: thumbnailImage.file,
       images: images,
     };
 
@@ -221,12 +221,10 @@ const ModifyProduct = () => {
             required
           ></textarea>
           <p className="mt-5 text-xl">Thumbnail image:</p>
-          {thumbnailImage && (
-            <ImageChanger
-              imageId={thumbnailImage.sys.id}
-              setNewImage={handleNewThumbnailImage}
-            />
-          )}
+          <ImageChanger
+            imageId={thumbnailImage.id}
+            setNewImage={handleNewThumbnailImage}
+          />
           <p className="mt-5 text-xl">Images:</p>
           {images && (
             <MultipleImagesChanger

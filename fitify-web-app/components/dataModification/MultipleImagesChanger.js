@@ -47,6 +47,14 @@ const MultipleImagesChanger = ({ imageIds, updateImages }) => {
 
   return (
     <div className="w-full flex flex-row">
+      <input
+        type="file"
+        id="images"
+        name="images"
+        className="basis-1/4"
+        onChange={handleImageUpload}
+        multiple
+      />
       <div className="flex flex-row justify-start w-full flex-wrap">
         {images &&
           images.map((image) => (
@@ -70,14 +78,6 @@ const MultipleImagesChanger = ({ imageIds, updateImages }) => {
             </li>
           ))}
       </div>
-      <input
-        type="file"
-        id="images"
-        name="images"
-        className="basis-1/4"
-        onChange={handleImageUpload}
-        multiple
-      />
     </div>
   );
 };
