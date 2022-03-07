@@ -138,7 +138,7 @@ export const deletePost = async (postId) => {
     .then((space) => space.getEnvironment("master"))
     .then((environment) => environment.getEntry(postId))
     .then((entry) => entry.unpublish())
-    //.then((entry) => entry.delete())
+    .then((entry) => entry.delete())
     .then(() => true)
     .catch(() => false);
 

@@ -192,7 +192,7 @@ export const deleteProduct = async (productId) => {
     .then((space) => space.getEnvironment("master"))
     .then((environment) => environment.getEntry(productId))
     .then((entry) => entry.unpublish())
-    // .then((entry) => entry.delete())
+    .then((entry) => entry.delete())
     .then(() => true)
     .catch(() => false);
 
