@@ -83,9 +83,9 @@ export const checkPost = (post) => {
       errorMsg: "Please, fill out all of the fields.",
     };
   if (
-    post.thumbnailImage.type &&
+    post.thumbnailImage.file &&
     !["image/jpeg", "image/png", "image/webp", "image/gif"].includes(
-      post.thumbnailImage.type
+      post.thumbnailImage.file.type
     )
   )
     //Ako je dodan novi file, provjerava se je li ok tip
@@ -94,9 +94,9 @@ export const checkPost = (post) => {
       errorMsg: "Thumbnail image format is not accepted.",
     };
   if (
-    post.headerImage.type &&
+    post.headerImage.file &&
     !["image/jpeg", "image/png", "image/webp", "image/gif"].includes(
-      post.headerImage.type
+      post.headerImage.file.type
     )
   )
     //Ako je dodan novi file, provjerava se je li ok tip

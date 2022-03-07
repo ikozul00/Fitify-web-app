@@ -124,6 +124,7 @@ export const getPostBySlug = async (slug) => {
           title
           description
           sys{
+            id
             publishedAt
           }
           headerImage{

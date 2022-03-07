@@ -9,6 +9,7 @@ import { A } from "../../components/blog/link";
 import { CustomImage } from "@/components/blog/image";
 import React from "react";
 import { parseDate } from "@/lib/parseDate";
+import Link from "next/link";
 
 const components = {
   h2: H2,
@@ -36,6 +37,11 @@ const BlogPost = ({ post }) => {
       <h2 className="text-center md:text-2xl sm:text-xl text-lg mt-5 mb-16 text-gray-600">
         {post.description}
       </h2>
+      <Link href={`/blog/modifyPost?id=${post.sys.id}`} passHref>
+        <p className="bg-fitify-pink text-white sm:text-xl text-lg px-4 py-2 my-10 mt-4 hover:opacity-80 w-1/6">
+          Modify post
+        </p>
+      </Link>
       <div className="relative w-full h-96 mx-auto mb-10">
         <Image
           src={post.headerImage.url}
