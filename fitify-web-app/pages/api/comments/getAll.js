@@ -8,7 +8,7 @@ export default async function (req, res) {
     await results.forEach((comment) => 
     comments.push(comment)
     );
-    if (comments.length===0) {
+    if (!comments) {
         client.close();
         res.status(404).json({message:"Comments not found!"});
     }

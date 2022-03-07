@@ -1,23 +1,34 @@
 import { useState } from "react";
 import Image from "next/image";
+import { createNewAsset } from "pages/api/ModifyProducts";
 
-const NewComment = ({setVisibility, productId, productTitle,comments, setComments}) => {
+const NewComment = ({setVisibility, productId, productTitle,productBrand,comments, setComments}) => {
     const [title, setTitle] = useState("");
     const [content, setContent] = useState("");
     const [image, setImage] = useState();
     const [error, setError] = useState("");
 
-    console.log(productId);
 
     function uploadImage(e){
-        setImage({
+        console.log("Image:");
+        console.log(e.target.files[0]);
+        setImage({...image,
             url: URL.createObjectURL(e.target.files[0]),
             title: e.target.files[0].name,
+            imageData:e.target.files[0]
           });
     }
 
     async function addComment(e){
         e.preventDefault();
+        let imageId;
+        if(image){
+            imageId= await createNewAsset(image.imageData);
+        }
+        else{
+            imageId=0;
+        }
+        
         const res = await fetch("/api/comments/addNew", {
             method: 'POST',
             headers: {
@@ -28,7 +39,8 @@ const NewComment = ({setVisibility, productId, productTitle,comments, setComment
                 content:content,
                 productId:productId,
                 productTitle:productTitle,
-                image:image,
+                productBrand:productBrand,
+                imageId:imageId,
             })
         });
         if(res.status==201){

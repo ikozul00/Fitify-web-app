@@ -190,7 +190,7 @@ const ProductView = ({ product, addToCartRedux, counter }) => {
         <ModalWindow chooseOption={handleOptionChoice} title={product.title} />
       )}
     </main>
-    <CommentsContainer productId={product.sys.id} productTitle={product.title}/>
+    <CommentsContainer productId={product.sys.id} productTitle={product.title} productBrand={product.brand}/>
     </>
   );
 };
