@@ -10,6 +10,10 @@ import { CustomImage } from "@/components/blog/image";
 import React from "react";
 import { parseDate } from "@/lib/parseDate";
 import Link from "next/link";
+import { deletePost } from "pages/api/ModifyBlogPosts";
+import { useState } from "react";
+import { useRouter } from "next/router";
+import ModalWindow from "@/components/modalWindow/ModalWindow";
 
 const components = {
   h2: H2,
@@ -22,12 +26,24 @@ const components = {
   strong: Strong,
   img: CustomImage,
 };
-
 const BlogPost = ({ post }) => {
+  const [modalOpened, setModalOpened] = useState(false);
+  const router = useRouter();
   const date = parseDate(post.sys.publishedAt);
+
+  const handleOptionChoice = (choice) => {
+    if (choice) {
+      if (deletePost(post.sys.id)) {
+        router.push("/");
+      }
+    } else setModalOpened(false);
+  };
 
   return (
     <main className="w-4/5 mx-auto mt-0 mb-20 font-open-sans">
+      {modalOpened && (
+        <ModalWindow chooseOption={handleOptionChoice} title={post.title} />
+      )}
       <h3 className=" md:text-xl sm:text-lg text-base my-10 text-gray-600 text-right">
         {`${date.day}/${date.month}/${date.year}`}
       </h3>
@@ -37,11 +53,19 @@ const BlogPost = ({ post }) => {
       <h2 className="text-center md:text-2xl sm:text-xl text-lg mt-5 mb-16 text-gray-600">
         {post.description}
       </h2>
-      <Link href={`/blog/modifyPost?id=${post.sys.id}`} passHref>
-        <p className="bg-fitify-pink text-white sm:text-xl text-lg px-4 py-2 my-10 mt-4 hover:opacity-80 w-1/6">
-          Modify post
-        </p>
-      </Link>
+      <div className="flex flex-row justify-end">
+        <Link href={`/blog/modifyPost?id=${post.sys.id}`} passHref>
+          <p className="bg-fitify-pink text-white sm:text-xl text-lg px-4 py-2 my-10 mt-4 hover:opacity-80">
+            Modify post
+          </p>
+        </Link>
+        <button
+          className="mx-10 bg-fitify-pink text-white sm:text-xl text-lg px-4 py-2 mt-4 hover:opacity-80"
+          onClick={() => setModalOpened(true)}
+        >
+          Delete product
+        </button>
+      </div>
       <div className="relative w-full h-96 mx-auto mb-10">
         <Image
           src={post.headerImage.url}

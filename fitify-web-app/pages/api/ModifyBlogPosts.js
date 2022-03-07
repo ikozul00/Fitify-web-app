@@ -131,3 +131,17 @@ export const updateBlogPost = async (post) => {
   entry = await entry.publish();
   return { error: false };
 };
+
+export const deletePost = async (postId) => {
+  let isDeleted = await client
+    .getSpace(process.env.CONTENTFUL_SPACE_ID)
+    .then((space) => space.getEnvironment("master"))
+    .then((environment) => environment.getEntry(postId))
+    .then((entry) => entry.unpublish())
+    //.then((entry) => entry.delete())
+    .then(() => true)
+    .catch(() => false);
+
+  console.log("Is post deleted:", isDeleted);
+  return isDeleted;
+};
