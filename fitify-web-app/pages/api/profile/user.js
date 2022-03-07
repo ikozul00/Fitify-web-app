@@ -25,6 +25,7 @@ export default async function (req, res) {
             image:result.image,
             id:result._id
          }
+        client.close();
         res.status(200).json({ data: user });
     } 
   }

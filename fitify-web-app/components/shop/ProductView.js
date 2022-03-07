@@ -11,6 +11,7 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import { deleteProduct } from "pages/api/ModifyProducts";
 import ModalWindow from "../modalWindow/ModalWindow";
+import CommentsContainer from "../comments/commentsContainer";
 
 const components = {
   h2: H2,
@@ -73,6 +74,7 @@ const ProductView = ({ product, addToCartRedux, counter }) => {
   }
 
   return (
+    <>
     <main className="custom:w-4/5 w-11/12 mx-auto my-10 flex md:flex-row flex-col justify-between md:items-start items-center font-open-sans">
       <div className="md:w-1/2 w-full">
         <div className="relative w-full h-full">
@@ -188,6 +190,8 @@ const ProductView = ({ product, addToCartRedux, counter }) => {
         <ModalWindow chooseOption={handleOptionChoice} title={product.title} />
       )}
     </main>
+    <CommentsContainer productId={product.sys.id} productTitle={product.title}/>
+    </>
   );
 };
 
