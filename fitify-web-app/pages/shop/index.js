@@ -124,7 +124,9 @@ const Shop = ({ products }) => {
             }}
           />
           <Link href="/shop/addProduct" passHref>
-            <p className="mx-10 bg-red-500">Add new product</p>
+            <p className="mx-10 bg-fitify-pink text-white sm:text-xl text-lg px-4 py-2 custom:mt-0 mt-4 hover:opacity-80">
+              Add new product
+            </p>
           </Link>
           <SearchBar searchQuery={searchQuery} />
         </div>

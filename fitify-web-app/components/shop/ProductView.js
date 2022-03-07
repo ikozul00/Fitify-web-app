@@ -82,10 +82,10 @@ const ProductView = ({ product, addToCartRedux, counter }) => {
       <div className="font-open-sans px-5 md:w-1/2 w-11/12 md:mt-0 mt-8 text-left ">
         <h1 className="sm:text-4xl text-3xl font-bold">{product.brand}</h1>
         <h1 className="sm:text-3xl text-2xl  font-semibold">{product.title}</h1>
-        <div className="flex sm:text-2xl text-xl  mt-8 mb-4">
+        <div className="flex sm:text-2xl text-xl mt-8 mb-4">
           <h2
             className={`font-extrabold ${
-              product.oldPrice ? "text-fitify-pink" : ""
+              product.oldPrice ? "text-fitify-pink " : ""
             }`}
           >
             ${product.price}
@@ -97,10 +97,12 @@ const ProductView = ({ product, addToCartRedux, counter }) => {
             href={`/shop/product/modifyProduct?id=${product.sys.id}`}
             passHref
           >
-            <p className="mx-10 bg-red-500">Modify product</p>
+            <p className="mx-10 bg-fitify-pink text-white sm:text-xl text-lg px-4 py-2 custom:mt-0 mt-4 hover:opacity-80">
+              Modify product
+            </p>
           </Link>
           <button
-            className="mx-10 bg-red-500"
+            className="mx-10 bg-fitify-pink text-white sm:text-xl text-lg px-4 py-2 custom:mt-0 mt-4 hover:opacity-80"
             onClick={() => setModalOpened(true)}
           >
             Delete product
@@ -165,8 +167,9 @@ const ProductView = ({ product, addToCartRedux, counter }) => {
         {pickSize && (
           <div className=" border-2 border-fitify-green rounded-lg my-3">
             <p>
-              Sorry you need to first pick a size then you can add product{" "}
-              <span className="font-semibold">{product.title}</span> to cart.
+              Sorry, you need to first pick a size and then you can add the
+              product <span className="font-semibold">{product.title}</span> to
+              the cart.
             </p>
           </div>
         )}

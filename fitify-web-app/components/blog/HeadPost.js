@@ -1,10 +1,9 @@
 import Link from "next/link";
 import Image from "next/image";
-import { useEffect, useState } from "react/cjs/react.development";
 import { parseDate } from "parseDate";
 
 const HeadPost = ({ post }) => {
-  const date = parseDate(post.date);
+  const date = parseDate(post.sys.publishedAt);
 
   return (
     <Link href={`blog/${post.slug}`} passHref>

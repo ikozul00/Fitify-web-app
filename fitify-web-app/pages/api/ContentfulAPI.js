@@ -49,16 +49,18 @@ export const getPaginatedPosts = async (page) => {
   const skip = skipMultiplier * Config.pagination.pageSize;
 
   const query = `query{
-        blogCollection(limit: ${Config.pagination.pageSize}, skip: ${skip}, order: date_DESC) {
+        blogCollection(limit: ${Config.pagination.pageSize}, skip: ${skip}, order: sys_publishedAt_DESC) {
           total
           items {
             title
-            date
             slug
             description
             thumbnailImage{
                 url
                 title
+          }
+          sys{
+            publishedAt
           }
           }
         }
@@ -121,7 +123,9 @@ export const getPostBySlug = async (slug) => {
         items{
           title
           description
-          date
+          sys{
+            publishedAt
+          }
           headerImage{
             url
             title
@@ -331,7 +335,7 @@ export const GetUserData = async (name) => {
 
 export const getNewestBlogArticles = async () => {
   const newestArticlesQuery = `{
-    blogCollection(limit: ${Config.homepage.blogArticles}, order: date_DESC) {
+    blogCollection(limit: ${Config.homepage.blogArticles}, order: sys_publishedAt_DESC) {
       items {
         title
         slug
@@ -339,7 +343,9 @@ export const getNewestBlogArticles = async () => {
           url
           title
         }
-        date
+        sys{
+          publishedAt
+        }
       }
     }
   }`;
