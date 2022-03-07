@@ -1,13 +1,33 @@
 import { useState } from "react";
+import ImageChanger from "@/components/dataModification/ImageChanger";
+import { checkPost } from "@/lib/errorChecking";
 
 const AddPost = () => {
   const [title, setTitle] = useState("");
-  const [date, setDate] = useState("");
   const [description, setDescription] = useState("");
   const [body, setBody] = useState("");
   const [thumbnailImage, setThumbnailImage] = useState("");
   const [headerImage, setHeaderImage] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
+
+  const sendPost = (e) => {
+    e.preventDefault();
+    let newPost = {
+      title: title,
+      description: description,
+      body: body,
+      thumbnailImage: thumbnailImage,
+      headerImage: headerImage,
+    };
+
+    console.log(newPost);
+    let errorCheck = checkPost(newPost);
+    if (errorCheck.error) {
+      setErrorMessage(errorCheck.errorMsg);
+    } else {
+      setErrorMessage("Post is published!");
+    }
+  };
 
   return (
     <div className="md:ml-16 ml-8 w-11/12 my-12 font-open-sans">
@@ -59,26 +79,20 @@ const AddPost = () => {
             onChange={(e) => setBody(e.target.value)}
             required
           ></textarea>
-
-          <label htmlFor="thumbnailImage" className="mt-5 text-xl">
-            Thumbnail image:
-          </label>
-          <input
-            type="file"
-            id="thumbnailImage"
-            name="thumbnailImage"
-            onChange={(e) => setThumbnailImage(e.target.files[0])}
+          <p className="mt-5 text-xl">Thumbnail image:</p>
+          <ImageChanger
+            imageId={""}
+            setNewImage={(img) => setThumbnailImage(img.file)}
           />
-          <label htmlFor="headerImage" className="mt-5 text-xl">
-            Thumbnail image:
-          </label>
-          <input
-            type="file"
-            id="headerImage"
-            name="headerImage"
-            onChange={(e) => setHeaderImage(e.target.files[0])}
+          <p className="mt-5 text-xl">Header image:</p>
+          <ImageChanger
+            imageId={""}
+            setNewImage={(img) => setHeaderImage(img.file)}
           />
-          <button className=" bg-fitify-purple text-white w-36 py-2 place-self-end mb-7">
+          <button
+            className=" bg-fitify-purple text-white w-36 py-2 place-self-end mb-7"
+            onClick={sendPost}
+          >
             Add
           </button>
         </div>

@@ -69,3 +69,45 @@ export const checkProduct = (product) => {
       "Product successfully modified. Change will be visible after several minutes.",
   };
 };
+
+export const checkPost = (post) => {
+  if (
+    post.title == "" ||
+    post.body == "" ||
+    post.description == "" ||
+    post.thumbnailImage == "" ||
+    post.headerImage == ""
+  )
+    return {
+      error: true,
+      errorMsg: "Please, fill out all of the fields.",
+    };
+  if (
+    post.thumbnailImage.type &&
+    !["image/jpeg", "image/png", "image/webp", "image/gif"].includes(
+      post.thumbnailImage.type
+    )
+  )
+    //Ako je dodan novi file, provjerava se je li ok tip
+    return {
+      error: true,
+      errorMsg: "Thumbnail image format is not accepted.",
+    };
+  if (
+    post.headerImage.type &&
+    !["image/jpeg", "image/png", "image/webp", "image/gif"].includes(
+      post.headerImage.type
+    )
+  )
+    //Ako je dodan novi file, provjerava se je li ok tip
+    return {
+      error: true,
+      errorMsg: "Header image format is not accepted.",
+    };
+
+  return {
+    error: false,
+    errorMsg:
+      "Post successfully modified. Change will be visible after several minutes.",
+  };
+};

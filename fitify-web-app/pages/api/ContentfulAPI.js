@@ -438,3 +438,29 @@ export const getAssetById = async (assetId) => {
   const data = response.data.data.asset;
   return data;
 };
+
+export const checkIfTitleExists = async (title) => {
+  const response = await instance
+    .post(
+      "",
+      {
+        query: `{
+        blogCollection(where: {title: "${title}"}) {
+          total
+        }
+      }`,
+      },
+      {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + process.env.CONTENTFUL_ACCESS_TOKEN,
+        },
+      }
+    )
+    .catch((err) => null);
+
+  if (response == null) return 1;
+
+  const data = response.data.data.blogCollection.total;
+  return data;
+};
