@@ -155,7 +155,7 @@ const ProductView = ({ product, addToCartRedux, counter }) => {
         </div>
       </div>
     </main>
-    <CommentsContainer/>
+    <CommentsContainer productId={product.sys.id} productTitle={product.title}/>
     </>
   );
 };
