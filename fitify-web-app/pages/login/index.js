@@ -1,12 +1,18 @@
 import { useRouter } from "next/router";
 import { useState } from "react";
 import Link from "next/link";
+import { signIn, useSession } from "next-auth/react";
 
 const Login = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const router = useRouter();
+  const { data:session } = useSession();
+
+  if(session){
+    router.push("/");
+  }
 
 
   function onChange(event) {
@@ -22,24 +28,15 @@ const Login = () => {
   async function handleSubmit(event) {
     event.preventDefault();
     if (!(password.length === 0) && !(username.length === 0)) {
-      const res = await fetch("/api/login", {
-        body: JSON.stringify({
-          name: username,
-          password: password,
-        }),
-        headers: {
-          "Content-Type": "application/json",
-        },
-        method: "POST",
-      });
-      const responseData = await res.json();
-      if (responseData.data.length === 0) {
-        setErrorMessage("Wrong username or password!");
-      } else {
-        localStorage.setItem("user", username);
-        router.push(`/profile/${username}`);
+      let res = await signIn("credentials",{redirect: false,name:username, password:password});
+      if(res.status===200 && !res.error){
+        router.push(`/`);
       }
-    } else {
+      else{
+        setErrorMessage("Wrong username or password!");
+      }
+    }
+    else {
       setErrorMessage("You must enter both username and password!");
     }
   }
@@ -51,7 +48,7 @@ const Login = () => {
           <h1 className="md:text-3xl sm:text-xl text-lg font-semibold pt-10 pb-10 underline underline-offset-2">
             LOGIN
           </h1>
-          <form onSubmit={(e) => handleSubmit(e)} className="flex-col sm:text-base text-sm">
+          <form className="flex-col sm:text-base text-sm">
             <div className="sm:w-5/6 w-full mx-auto mb-7 sm:block flex flex-col px-10">
               <label
                 htmlFor="username"
@@ -69,7 +66,7 @@ const Login = () => {
                 onChange={(e) => onChange(e)}
               ></input>
             </div>
-            <div className="sm:w-5/6 w-full mx-auto mb-7 sm:block flex flex-col px-10">
+            <div className="sm:w-5/6 w-full mx-auto mb-4 sm:block flex flex-col px-10">
               <label
                 htmlFor="password"
                 className=" pr-3.2 sm:text-center text-left"
@@ -90,13 +87,19 @@ const Login = () => {
             <div className="sm:w-3/4 w-full flex sm:justify-end justify-center">
               <button
                 type="submit"
-                className="bg-fitify-purple px-10 py-2 font-medium uppercase hover:opacity-80 text-white border-none mt-5 mb-10"
+                className="bg-fitify-purple px-10 py-2 font-medium uppercase hover:opacity-80 text-white border-none mt-3"
+                onClick={(e) => handleSubmit(e) }
               >
                 Login
               </button>
             </div>
           </form>
+          <div className="my-5 border-t-2 border-black flex sm:flex-row flex-col justify-around mx-auto w-11/12">
+          <button className=" bg-fitify-purple text-white text-xl px-3 py-1 mt-4" onClick={() => signIn("google", { callbackUrl: 'http://localhost:3000/' })}>Sign in using Google</button>
+          <button className=" bg-fitify-purple text-white text-xl px-3 py-1 mt-4" onClick={() => signIn("github", { callbackUrl: 'http://localhost:3000/' })}>Sign in using Github</button>
         </div>
+        </div>
+        
         <p className="  sm:text-lg text-base mt-4 mb-10">
           Don’t have an account?
           <Link href="/registration" key="registration" passHref>

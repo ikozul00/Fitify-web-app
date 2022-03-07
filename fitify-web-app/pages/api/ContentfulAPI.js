@@ -266,72 +266,72 @@ export const getAllProducts = async () => {
   return data;
 };
 
-export const CheckLoginData = async (name, password) => {
-  const response = await instance
-    .post(
-      "",
-      {
-        query: `query{
-        userCollection(where: {
-            username:"${name}",password:"${password}"
-          }){
-          items{
-            username
-          }
-        }
-      }`,
-      },
-      {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: "Bearer " + process.env.CONTENTFUL_ACCESS_TOKEN,
-        },
-      }
-    )
-    .catch(() => null);
-  if (!response) {
-    return -1;
-  }
-  const data = response.data.data;
-  return data.userCollection.items;
-};
+// export const CheckLoginData = async (name, password) => {
+//   const response = await instance
+//     .post(
+//       "",
+//       {
+//         query: `query{
+//         userCollection(where: {
+//             username:"${name}",password:"${password}"
+//           }){
+//           items{
+//             username
+//           }
+//         }
+//       }`,
+//       },
+//       {
+//         headers: {
+//           "Content-Type": "application/json",
+//           Authorization: "Bearer " + CONTENTFUL_ACCESS_TOKEN,
+//         },
+//       }
+//     )
+//     .catch(() => null);
+//   if (!response) {
+//     return -1;
+//   }
+//   const data = response.data.data;
+//   return data.userCollection.items;
+// };
 
-export const GetUserData = async (name) => {
-  const response = await instance
-    .post(
-      "",
-      {
-        query: `query{
-        userCollection(where: {
-        username:"${name}"
-      }){
-        items{
-          name,
-          username,
-          email,
-          address,
-          city,
-          country,
-          phoneNumber,
-          surname
-        }
-        }
-      }`,
-      },
-      {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: "Bearer " + process.env.CONTENTFUL_ACCESS_TOKEN,
-        },
-      }
-    )
-    .catch(() => null);
-  if (!response) {
-    return -1;
-  }
-  const data = response.data.data;
-  return data.userCollection.items;
-};
+// export const GetUserData = async (user) => {
+//   const response = await instance
+//     .post(
+//       "",
+//       {
+//         query: `query{
+//         userCollection(where: {
+//         username:"${user.name}"
+//       }){
+//         items{
+//           name,
+//           username,
+//           email,
+//           address,
+//           city,
+//           country,
+//           phoneNumber,
+//           surname
+//         }
+//         }
+//       }`,
+//       },
+//       {
+//         headers: {
+//           "Content-Type": "application/json",
+//           Authorization: "Bearer " + CONTENTFUL_ACCESS_TOKEN,
+//         },
+//       }
+//     )
+//     .catch(() => null);
+//   if (!response) {
+//     return -1;
+//   }
+//   const data = response.data.data;
+//   return data.userCollection.items;
+// };
 
 export const getNewestBlogArticles = async () => {
   const newestArticlesQuery = `{

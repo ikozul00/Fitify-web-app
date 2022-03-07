@@ -1,4 +1,4 @@
-import { ADD_TO_CART, DECREASE_AMOUNT, INCREASE_AMOUNT, REMOVE_FROM_CART } from "../constants/actions";
+import { ADD_TO_CART, DECREASE_AMOUNT, INCREASE_AMOUNT, REMOVE_FROM_CART, REMOVE_ALL } from "../constants/actions";
 
 export const addToCart = (id,title,image,price,size,amount) => (dispatch) => {
     dispatch({
@@ -41,5 +41,11 @@ export const removeFromCart = (id,size) => (dispatch) => {
             id:id,
             size:size,
         }
+    })
+}
+
+export const removeAllFromCart = () => (dispatch) => {
+    dispatch({
+        type: REMOVE_ALL
     })
 }

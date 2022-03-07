@@ -1,7 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import Pagination from "./Pagination";
-import { parseDate } from "parseDate";
+import { parseDate } from "@/lib/parseDate";
 
 const PostList = (props) => {
   const { posts, currentPage, totalPages } = props;

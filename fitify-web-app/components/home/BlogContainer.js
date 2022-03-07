@@ -1,4 +1,4 @@
-import { parseDate } from "parseDate";
+import { parseDate } from "@/lib/parseDate";
 import Image from "next/image";
 import Link from "next/link";
 

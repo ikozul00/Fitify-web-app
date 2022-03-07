@@ -1,6 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
-import { parseDate } from "parseDate";
+import { useEffect, useState } from "react/cjs/react.development";
+import { parseDate } from "@/lib/parseDate";
 
 const HeadPost = ({ post }) => {
   const date = parseDate(post.sys.publishedAt);
