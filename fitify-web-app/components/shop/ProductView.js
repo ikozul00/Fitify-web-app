@@ -7,6 +7,10 @@ import ImageSlider from "../imageSlider/ImageSlider";
 import { useEffect, useState } from "react";
 import { connect } from "react-redux";
 import { addToCart } from "redux/actions/cartActions";
+import Link from "next/link";
+import { useRouter } from "next/router";
+import { deleteProduct } from "pages/api/ModifyProducts";
+import ModalWindow from "../modalWindow/ModalWindow";
 
 const components = {
   h2: H2,
@@ -19,7 +23,6 @@ const components = {
   strong: Strong,
 };
 
-
 const ProductView = ({ product, addToCartRedux, counter }) => {
   const images = [product.thumbnailImage, ...product.imagesCollection.items];
   const [pickedSize, setPickedSize] = useState("0");
@@ -27,6 +30,8 @@ const ProductView = ({ product, addToCartRedux, counter }) => {
   const [added, setAdded] = useState(false);
   const [inital, setInital] = useState(true);
   const [pickSize, setPickSize] = useState(false);
+  const [modalOpened, setModalOpened] = useState(false);
+  const router = useRouter();
 
   const amount = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
@@ -59,6 +64,13 @@ const ProductView = ({ product, addToCartRedux, counter }) => {
       );
     }
   }
+  function handleOptionChoice(choice) {
+    if (choice) {
+      if (deleteProduct(product.sys.id)) {
+        router.push("/");
+      }
+    } else setModalOpened(false);
+  }
 
   return (
     <main className="custom:w-4/5 w-11/12 mx-auto my-10 flex md:flex-row flex-col justify-between md:items-start items-center font-open-sans">
@@ -70,30 +82,49 @@ const ProductView = ({ product, addToCartRedux, counter }) => {
       <div className="font-open-sans px-5 md:w-1/2 w-11/12 md:mt-0 mt-8 text-left ">
         <h1 className="sm:text-4xl text-3xl font-bold">{product.brand}</h1>
         <h1 className="sm:text-3xl text-2xl  font-semibold">{product.title}</h1>
-        <div className="flex sm:text-2xl text-xl  mt-8 mb-4">
-          <h2 className={`font-extrabold ${product.oldPrice ? "text-fitify-pink" : ""}`}>${product.price}</h2>
+        <div className="flex sm:text-2xl text-xl mt-8 mb-4">
+          <h2
+            className={`font-extrabold ${
+              product.oldPrice ? "text-fitify-pink " : ""
+            }`}
+          >
+            ${product.price}
+          </h2>
           {product.oldPrice != null && (
-            <h2 className="line-through font-bold ml-5">
-              ${product.oldPrice}
-            </h2>
+            <h2 className="line-through font-bold ml-5">${product.oldPrice}</h2>
           )}
+          <Link
+            href={`/shop/product/modifyProduct?id=${product.sys.id}`}
+            passHref
+          >
+            <p className="mx-10 bg-fitify-pink text-white sm:text-xl text-lg px-4 py-2 custom:mt-0 mt-4 hover:opacity-80">
+              Modify product
+            </p>
+          </Link>
+          <button
+            className="mx-10 bg-fitify-pink text-white sm:text-xl text-lg px-4 py-2 custom:mt-0 mt-4 hover:opacity-80"
+            onClick={() => setModalOpened(true)}
+          >
+            Delete product
+          </button>
         </div>
         <p className="sm:text-xl text-lg">Select Size:</p>
         <div className="flex justify-start mb-5 flex-wrap">
           {product.sizes.map((size) => {
-            return(
-            <button
-              key={size}
-              className={`rounded-full border-black sm:w-20 w-16 mm:h-10 h-12 border-2 font-semibold mx-2 my-2 ${
-                pickedSize === size
-                  ? "bg-fitify-green text-white border-white"
-                  : "bg-white text-black border-black"
-              }`}
-              onClick={() => sizePicked(size)}
-            >
-              {size}
-            </button>
-          )})}
+            return (
+              <button
+                key={size}
+                className={`rounded-full border-black sm:w-20 w-16 mm:h-10 h-12 border-2 font-semibold mx-2 my-2 ${
+                  pickedSize === size
+                    ? "bg-fitify-green text-white border-white"
+                    : "bg-white text-black border-black"
+                }`}
+                onClick={() => sizePicked(size)}
+              >
+                {size}
+              </button>
+            );
+          })}
         </div>
         <div className="flex custom:flex-row  ms:flex-col customSmall:flex-row flex-col w-full justify-between items-baseline">
           <div>
@@ -136,8 +167,9 @@ const ProductView = ({ product, addToCartRedux, counter }) => {
         {pickSize && (
           <div className=" border-2 border-fitify-green rounded-lg my-3">
             <p>
-              Sorry you need to first pick a size then you can add product{" "}
-              <span className="font-semibold">{product.title}</span> to cart.
+              Sorry, you need to first pick a size and then you can add the
+              product <span className="font-semibold">{product.title}</span> to
+              the cart.
             </p>
           </div>
         )}
@@ -152,6 +184,9 @@ const ProductView = ({ product, addToCartRedux, counter }) => {
           <MDXRemote {...product.mdxSource} components={components} lazy />
         </div>
       </div>
+      {modalOpened && (
+        <ModalWindow chooseOption={handleOptionChoice} title={product.title} />
+      )}
     </main>
   );
 };

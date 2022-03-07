@@ -1,10 +1,8 @@
 import axios from "axios";
 import { Config } from "../../lib/Config";
 
-const { CONTENTFUL_SPACE_ID, CONTENTFUL_ACCESS_TOKEN } = process.env;
-
 const instance = axios.create({
-  baseURL: `https://graphql.contentful.com/content/v1/spaces/${CONTENTFUL_SPACE_ID}`,
+  baseURL: `https://graphql.contentful.com/content/v1/spaces/${process.env.CONTENTFUL_SPACE_ID}`,
 });
 
 const getNumberOfPostsQuery = `query{
@@ -33,7 +31,7 @@ export const getNumberOfPosts = async () => {
       {
         headers: {
           "Content-Type": "application/json",
-          Authorization: "Bearer " + CONTENTFUL_ACCESS_TOKEN,
+          Authorization: "Bearer " + process.env.CONTENTFUL_ACCESS_TOKEN,
         },
       }
     )
@@ -51,17 +49,18 @@ export const getPaginatedPosts = async (page) => {
   const skip = skipMultiplier * Config.pagination.pageSize;
 
   const query = `query{
-        blogCollection(limit: ${Config.pagination.pageSize}, skip: ${skip}, order: date_DESC) {
+        blogCollection(limit: ${Config.pagination.pageSize}, skip: ${skip}, order: sys_publishedAt_DESC) {
           total
           items {
-            id
             title
-            date
             slug
             description
             thumbnailImage{
                 url
                 title
+          }
+          sys{
+            publishedAt
           }
           }
         }
@@ -76,7 +75,7 @@ export const getPaginatedPosts = async (page) => {
       {
         headers: {
           "Content-Type": "application/json",
-          Authorization: "Bearer " + CONTENTFUL_ACCESS_TOKEN,
+          Authorization: "Bearer " + process.env.CONTENTFUL_ACCESS_TOKEN,
         },
       }
     )
@@ -99,7 +98,7 @@ export const getAllPostSlugs = async () => {
       {
         headers: {
           "Content-Type": "application/json",
-          Authorization: "Bearer " + CONTENTFUL_ACCESS_TOKEN,
+          Authorization: "Bearer " + process.env.CONTENTFUL_ACCESS_TOKEN,
         },
       }
     )
@@ -122,10 +121,11 @@ export const getPostBySlug = async (slug) => {
         slug: "${slug}"
       }){
         items{
-          id
           title
           description
-          date
+          sys{
+            publishedAt
+          }
           headerImage{
             url
             title
@@ -138,7 +138,7 @@ export const getPostBySlug = async (slug) => {
     {
       headers: {
         "Content-Type": "application/json",
-        Authorization: "Bearer " + CONTENTFUL_ACCESS_TOKEN,
+        Authorization: "Bearer " + process.env.CONTENTFUL_ACCESS_TOKEN,
       },
     }
   );
@@ -166,7 +166,7 @@ export const getAllProductIDs = async () => {
       {
         headers: {
           "Content-Type": "application/json",
-          Authorization: "Bearer " + CONTENTFUL_ACCESS_TOKEN,
+          Authorization: "Bearer " + process.env.CONTENTFUL_ACCESS_TOKEN,
         },
       }
     )
@@ -212,7 +212,7 @@ export const getProductByID = async (id) => {
     {
       headers: {
         "Content-Type": "application/json",
-        Authorization: "Bearer " + CONTENTFUL_ACCESS_TOKEN,
+        Authorization: "Bearer " + process.env.CONTENTFUL_ACCESS_TOKEN,
       },
     }
   );
@@ -253,7 +253,7 @@ export const getAllProducts = async () => {
       {
         headers: {
           "Content-Type": "application/json",
-          Authorization: "Bearer " + CONTENTFUL_ACCESS_TOKEN,
+          Authorization: "Bearer " + process.env.CONTENTFUL_ACCESS_TOKEN,
         },
       }
     )
@@ -284,7 +284,7 @@ export const CheckLoginData = async (name, password) => {
       {
         headers: {
           "Content-Type": "application/json",
-          Authorization: "Bearer " + CONTENTFUL_ACCESS_TOKEN,
+          Authorization: "Bearer " + process.env.CONTENTFUL_ACCESS_TOKEN,
         },
       }
     )
@@ -321,7 +321,7 @@ export const GetUserData = async (name) => {
       {
         headers: {
           "Content-Type": "application/json",
-          Authorization: "Bearer " + CONTENTFUL_ACCESS_TOKEN,
+          Authorization: "Bearer " + process.env.CONTENTFUL_ACCESS_TOKEN,
         },
       }
     )
@@ -335,7 +335,7 @@ export const GetUserData = async (name) => {
 
 export const getNewestBlogArticles = async () => {
   const newestArticlesQuery = `{
-    blogCollection(limit: ${Config.homepage.blogArticles}, order: date_DESC) {
+    blogCollection(limit: ${Config.homepage.blogArticles}, order: sys_publishedAt_DESC) {
       items {
         title
         slug
@@ -343,7 +343,9 @@ export const getNewestBlogArticles = async () => {
           url
           title
         }
-        date
+        sys{
+          publishedAt
+        }
       }
     }
   }`;
@@ -357,7 +359,7 @@ export const getNewestBlogArticles = async () => {
       {
         headers: {
           "Content-Type": "application/json",
-          Authorization: "Bearer " + CONTENTFUL_ACCESS_TOKEN,
+          Authorization: "Bearer " + process.env.CONTENTFUL_ACCESS_TOKEN,
         },
       }
     )
@@ -396,7 +398,7 @@ export const getNewestSaleProducts = async () => {
       {
         headers: {
           "Content-Type": "application/json",
-          Authorization: "Bearer " + CONTENTFUL_ACCESS_TOKEN,
+          Authorization: "Bearer " + process.env.CONTENTFUL_ACCESS_TOKEN,
         },
       }
     )
@@ -406,4 +408,59 @@ export const getNewestSaleProducts = async () => {
 
   const data = response.data.data;
   return data.productCollection.items;
+};
+
+export const getAssetById = async (assetId) => {
+  const assetQuery = `{
+  asset(id: "${assetId}") {
+    title
+    url
+  }
+}`;
+
+  const response = await instance
+    .post(
+      "",
+      {
+        query: assetQuery,
+      },
+      {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + process.env.CONTENTFUL_ACCESS_TOKEN,
+        },
+      }
+    )
+    .catch((err) => null);
+
+  if (response == null) return { url: "", title: "" };
+
+  const data = response.data.data.asset;
+  return data;
+};
+
+export const checkIfTitleExists = async (title) => {
+  const response = await instance
+    .post(
+      "",
+      {
+        query: `{
+        blogCollection(where: {title: "${title}"}) {
+          total
+        }
+      }`,
+      },
+      {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + process.env.CONTENTFUL_ACCESS_TOKEN,
+        },
+      }
+    )
+    .catch((err) => null);
+
+  if (response == null) return 1;
+
+  const data = response.data.data.blogCollection.total;
+  return data;
 };

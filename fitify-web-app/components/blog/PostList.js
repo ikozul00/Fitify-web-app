@@ -13,7 +13,7 @@ const PostList = (props) => {
       </h2>
       <ul>
         {posts.map((post) => {
-          const postDate = parseDate(post.date);
+          const postDate = parseDate(post.sys.publishedAt);
           return (
             <Link href={`/blog/${post.slug}`} key={post.id} passHref>
               <li className=" border-2 my-7 border-fitify-green flex sm:flex-row flex-col justify-between sm:h-56 h-auto py-0 cursor-pointer hover:bg-fitify-green-light">

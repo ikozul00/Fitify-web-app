@@ -11,11 +11,12 @@ const brand = {
     "Manduka",
     "New Balance",
     "Nike",
+    "Puma",
   ],
 };
 
 const color = {
-  title: "Color",
+  title: "Colors",
   items: [
     "beige",
     "black",

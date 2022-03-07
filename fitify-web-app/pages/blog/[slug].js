@@ -23,7 +23,7 @@ const components = {
 };
 
 const BlogPost = ({ post }) => {
-  const date = parseDate(post.date);
+  const date = parseDate(post.sys.publishedAt);
 
   return (
     <main className="w-4/5 mx-auto mt-0 mb-20 font-open-sans">

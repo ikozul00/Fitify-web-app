@@ -12,7 +12,7 @@ const BlogContainer = ({ posts }) => {
       </Link>
       <div className="xl:flex flex-row w-full justify-around flex-wrap grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1">
         {posts.map((post) => {
-          const postDate = parseDate(post.date);
+          const postDate = parseDate(post.sys.publishedAt);
           return (
             <Link
               href={`/blog/${post.slug}`}

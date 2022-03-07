@@ -2,6 +2,7 @@ import { getPaginatedPosts } from "pages/api/ContentfulAPI";
 import { Config } from "@/lib/Config";
 import PostList from "@/components/blog/PostList";
 import HeadPost from "@/components/blog/HeadPost";
+import Link from "next/link";
 
 const Blog = (props) => {
   const { posts, totalPages, currentPage } = props;
@@ -11,19 +12,24 @@ const Blog = (props) => {
     return <p>Error occured while loading the articles!</p>;
 
   return (
-    <>
-      <div className="w-9/12 mx-auto font-open-sans">
+    <div className="w-9/12 mx-auto font-open-sans">
+      <div className="flex flex-row justify-between">
         <h1 className="sm:text-5xl text-3xl sm:text-left text-center uppercase mt-12 text-gray-700 font-semibold">
           BLOG
         </h1>
-        <HeadPost post={posts[0]} />
-        <PostList
-          posts={posts.slice(1)}
-          totalPages={totalPages}
-          currentPage={currentPage}
-        />
+        <Link href="/blog/addPost" passHref>
+          <p className="bg-fitify-pink text-white sm:text-xl text-lg px-4 py-2 mt-12 hover:opacity-80 w-1/8">
+            Add new post
+          </p>
+        </Link>
       </div>
-    </>
+      <HeadPost post={posts[0]} />
+      <PostList
+        posts={posts.slice(1)}
+        totalPages={totalPages}
+        currentPage={currentPage}
+      />
+    </div>
   );
 };
 export default Blog;
