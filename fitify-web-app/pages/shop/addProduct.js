@@ -2,6 +2,8 @@ import { useState } from "react";
 import { createNewProduct } from "pages/api/ModifyProducts";
 import { filters } from "@/constants/filters";
 import { checkProduct } from "@/lib/errorChecking";
+import ImageChanger from "@/components/dataModification/ImageChanger";
+import MultipleImagesChanger from "@/components/dataModification/MultipleImagesChanger";
 
 const AddProduct = () => {
   const [title, setTitle] = useState("");
@@ -221,26 +223,16 @@ const AddProduct = () => {
             required
           ></textarea>
 
-          <label htmlFor="thumbnailImage" className="mt-5 text-xl">
-            Thumbnail image:
-          </label>
-          <input
-            type="file"
-            id="thumbnailImage"
-            name="thumbnailImage"
-            onChange={(e) => setThumbnailImage(e.target.files[0])}
+          <p className="mt-5 text-xl">Thumbnail image:</p>
+          <ImageChanger
+            imageId={""}
+            setNewImage={(img) => setThumbnailImage(img)}
           />
-          <label htmlFor="images" className="mt-5 text-xl">
-            Images:
-          </label>
-          <input
-            type="file"
-            id="images"
-            name="images"
-            onChange={(e) => setImages(e.target.files)}
-            multiple
+          <p className="mt-5 text-xl">Images:</p>
+          <MultipleImagesChanger
+            imageIds={[]}
+            updateImages={(newImagesArray) => setImages([...newImagesArray])}
           />
-
           <button
             onClick={sendProduct}
             className=" bg-fitify-purple text-white w-36 py-2 place-self-end mb-7"

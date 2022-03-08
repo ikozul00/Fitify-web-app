@@ -14,10 +14,12 @@ const ImageChanger = ({ imageId, setNewImage }) => {
   }, [imageId]);
 
   const handleImageUpload = (e) => {
-    setImage({
-      url: URL.createObjectURL(e.target.files[0]),
-      title: e.target.files[0].name,
-    });
+    if (e.target.files[0])
+      // Ako je ucitana slika
+      setImage({
+        url: URL.createObjectURL(e.target.files[0]),
+        title: e.target.files[0].name,
+      });
 
     setNewImage({ file: e.target.files[0], id: "" });
   };

@@ -36,7 +36,7 @@ export const createNewProduct = async (newProduct) => {
   // Unos novih asseta za svaku sliku
   const imageData = [];
   for (let i = 0; i < newProduct.images.length; i++) {
-    let assetId = await createNewAsset(newProduct.images[i]).then(
+    let assetId = await createNewAsset(newProduct.images[i].file).then(
       (value) => value
     );
     imageData.push({
@@ -57,7 +57,7 @@ export const createNewProduct = async (newProduct) => {
         "en-US": Number(newProduct.price),
       },
       oldPrice: {
-        "en-US": newProduct.oldPrice ? Number(newProduct.price) : null,
+        "en-US": newProduct.oldPrice ? Number(newProduct.oldPrice) : null,
       },
       category: {
         "en-US": newProduct.category,
@@ -90,7 +90,7 @@ export const createNewProduct = async (newProduct) => {
   });
 
   if (newProduct.thumbnailImage) {
-    let assetId = await createNewAsset(product.thumbnailImage);
+    let assetId = await createNewAsset(newProduct.thumbnailImage.file);
     //Update entry with new asset
     entry.fields.thumbnailImage["en-US"] = {
       sys: {
@@ -141,9 +141,9 @@ export const updateProduct = async (product) => {
     entry.fields.material = { "en-US": product.material };
   else entry.fields.material["en-US"] = product.material;
 
-  if (product.thumbnailImage.type) {
-    // Ako je dodana nova slika (tada je tipa file pa ima type polje za razliku od vec postojece slike)
-    let assetId = await createNewAsset(product.thumbnailImage);
+  if (product.thumbnailImage.file) {
+    // Ako je dodana nova slika, tada ima polje file
+    let assetId = await createNewAsset(product.thumbnailImage.file);
     entry.fields.thumbnailImage["en-US"] = {
       sys: {
         id: assetId,

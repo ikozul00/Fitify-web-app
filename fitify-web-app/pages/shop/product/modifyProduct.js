@@ -69,10 +69,12 @@ const ModifyProduct = () => {
       sizes: sizes,
       material: material,
       productDetails: details,
-      thumbnailImage: thumbnailImage.file,
+      thumbnailImage: thumbnailImage,
       images: images,
     };
 
+    console.log("Modified product: ", product);
+    console.log("Thumbnail image: ", thumbnailImage);
     let errorCheck = checkProduct(product);
     if (errorCheck.error == false) {
       updateProduct(product);
@@ -81,7 +83,7 @@ const ModifyProduct = () => {
   };
 
   const handleNewThumbnailImage = (newImage) => {
-    setThumbnailImage(newImage);
+    setThumbnailImage({ ...newImage });
   };
 
   const handleUpdateImages = (newImagesArray) => {
