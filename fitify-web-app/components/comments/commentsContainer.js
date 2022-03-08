@@ -16,14 +16,13 @@ const CommentsContainer = ({productId, productTitle, productBrand}) => {
             const commentsData= await res.json();
            
             for(let comment of commentsData.comments){
-                console.log(comment);
                 comment.image=await getAssetById(comment.imageId);
                 console.log(comment.image);
             }
             console.log(commentsData);
             setComments(commentsData.comments);
         }
-    },[comments])
+    },[])
 
     function addNew(){
         setAddForm(true);
@@ -36,7 +35,7 @@ const CommentsContainer = ({productId, productTitle, productBrand}) => {
         {session && !addForm && <button onClick={() => addNew()} className="px-2 py-3 text-lg bg-fitify-purple text-white font-semibold my-4">Add comment</button>}
         {addForm && <NewComment setVisibility={setAddForm} productId={productId} productTitle={productTitle} productBrand={productBrand} comments={comments} setComments={setComments}/>}
         {comments.map((comment)=>{return(
-            <Comment comment={comment}/>
+            <Comment comment={comment} key={comment._id}/>
         )
         })}
     </section>

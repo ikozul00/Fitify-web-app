@@ -14,7 +14,7 @@ const Success = ({user, items, removeAll, ordered, setOrdered})=> {
     },[items]);
 
     async function placeOrder(){
-        const res = await fetch("/api/placeOrder", {
+        const res = await fetch("/api/orders/placeOrder", {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json;charset=utf-8'

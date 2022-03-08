@@ -1,12 +1,24 @@
 import { useState } from "react";
 import Image from "next/image";
 import { createNewAsset } from "pages/api/ModifyProducts";
+import { useSession } from "next-auth/react";
+import {FaStar, FaRegStar} from 'react-icons/fa';
+
 
 const NewComment = ({setVisibility, productId, productTitle,productBrand,comments, setComments}) => {
     const [title, setTitle] = useState("");
     const [content, setContent] = useState("");
     const [image, setImage] = useState();
+    const [rateStars, setRateStars] = useState([0, 0, 0,0,0]);
+    const [rate, setRate] = useState(0);
     const [error, setError] = useState("");
+    const { data:session } = useSession({
+        required: true,
+        onUnauthenticated() {
+          // The user is not authenticated, handle it here.
+          router.push("/login");
+        },
+      });
 
 
     function uploadImage(e){
@@ -28,7 +40,6 @@ const NewComment = ({setVisibility, productId, productTitle,productBrand,comment
         else{
             imageId=0;
         }
-        
         const res = await fetch("/api/comments/addNew", {
             method: 'POST',
             headers: {
@@ -41,6 +52,8 @@ const NewComment = ({setVisibility, productId, productTitle,productBrand,comment
                 productTitle:productTitle,
                 productBrand:productBrand,
                 imageId:imageId,
+                user:session.user.userId,
+                userName:session.user.name
             })
         });
         if(res.status==201){
@@ -49,13 +62,54 @@ const NewComment = ({setVisibility, productId, productTitle,productBrand,comment
                 content:content,
                 productId:productId,
                 productTitle:productTitle,
-                image:image
+                image:image,
             }]);
             setVisibility(false);
         }
         else{
             setError("Problem occured please try again later.")
         }
+    }
+
+    function starClicked(e){
+        e.preventDefault();
+        let target=e.target;
+        let emojis=document.querySelectorAll(".star-icons");
+        let br=1;
+        let passed=false;
+        if(rateStars[0]===0){
+            for(let x of emojis){
+                if(x.children[0]===target){
+                    setRate(br);
+                    rateStars[br-1]=1;
+                    passed=true;
+                }
+                else if(passed){
+                    rateStars[br-1]=0;
+                }
+                else{
+                    rateStars[br-1]=1;
+                }
+                br+=1;
+            }
+        }
+        if(rateStars[0]===1){
+            for(let x of emojis){
+                if(x.children[0]===target){
+                    setRate(br);
+                    rateStars[br-1]=0;
+                    passed=true;
+                }
+                else if(passed){
+                    rateStars[br-1]=0;
+                }
+                else{
+                    rateStars[br-1]=1;
+                }
+                br+=1;
+            }
+        }
+        setRateStars([...rateStars]);
     }
 
 
@@ -81,6 +135,19 @@ const NewComment = ({setVisibility, productId, productTitle,productBrand,comment
             />
             </div>
             )}
+            <div className="flex mt-4">
+            <p className="mr-3">Rate:</p>
+            {console.log(rateStars)}
+            {rateStars.map((value, index) => {
+                console.log(value);
+                return(
+                    <button key={index} onClick={(e)=>starClicked(e)} className="text-2xl mx-1 star-icons">
+                        {value===1 && <FaStar/>}
+                        {value===0 && <FaRegStar/>}
+                    </button>
+                );
+            })}
+            </div>
             {error && <p>{error}</p>}
             <button type="submit" onClick={(e) => addComment(e)} className=" bg-fitify-green text-white text-xl font-semibold w-36 py-2 place-self-end hover:cursor-pointer hover:opacity-70">Post</button>
             </div>

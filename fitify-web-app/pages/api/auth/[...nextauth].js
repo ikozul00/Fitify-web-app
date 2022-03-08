@@ -50,7 +50,7 @@ export default NextAuth({
         }
         //Else send success response
         client.close();
-        return { name: result.name,email:result.email, credentials:result.credentials };
+        return { name: result.name,email:result.email, credentials:result.credentials, userId:result._id };
       },
     }),
   ],
@@ -79,6 +79,10 @@ export default NextAuth({
           });
           if(!result){
             let newUser = await users.insertOne({...user, credentials:"github",role:"user"});
+            token.user.id=newUser.insertedId;
+          }
+          else{
+            token.user.userId=result._id;
           }
         }
 
@@ -89,6 +93,10 @@ export default NextAuth({
           });
           if(!result){
             let newUser = await users.insertOne({...user, credentials:"google",role:"user"});
+            token.user.id=newUser.insertedId;
+          }
+          else{
+            token.user.userId=result._id;
           }
         }
         client.close();
@@ -100,6 +108,7 @@ export default NextAuth({
     async session({ session,token}) {
       if(token){
         session.user.credentials=token.user.credentials;
+        session.user.userId=token.user.userId;
       }
       
       return session;

@@ -8,12 +8,11 @@ export default async function (req, res) {
     await results.forEach((comment) => 
     comments.push(comment)
     );
-    if (!comments) {
-        client.close();
+    client.close();
+    if (!comments) { 
         res.status(404).json({message:"Comments not found!"});
     }
     else{
-        client.close();
         res.status(200).json({ comments });
     }
 }
