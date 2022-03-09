@@ -2,6 +2,7 @@ import clientPromise from "lib/mongodb";
 
 export default async function (req, res) {
     let client = await clientPromise;
+    console.log(clientPromise);
     const commentsCollection = client.db().collection('comments'); 
     const results = await commentsCollection.find({productId:req.query.id});
     let comments=[];

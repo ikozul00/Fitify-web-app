@@ -3,6 +3,7 @@ import clientPromise from "lib/mongodb";
 export default async function (req, res) {
     let userOrders=[];
     let client = await clientPromise;
+    console.log(clientPromise);
     const orders=client.db().collection('orders');
     const results = await orders.find({
         id:req.query.id

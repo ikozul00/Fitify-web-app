@@ -2,6 +2,7 @@ import clientPromise from "lib/mongodb";
 
 export default async function (req, res) {
     let client = await clientPromise;
+    console.log(clientPromise);
     const users = client.db().collection('users'); 
     const result = await users.findOne({
         name: req.body.name,

@@ -2,6 +2,7 @@ import clientPromise from "lib/mongodb";
 
 export default async function (req, res) {
     let client = await clientPromise;
+    console.log(clientPromise);
     const comments = client.db().collection('comments');
     const result = await comments.insertOne({
         title:req.body.title,
@@ -12,7 +13,9 @@ export default async function (req, res) {
         imageId:req.body.imageId,
         date:Date(),
         user:req.body.user,
-        userName:req.body.userName
+        userName:req.body.userName,
+        likes:0,
+        dislikes:0
     });
     if(result.insertedId){
         client.close();

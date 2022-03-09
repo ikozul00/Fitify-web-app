@@ -71,47 +71,6 @@ const NewComment = ({setVisibility, productId, productTitle,productBrand,comment
         }
     }
 
-    function starClicked(e){
-        e.preventDefault();
-        let target=e.target;
-        let emojis=document.querySelectorAll(".star-icons");
-        let br=1;
-        let passed=false;
-        if(rateStars[0]===0){
-            for(let x of emojis){
-                if(x.children[0]===target){
-                    setRate(br);
-                    rateStars[br-1]=1;
-                    passed=true;
-                }
-                else if(passed){
-                    rateStars[br-1]=0;
-                }
-                else{
-                    rateStars[br-1]=1;
-                }
-                br+=1;
-            }
-        }
-        if(rateStars[0]===1){
-            for(let x of emojis){
-                if(x.children[0]===target){
-                    setRate(br);
-                    rateStars[br-1]=0;
-                    passed=true;
-                }
-                else if(passed){
-                    rateStars[br-1]=0;
-                }
-                else{
-                    rateStars[br-1]=1;
-                }
-                br+=1;
-            }
-        }
-        setRateStars([...rateStars]);
-    }
-
 
     return(
         <form className="border-2 border-black flex flex-col relative mt-2 mb-5">
@@ -135,19 +94,6 @@ const NewComment = ({setVisibility, productId, productTitle,productBrand,comment
             />
             </div>
             )}
-            <div className="flex mt-4">
-            <p className="mr-3">Rate:</p>
-            {console.log(rateStars)}
-            {rateStars.map((value, index) => {
-                console.log(value);
-                return(
-                    <button key={index} onClick={(e)=>starClicked(e)} className="text-2xl mx-1 star-icons">
-                        {value===1 && <FaStar/>}
-                        {value===0 && <FaRegStar/>}
-                    </button>
-                );
-            })}
-            </div>
             {error && <p>{error}</p>}
             <button type="submit" onClick={(e) => addComment(e)} className=" bg-fitify-green text-white text-xl font-semibold w-36 py-2 place-self-end hover:cursor-pointer hover:opacity-70">Post</button>
             </div>

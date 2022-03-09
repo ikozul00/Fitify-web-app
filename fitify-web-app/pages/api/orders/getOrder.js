@@ -3,6 +3,7 @@ import { ObjectId } from "mongodb";
 
 export default async function (req, res) {
     let client = await clientPromise;
+    console.log(clientPromise);
     const orders=client.db().collection('orders');
     const order = await orders.findOne({
         _id: ObjectId(req.query.id)
