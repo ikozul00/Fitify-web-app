@@ -41,7 +41,7 @@ const AddProduct = () => {
     let errorCheck = checkProduct(newProduct);
     if (errorCheck.error == false) {
       createNewProduct(newProduct);
-      setErrorMessage(errorCheck.errorMsg);
+      setErrorMessage("Your query is taken.");
     } else setErrorMessage(errorCheck.errorMsg);
   };
 

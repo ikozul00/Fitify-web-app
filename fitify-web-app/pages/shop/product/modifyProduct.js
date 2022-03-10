@@ -25,23 +25,28 @@ const ModifyProduct = () => {
 
   useEffect(async () => {
     if (router.query.id) {
-      let entry = await fetchEntryById(router.query.id);
-      entry = entry.fields;
-      console.log(entry);
-      setTitle(entry.title["en-US"]);
-      setPrice(entry.price["en-US"]);
-      //Ako postoji stara cijena (product snizen)
-      if (entry.oldPrice) setOldPrice(entry.oldPrice["en-US"]);
-      setGender(entry.gender["en-US"]);
-      setCategory(entry.category["en-US"]);
-      setBrand(entry.brand["en-US"]);
-      setSizes(entry.sizes["en-US"]);
-      setColor(entry.color["en-US"]);
-      setDetails(entry.productDetails["en-US"]);
-      if (entry.material) setMaterial(entry.material["en-US"]);
-      setThumbnailImage(entry.thumbnailImage["en-US"].sys);
-      if (entry.images)
-        setImages(entry.images["en-US"].map((image) => image.sys.id));
+      let entry = await fetchEntryById(router.query.id)
+        .then((entry) => entry.fields)
+        .catch(() => false);
+
+      if (!entry) router.push("/404");
+      else {
+        console.log(entry);
+        setTitle(entry.title["en-US"]);
+        setPrice(entry.price["en-US"]);
+        //Ako postoji stara cijena (product snizen)
+        if (entry.oldPrice) setOldPrice(entry.oldPrice["en-US"]);
+        setGender(entry.gender["en-US"]);
+        setCategory(entry.category["en-US"]);
+        setBrand(entry.brand["en-US"]);
+        setSizes(entry.sizes["en-US"]);
+        setColor(entry.color["en-US"]);
+        setDetails(entry.productDetails["en-US"]);
+        if (entry.material) setMaterial(entry.material["en-US"]);
+        setThumbnailImage(entry.thumbnailImage["en-US"].sys);
+        if (entry.images)
+          setImages(entry.images["en-US"].map((image) => image.sys.id));
+      }
     }
   }, [router]);
 
@@ -73,8 +78,6 @@ const ModifyProduct = () => {
       images: images,
     };
 
-    console.log("Modified product: ", product);
-    console.log("Thumbnail image: ", thumbnailImage);
     let errorCheck = checkProduct(product);
     if (errorCheck.error == false) {
       updateProduct(product);

@@ -16,14 +16,19 @@ const AddPost = () => {
 
   useEffect(async () => {
     if (router.query.id) {
-      let entry = await fetchEntryById(router.query.id);
-      entry = entry.fields;
-      console.log(entry);
-      setTitle(entry.title["en-US"]);
-      setDescription(entry.description["en-US"]);
-      setBody(entry.body["en-US"]);
-      setThumbnailImage(entry.thumbnailImage["en-US"].sys);
-      setHeaderImage(entry.headerImage["en-US"].sys);
+      let entry = await fetchEntryById(router.query.id)
+        .then((entry) => entry.fields)
+        .catch(() => false);
+
+      if (!entry) router.push("/404");
+      else {
+        console.log(entry);
+        setTitle(entry.title["en-US"]);
+        setDescription(entry.description["en-US"]);
+        setBody(entry.body["en-US"]);
+        setThumbnailImage(entry.thumbnailImage["en-US"].sys);
+        setHeaderImage(entry.headerImage["en-US"].sys);
+      }
     }
   }, [router]);
 
