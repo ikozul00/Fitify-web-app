@@ -35,14 +35,14 @@ const ModifyProduct = () => {
         setTitle(entry.title["en-US"]);
         setPrice(entry.price["en-US"]);
         //Ako postoji stara cijena (product snizen)
-        if (entry.oldPrice) setOldPrice(entry.oldPrice["en-US"]);
+        if (entry.oldPrice["en-US"]) setOldPrice(entry.oldPrice["en-US"]);
         setGender(entry.gender["en-US"]);
         setCategory(entry.category["en-US"]);
         setBrand(entry.brand["en-US"]);
         setSizes(entry.sizes["en-US"]);
         setColor(entry.color["en-US"]);
         setDetails(entry.productDetails["en-US"]);
-        if (entry.material) setMaterial(entry.material["en-US"]);
+        if (entry.material["en-US"]) setMaterial(entry.material["en-US"]);
         setThumbnailImage(entry.thumbnailImage["en-US"].sys);
         if (entry.images)
           setImages(entry.images["en-US"].map((image) => image.sys.id));

@@ -93,21 +93,24 @@ const ProductView = ({ product, addToCartRedux, counter }) => {
           {product.oldPrice != null && (
             <h2 className="line-through font-bold ml-5">${product.oldPrice}</h2>
           )}
+        </div>
+        <div className="flex flex-row w-full justify-start my-10">
           <Link
             href={`/shop/product/modifyProduct?id=${product.sys.id}`}
             passHref
           >
-            <p className="mx-10 bg-fitify-pink text-white sm:text-xl text-lg px-4 py-2 custom:mt-0 mt-4 hover:opacity-80">
+            <p className="bg-fitify-pink text-white sm:text-xl text-lg px-4 py-2 custom:mt-0 mt-4 hover:opacity-80 mr-10">
               Modify product
             </p>
           </Link>
           <button
-            className="mx-10 bg-fitify-pink text-white sm:text-xl text-lg px-4 py-2 custom:mt-0 mt-4 hover:opacity-80"
+            className="bg-fitify-pink text-white sm:text-xl text-lg px-4 py-2 custom:mt-0 mt-4 hover:opacity-80"
             onClick={() => setModalOpened(true)}
           >
             Delete product
           </button>
         </div>
+
         <p className="sm:text-xl text-lg">Select Size:</p>
         <div className="flex justify-start mb-5 flex-wrap">
           {product.sizes.map((size) => {

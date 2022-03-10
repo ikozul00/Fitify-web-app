@@ -53,17 +53,17 @@ const BlogPost = ({ post }) => {
       <h2 className="text-center md:text-2xl sm:text-xl text-lg mt-5 mb-16 text-gray-600">
         {post.description}
       </h2>
-      <div className="flex flex-row justify-end">
+      <div className="flex flex-row w-full justify-end my-10">
         <Link href={`/blog/modifyPost?id=${post.sys.id}`} passHref>
-          <p className="bg-fitify-pink text-white sm:text-xl text-lg px-4 py-2 my-10 mt-4 hover:opacity-80">
+          <p className="bg-fitify-pink text-white sm:text-xl text-lg px-4 py-2 custom:mt-0 mt-4 hover:opacity-80 mr-10">
             Modify post
           </p>
         </Link>
         <button
-          className="mx-10 bg-fitify-pink text-white sm:text-xl text-lg px-4 py-2 mt-4 hover:opacity-80"
+          className="bg-fitify-pink text-white sm:text-xl text-lg px-4 py-2 custom:mt-0 mt-4 hover:opacity-80"
           onClick={() => setModalOpened(true)}
         >
-          Delete product
+          Delete post
         </button>
       </div>
       <div className="relative w-full h-96 mx-auto mb-10">

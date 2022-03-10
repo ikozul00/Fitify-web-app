@@ -4,6 +4,7 @@ import { filters } from "@/constants/filters";
 import { checkProduct } from "@/lib/errorChecking";
 import ImageChanger from "@/components/dataModification/ImageChanger";
 import MultipleImagesChanger from "@/components/dataModification/MultipleImagesChanger";
+import Checkbox from "@/components/dataModification/Checkbox";
 
 const AddProduct = () => {
   const [title, setTitle] = useState("");
@@ -45,26 +46,12 @@ const AddProduct = () => {
     } else setErrorMessage(errorCheck.errorMsg);
   };
 
-  const handleSizeChange = (e) => {
-    const isChecked = e.target.checked;
-    // Ako je true dodaj u listu sizes, inace izvadi iz liste
-    if (isChecked) {
-      setSizes([...sizes, e.target.value]);
-    } else {
-      let index = sizes.indexOf(e.target.value);
-      setSizes(sizes.splice(index, 1));
-    }
+  const handleSizeChange = (selectedSizes) => {
+    setSizes(selectedSizes);
   };
 
-  const handleColorChange = (e) => {
-    const isChecked = e.target.checked;
-    // Ako je true dodaj u listu sizes, inace izvadi iz liste
-    if (isChecked) {
-      setColor([...color, e.target.value]);
-    } else {
-      let index = color.indexOf(e.target.value);
-      setColor(color.splice(index, 1));
-    }
+  const handleColorChange = (selectedColors) => {
+    setColor(selectedColors);
   };
 
   return (
@@ -164,40 +151,16 @@ const AddProduct = () => {
               </option>
             ))}
           </select>
-          <p className="mt-5 text-xl">Colors:</p>
-          {filters.color.items.map((option) => {
-            return (
-              <div>
-                <input
-                  type="checkbox"
-                  name={option}
-                  key={option}
-                  value={option}
-                  onChange={handleColorChange}
-                />
-                <label htmlFor={option} className="mx-2">
-                  {option}
-                </label>
-              </div>
-            );
-          })}
-          <p className="mt-5 text-xl">Sizes:</p>
-          {filters.sizes.items.map((option) => {
-            return (
-              <div>
-                <input
-                  type="checkbox"
-                  name={option}
-                  key={option}
-                  value={option}
-                  onChange={handleSizeChange}
-                />
-                <label htmlFor={option} className="mx-2">
-                  {option}
-                </label>
-              </div>
-            );
-          })}
+          <Checkbox
+            options={filters.sizes}
+            preselectedValues={sizes}
+            setSelectedValues={handleSizeChange}
+          />
+          <Checkbox
+            options={filters.color}
+            preselectedValues={color}
+            setSelectedValues={handleColorChange}
+          />
           <label htmlFor="material" className="mt-5 text-xl">
             Material:
           </label>
