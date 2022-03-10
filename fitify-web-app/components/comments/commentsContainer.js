@@ -19,10 +19,18 @@ const CommentsContainer = ({productId, productTitle, productBrand}) => {
                 comment.image=await getAssetById(comment.imageId);
                 console.log(comment.image);
             }
-            console.log(commentsData);
-            setComments(commentsData.comments);
+            setComments(commentsData.comments.sort((el1, el2) => compareFunction(el1, el2)));
         }
-    },[])
+    },[]);
+
+    function compareFunction(val1, val2){
+        if(val1.likes>=val2.likes){
+            return -1;
+        }
+        else{
+            return 1;
+        }
+    }
 
     function addNew(){
         setAddForm(true);

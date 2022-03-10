@@ -5,11 +5,13 @@ import { useState } from "react";
 import { ParseDate } from "@/lib/parseDateMongo";
 import Link from "next/link";
 import Edit from "@/components/profile/edit";
+import CommentsContainer from "@/components/profile/commentsContainer";
 
 const Profile = ({ userData, orders }) => {
   const router = useRouter();
   const [user, setUser] = useState(userData);
   const [edit, setEdit] = useState(false);
+  const [showOrders, setShowOrders] = useState(true);
   const { data:session } = useSession({
     required: true,
     onUnauthenticated() {
@@ -96,9 +98,10 @@ const Profile = ({ userData, orders }) => {
         </div>}
         {edit && <Edit setEdit={setEdit} user={user} setUser={setUser}/>}
       <div className="w-11/12 mx-auto my-10">
-        <h2 className="font-bold text-xl">Orders</h2>
+        <button onClick={()=>setShowOrders(true)} className={`font-bold mb-5 text-xl border-2 border-t-0 border-black  w-36 rounded-md ${showOrders ? "bg-fitify-green text-white" : "bg-white"}`}>Orders</button>
+        <button onClick={()=>setShowOrders(false)} className={`font-bold mb-5 text-xl border-2 border-t-0 border-black w-36 rounded-md ${!showOrders ? "bg-fitify-green text-white" : "bg-white"}`}>Comments</button>
         {orders.length===0 && <p>No orders made yet.</p>}
-        {orders.map((order) => {
+        {showOrders && orders.map((order) => {
           return(
             <Link href={`/profile/order/${order.id}`} passHref  key={order.id}>
             <div className="border-2 border-black p-3 my-3 w-3/5 flex flex-col hover:cursor-pointer hover:bg-fitify-green-light">
@@ -115,6 +118,7 @@ const Profile = ({ userData, orders }) => {
             </Link>
           )
         })}
+        {!showOrders && <CommentsContainer userId={user?.id}/>}
       </div>
       </div>
       }

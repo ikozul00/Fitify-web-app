@@ -63,6 +63,7 @@ const NewComment = ({setVisibility, productId, productTitle,productBrand,comment
                 productId:productId,
                 productTitle:productTitle,
                 image:image,
+                date:Date()
             }]);
             setVisibility(false);
         }
