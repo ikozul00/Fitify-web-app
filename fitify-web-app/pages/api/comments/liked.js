@@ -3,7 +3,8 @@ import { ObjectId } from "mongodb";
 
 export default async function (req, res) {
     let client = await clientPromise;
-    console.log(clientPromise);
+    console.log("evo");
+    // console.log(clientPromise);
     const comments = client.db().collection('comments');
     // console.log(comments);
     const result = await comments.updateOne({_id:ObjectId(req.query.id)},

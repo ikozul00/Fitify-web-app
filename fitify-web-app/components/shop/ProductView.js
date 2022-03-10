@@ -65,13 +65,21 @@ const ProductView = ({ product, addToCartRedux, counter }) => {
       );
     }
   }
-  function handleOptionChoice(choice) {
+  async function handleOptionChoice(choice) {
     if (choice) {
       if (deleteProduct(product.sys.id)) {
-        router.push("/");
+        const res = await fetch(`/api/comments/deleteByProduct?id=${product.sys.id}`, {
+          method: 'DELETE'
+        });
+        console.log(res);
+        if(res.status===200){
+          router.push("/home");
+        }
+        else console.log("There has been an error deleting comments");
       }
     } else setModalOpened(false);
   }
+
 
   return (
     <>

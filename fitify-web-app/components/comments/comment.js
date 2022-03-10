@@ -5,6 +5,7 @@ import { useSession } from "next-auth/react";
 import { ParseDate } from "@/lib/parseDateMongo";
 import Link from "next/link";
 import { deleteAsset } from "pages/api/deleteAsset";
+import ModalWindow from "../modalWindow/ModalWindow";
 
 const Comment = ({commentData, userId, setComments, comments}) => {
     const [liked, setLiked] = useState(false);
