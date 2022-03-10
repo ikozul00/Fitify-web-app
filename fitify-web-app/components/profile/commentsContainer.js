@@ -32,7 +32,7 @@ const CommentsContainer = ({userId}) => {
     return(
     <section className="custom:w-4/5 w-11/12">
         {comments.map((comment)=>{return(
-            <Comment commentData={comment} key={comment._id}/>
+            <Comment commentData={comment} key={comment._id} userId={userId} setComments={setComments} comments={comments}/>
         )
         })}
     </section>

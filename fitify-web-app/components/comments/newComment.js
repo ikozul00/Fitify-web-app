@@ -63,7 +63,12 @@ const NewComment = ({setVisibility, productId, productTitle,productBrand,comment
                 productId:productId,
                 productTitle:productTitle,
                 image:image,
-                date:Date()
+                imageId:imageId,
+                date:Date(),
+                userName:session.user.name,
+                user:session.user.userId,
+                likes:0,
+                dislikes:0
             }]);
             setVisibility(false);
         }
@@ -85,7 +90,7 @@ const NewComment = ({setVisibility, productId, productTitle,productBrand,comment
             {!image && <label htmlFor="image" onChange={(e)=>uploadImage(e)} className="hover:cursor-pointer hover:opacity-70 bg-fitify-purple text-white w-40 text-center py-1">Upload image</label>}
             <input type="file" id="image" name="image" className="hidden" onChange={(e)=>uploadImage(e)}></input>
             {image && (
-            <div className="w-2/5 h-56 relative">
+            <div className="w-44 h-44 relative">
             <button onClick={() => setImage(null)} className="text-3xl text-red-700 font-bold absolute -right-2 -top-4 z-10">X</button>
             <Image
                 src={image.url}
