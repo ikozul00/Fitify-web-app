@@ -40,7 +40,11 @@ const BlogPost = ({ post }) => {
   };
 
   return (
-    <main className="w-4/5 mx-auto mt-0 mb-20 font-open-sans">
+    <main
+      className={`w-4/5 mx-auto mt-0 mb-20 font-open-sans ${
+        modalOpened ? "overflow-hidden" : ""
+      }`}
+    >
       {modalOpened && (
         <ModalWindow chooseOption={handleOptionChoice} title={post.title} />
       )}
@@ -66,7 +70,7 @@ const BlogPost = ({ post }) => {
           Delete post
         </button>
       </div>
-      <div className="relative w-full h-96 mx-auto mb-10">
+      <div className="relative w-full h-96 mx-auto mb-10 -z-10">
         <Image
           src={post.headerImage.url}
           alt={post.headerImage.title}
