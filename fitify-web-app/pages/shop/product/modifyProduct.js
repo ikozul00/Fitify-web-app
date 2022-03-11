@@ -95,9 +95,9 @@ const ModifyProduct = () => {
   };
 
   return (
-    <div>
+    <div className="md:ml-16 ml-8 w-11/12 my-12 font-open-sans">
       <div className="flex flex-row">
-        <h1 className="md:text-5xl sm:text-4xl text-3xl uppercase text-gray-700 font-semibold basis-5/6">
+        <h1 className="md:text-5xl sm:text-4xl text-3xl uppercase text-gray-700 font-semibold basis-5/6 px-7">
           Modify product
         </h1>
         {errorMessage && (
