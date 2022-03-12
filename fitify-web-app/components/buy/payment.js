@@ -16,7 +16,7 @@ const Payment = ({user, setUser, changeStep}) => {
     }
 
     return(
-        <form className="font-open-sans" className="w-max mx-auto my-10 flex flex-col">
+        <form className="font-open-sans w-max mx-auto my-10 flex flex-col">
         <p className="text-2xl font-bold mb-5">Please choose payment method:</p>
         <div onChange={(e) => handleClick(e)} className="text-xl mt-3">
         <input type="radio" id="cash" name="payment" value="cash on delivery" defaultChecked/>

@@ -107,11 +107,12 @@ const Profile = ({ userData, orders }) => {
             <div className="border-2 border-black p-3 my-3 w-3/5 flex flex-col hover:cursor-pointer hover:bg-fitify-green-light">
               <p className="font-semibold text-lg">{ParseDate(order.date)}</p>
               {order.items.map((item) => {
+                if(item){
                 return(
                   <div key={`${order.id}-${item.title}-${item.size}`} className="ml-3">
                     <p><span className="mr-4 font-semibold">{item.amount}X </span><span>{item.title}</span> <span className="font-semibold">${item.price}</span></p>
                   </div>
-                )
+                )}
               })}
               <p className="place-self-end font-bold text-xl">${order.price}</p>
             </div>

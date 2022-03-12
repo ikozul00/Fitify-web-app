@@ -2,7 +2,7 @@ import {ADD_TO_CART, DECREASE_AMOUNT, INCREASE_AMOUNT, REMOVE_ALL, REMOVE_FROM_C
 
 const initialState = {
     items:[],
-    quantity:[0]
+    quantity:{total:0}
 }
 
   
@@ -11,26 +11,30 @@ const cartReducer = (state = initialState, action) => {
     switch (action.type) {
         case ADD_TO_CART:
             {
-                const itemExists=state.items.find((item) => (item.id===action.payload.id && item.size===action.payload.size));
-                const amount=(Number)(action.amount);
+                let newState={...state};
+                const itemExists=newState.items.find((item) => (item?.id===action.payload.id && item?.size===action.payload.size));
+                const amount=(Number)(action.payload.amount);
                 if(!itemExists){
-                    state.items.push({ ...action.payload, amount: amount });
+                    newState.items.push(action.payload);
+                    newState.quantity.total= (Number)(newState.quantity.total)+amount;
                 }
                 else{
-                    itemExists.amount=amount+(Number)(itemExists.amount);
+
+                    itemExists.amount= (Number)(itemExists.amount) + amount;
+                    newState.quantity.total= (Number)(newState.quantity.total)+amount;
                 }
-                state.quantity[0]+=amount;
-                return {...state};
+                return newState;
             }
 
         case INCREASE_AMOUNT:
             {
-                const itemExists=state.items.find((item) => (item.id===action.payload.id && item.size===action.payload.size));
+                let newState={...state};
+                newState.items = [...newState.items];                
+                const itemExists=newState.items.find((item) => (item?.id===action.payload.id && item?.size===action.payload.size));
                 if(itemExists){
-                    itemExists.amount+=1;
-                    state.items=[...state.items];
-                    state.quantity[0]+=1;
-                    return {...state};
+                    itemExists.amount= (Number)(itemExists.amount)+1;
+                    newState.quantity.total+=1;
+                    return newState;
                 }
                 else{
                    return state;
@@ -39,12 +43,13 @@ const cartReducer = (state = initialState, action) => {
 
         case DECREASE_AMOUNT:
             {
-                const itemExists=state.items.find((item) => (item.id===action.payload.id && item.size===action.payload.size));
+                let newState={...state};
+                newState.items = [...newState.items]; 
+                const itemExists=newState.items.find((item) => (item?.id===action.payload.id && item?.size===action.payload.size));
                 if(itemExists){
-                    itemExists.amount-=1;
-                    state.items=[...state.items];
-                    state.quantity[0]-=1;
-                    return {...state};
+                    itemExists.amount= (Number)(itemExists.amount)-1;
+                    newState.quantity.total-=1;
+                    return newState;
                 }
                 else{
                     return state;
@@ -53,24 +58,34 @@ const cartReducer = (state = initialState, action) => {
 
         case REMOVE_FROM_CART:
             {
-                const itemExists=state.items.find((item) => (item.id===action.payload.id && item.size===action.payload.size));
+                let newState={...state};
+                const itemExists=newState.items.find((item) => (item?.id===action.payload.id && item?.size===action.payload.size));
                 if(itemExists){
-                    state.items = state.items.filter (item => (item.id!==action.payload.id || item.size!==action.payload.size))
-                    state.quantity[0]-=itemExists.amount;
-                    if(state.quantity[0]<0){
-                        state.quantity[0]=0;
+                    // newState.items = newState.items.filter (item => {return((item.id!==action.payload.id) || (item.size!==action.payload.size))});
+                    // newState.quantity.total-=itemExists.amount;
+                    // if(newState.quantity.total<0){
+                    //     newState.quantity.total=0;
+                    // }
+                    for(let i=0;i<newState.items.length;i++){
+                        if(newState.items[i]===itemExists){
+                            newState.items[i]=null;
+                        }
                     }
-                    return {...state};
+                    newState.quantity.total-=itemExists.amount;
+                    if(newState.quantity.total<0){
+                        newState.quantity.total=0;
+                    }
                 }
-                else{
-                    return state;
-                }
+
+                return {...newState};
+
             }
+
 
             case REMOVE_ALL:
                 {
                     state.items=[];
-                    state.quantity[0]=0;
+                    state.quantity.total=0;
                     return {...state};
                 }
 

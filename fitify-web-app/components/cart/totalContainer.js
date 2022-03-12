@@ -11,7 +11,7 @@ const TotalContainer = ({items, mobile}) => {
 
     useEffect(()=> {
         let price=0;
-        items.forEach(item => { price= price +Math.round((item.price*item.amount+Number.EPSILON)*100)/100});
+        items.forEach(item => { item ? price= price +Math.round((item.price*item.amount+Number.EPSILON)*100)/100: price=price+0});
         setTotalPrice(Math.round((price+Number.EPSILON)*100)/100);
         setTotal(Math.round((price+2+Number.EPSILON)*100)/100);
     },[items]);

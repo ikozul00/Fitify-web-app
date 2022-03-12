@@ -1,5 +1,4 @@
 import { ADD_TO_CART, DECREASE_AMOUNT, INCREASE_AMOUNT, REMOVE_FROM_CART, REMOVE_ALL } from "../constants/actions";
-
 export const addToCart = (id,title,image,price,size,amount) => (dispatch) => {
     dispatch({
         type: ADD_TO_CART,
@@ -9,8 +8,9 @@ export const addToCart = (id,title,image,price,size,amount) => (dispatch) => {
             image:image,
             price:price,
             size:size,
+            amount:amount
         },
-        amount:amount
+        
     })
 }
 

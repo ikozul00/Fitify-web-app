@@ -210,7 +210,7 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 const mapStateToProps = (state) => ({
-  counter: state.cartReducer.quantity[0],
+  counter: state.cartReducer.quantity.total,
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(ProductView);

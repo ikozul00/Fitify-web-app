@@ -3,12 +3,14 @@ import { ObjectId } from "mongodb";
 
 export default async function (req, res) {
     let client = await clientPromise;
-    console.log(clientPromise);
+    // console.log(clientPromise);
+    console.log("req");
+    console.log(req.query);
     const orders=client.db().collection('orders');
     const order = await orders.findOne({
         _id: ObjectId(req.query.id)
     });
-    
+    console.log(order);
     if(!order){
         client.close();
         res.status(404).json({message:"Order not found!"});

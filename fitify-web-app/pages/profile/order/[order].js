@@ -3,7 +3,6 @@ import React from "react";
 import Product from "@/components/cart/product";
 
 const Order = ({ data }) => {
-
     return(
         <section className="w-8/12 mx-auto flex flex-col my-10 font-open-sans">
             <h2 className="text-3xl text-gray-700 font-bold text-center uppercase">Order info</h2>
@@ -27,11 +26,12 @@ const Order = ({ data }) => {
             <div>
                 <p className="font-bold mt-5 text-xl">Items:</p>
                 {data.items.map((item) => {
+                    if(item){
                     return(
                         <div key={`${item.id}+${item.size}`}>
                         <Product order={true} item={item}/>
                         </div>
-                    )
+                    )}
                 })}
             </div>
             
