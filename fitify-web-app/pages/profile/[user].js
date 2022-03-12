@@ -100,7 +100,7 @@ const Profile = ({ userData, orders }) => {
       <div className="w-11/12 mx-auto my-10">
         <button onClick={()=>setShowOrders(true)} className={`font-bold mb-5 text-xl border-2 border-t-0 border-black  w-36 rounded-md ${showOrders ? "bg-fitify-green text-white" : "bg-white"}`}>Orders</button>
         <button onClick={()=>setShowOrders(false)} className={`font-bold mb-5 text-xl border-2 border-t-0 border-black w-36 rounded-md ${!showOrders ? "bg-fitify-green text-white" : "bg-white"}`}>Comments</button>
-        {orders.length===0 && <p>No orders made yet.</p>}
+        {orders.length===0 && showOrders && <p>No orders made yet.</p>}
         {showOrders && orders.map((order) => {
           return(
             <Link href={`/profile/order/${order.id}`} passHref  key={order.id}>

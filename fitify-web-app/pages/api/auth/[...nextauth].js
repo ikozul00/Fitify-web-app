@@ -41,7 +41,7 @@ export default NextAuth({
         });
             //Not found - send error res
         if (!result) {
-          client.close();
+          // client.close();
           throw new Error('No user found with the email');
         }
         const checkPassword = await compare(credentials.password, result.password);
@@ -50,7 +50,7 @@ export default NextAuth({
           throw new Error(`Password doesnt match`);
         }
         //Else send success response
-        client.close();
+        // client.close();
         return { name: result.name,email:result.email, credentials:result.credentials, userId:result._id };
       },
     }),
@@ -101,7 +101,7 @@ export default NextAuth({
             token.user.userId=result._id;
           }
         }
-        client.close();
+        // client.close();
         return token;
       }
       return token;

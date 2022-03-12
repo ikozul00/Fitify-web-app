@@ -106,7 +106,7 @@ const Comment = ({commentData, userId, setComments, comments}) => {
 
 
     return(
-        <div className="border-2 border-black my-2 px-5 py-5 rounded-md flex justify-between" key={comment._id}>
+        <div className="border-2 border-black my-5 px-5 py-5 rounded-md flex sm:flex-row flex-col justify-between" key={comment._id}>
             <div>
             <h1 className="text-xl font-bold">{comment.title}</h1>
             <div className="flex">
@@ -123,20 +123,21 @@ const Comment = ({commentData, userId, setComments, comments}) => {
             {!userId && <p className="mt-2"><span className="font-bold">by:</span> {comment.userName}</p>}
             {userId && <Link href={`/shop/product/${comment.productId}`} passHref><p className="hover:cursor-pointer"><span className="font-bold">For:</span> <span className="underline">{comment.productTitle} ({comment.productBrand})</span></p></Link>}
             </div>
-            <div className="flex flex-col justify-between">
-            <p>{ParseDate(comment.date)}</p>
-            {(session?.user.userId===comment.user) && <button>Edit</button>}
-            {(session?.user.userId===comment.user) &&<button onClick={()=>deleteComment()}>Delete</button>}
-            <div className="w-44 flex justify-around">
+            <div className="flex flex-col justify-between items-end">
+            <div className="flex sm:flex-col flex-row justify-between mb-4">
+            <p className="place-self-end">{ParseDate(comment.date)}</p>
+            {(session?.user.userId===comment.user) &&<button onClick={()=>deleteComment()} className="bg-fitify-pink mt-4 text-white font-semibold hover:cursor-pointer py-1 w-44">Delete</button>}
+            </div>
+            <div className="w-full flex justify-around mx-auto">
             <button onClick={() => onClickLiked()} className="text-2xl flex items-center">
                 <p className="mr-2">{comment.likes}</p>
-                {liked && <FaThumbsUp/>}
+                {liked && <FaThumbsUp className="text-fitify-pink"/>}
                 {!liked && <FaRegThumbsUp/>}
             </button>
             <button onClick={() => onClickDislike()} className="text-2xl flex items-center">
             <p className="mr-2">{comment.dislikes}</p>
-                {!disliked && <FaRegThumbsDown/>}
-                {disliked && <FaThumbsDown/>}
+                {!disliked && <FaRegThumbsDown />}
+                {disliked && <FaThumbsDown className="text-fitify-pink"/>}
             </button>
             <p>{error}</p>
             </div>
