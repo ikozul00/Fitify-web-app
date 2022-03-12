@@ -12,13 +12,13 @@ export default async function (req, res) {
     });
     console.log(order);
     if(!order){
-        client.close();
+        // client.close();
         res.status(404).json({message:"Order not found!"});
     }
     else{
         order.total=0;
         order.items.forEach(item => { order.total= (Number)(order.total) +Math.round((item.price*item.amount+Number.EPSILON)*100)/100});
-        client.close();
+        // client.close();
         res.status(200).json({ order });
     }
 }

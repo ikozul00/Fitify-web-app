@@ -3,6 +3,7 @@ import React from "react";
 import Product from "@/components/cart/product";
 
 const Order = ({ data }) => {
+
     return(
         <section className="w-8/12 mx-auto flex flex-col my-10 font-open-sans">
             <h2 className="text-3xl text-gray-700 font-bold text-center uppercase">Order info</h2>
@@ -40,6 +41,7 @@ const Order = ({ data }) => {
 }
 
 export async function getStaticPaths() {
+    //pukne error connection refused
     const res = await fetch(`http://localhost:3000/api/orders/getOrdersIds`);
     let paths={};
     if(res.status===200){
