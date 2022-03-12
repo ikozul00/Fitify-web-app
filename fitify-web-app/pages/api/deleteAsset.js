@@ -9,10 +9,11 @@ export const deleteAsset = async (assetId) => {
       .getSpace(process.env.CONTENTFUL_SPACE_ID)
       .then((space) => space.getEnvironment("master"))
       .then((environment) => environment.getAsset(assetId));
+      console.log("asset");
+      console.log(asset);
       if(asset){
         let done= await asset.unpublish();
         done= await asset.delete();
-        console.log("asset");
         return 0;
       }
       else{

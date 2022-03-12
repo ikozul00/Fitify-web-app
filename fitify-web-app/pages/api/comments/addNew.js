@@ -18,11 +18,11 @@ export default async function (req, res) {
         dislikes:0
     });
     if(result.insertedId){
-        client.close();
+        // client.close();
         res.status(201).json({ message: 'Comment created'});
     }
     else{
-        client.close();
+        // client.close();
         res.status(405).json({ message:"Operation is not allowed." });
     }
     

@@ -71,9 +71,8 @@ const ProductView = ({ product, addToCartRedux, counter }) => {
         const res = await fetch(`/api/comments/deleteByProduct?id=${product.sys.id}`, {
           method: 'DELETE'
         });
-        console.log(res);
         if(res.status===200){
-          router.push("/home");
+          router.push("/");
         }
         else console.log("There has been an error deleting comments");
       }

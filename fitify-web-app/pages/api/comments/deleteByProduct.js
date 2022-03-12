@@ -6,8 +6,9 @@ export default async function (req, res) {
     let client = await clientPromise;
     console.log(clientPromise);
     const comments = client.db().collection('comments');
-    let allComments=comments.find();
+    let allComments=comments.find({productId:req.query.id});
     await allComments.forEach(async (comment) =>{
+        console.log(comment.imageId);
         let success= await deleteAsset(comment.imageId);
         if(success!=0){
             res.status(405).json({ message:"Operation is not allowed." });

@@ -17,7 +17,6 @@ const CommentsContainer = ({productId, productTitle, productBrand}) => {
            
             for(let comment of commentsData.comments){
                 comment.image=await getAssetById(comment.imageId);
-                console.log(comment.image);
             }
             setComments(commentsData.comments.sort((el1, el2) => compareFunction(el1, el2)));
         }
