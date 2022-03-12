@@ -107,8 +107,8 @@ const Comment = ({commentData, userId, setComments, comments}) => {
 
     return(
         <div className="border-2 border-black my-5 px-5 py-5 rounded-md flex sm:flex-row flex-col justify-between" key={comment._id}>
-            <div>
-            <h1 className="text-xl font-bold">{comment.title}</h1>
+            <div className="sm:w-5/6 w-full">
+            <h1 className="text-xl font-bold mb-3">{comment.title}</h1>
             <div className="flex">
             {comment?.image && <div className="relative w-44 h-44 my-3">
             <Image
@@ -123,13 +123,13 @@ const Comment = ({commentData, userId, setComments, comments}) => {
             {!userId && <p className="mt-2"><span className="font-bold">by:</span> {comment.userName}</p>}
             {userId && <Link href={`/shop/product/${comment.productId}`} passHref><p className="hover:cursor-pointer"><span className="font-bold">For:</span> <span className="underline">{comment.productTitle} ({comment.productBrand})</span></p></Link>}
             </div>
-            <div className="flex flex-col justify-between items-end">
-            <div className="flex sm:flex-col flex-row justify-between mb-4">
-            <p className="place-self-end">{ParseDate(comment.date)}</p>
-            {(session?.user.userId===comment.user) &&<button onClick={()=>deleteComment()} className="bg-fitify-pink mt-4 text-white font-semibold hover:cursor-pointer py-1 w-44">Delete</button>}
+            <div className="flex flex-col justify-between items-end sm:w-1/6 w-full ml-5">
+            <div className="flex sm:flex-col flex-row justify-between mb-4 w-full items-baseline">
+            <p className="sm:place-self-end whitespace-nowrap">{ParseDate(comment.date)}</p>
+            {(session?.user.userId===comment.user) &&<button onClick={()=>deleteComment()} className="bg-fitify-pink mt-4 text-white font-semibold hover:cursor-pointer py-1 sm:w-full w-36 sm:mr-0 mr-5">Delete</button>}
             </div>
-            <div className="w-full flex justify-around mx-auto">
-            <button onClick={() => onClickLiked()} className="text-2xl flex items-center">
+            <div className="w-full flex justify-around mx-auto ">
+            <button onClick={() => onClickLiked()} className="text-2xl flex items-center mr-8">
                 <p className="mr-2">{comment.likes}</p>
                 {liked && <FaThumbsUp className="text-fitify-pink"/>}
                 {!liked && <FaRegThumbsUp/>}
