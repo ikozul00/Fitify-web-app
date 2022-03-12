@@ -11,6 +11,7 @@ import { setFilters } from "@/lib/filterFunctions";
 import { BsSliders } from "react-icons/bs";
 import { FaArrowDown, FaArrowUp } from "react-icons/fa";
 import Link from "next/link";
+import { useSession } from "next-auth/react";
 
 const Shop = ({ products }) => {
   const [shownProducts, setShownProducts] = useState(products);
@@ -28,6 +29,7 @@ const Shop = ({ products }) => {
   });
   const router = useRouter();
   const [displayFilters, setDisplayFilters] = useState(false);
+  const { data:session } = useSession();
 
   useEffect(() => {
     if (router.query.search) {
@@ -123,11 +125,11 @@ const Shop = ({ products }) => {
           athleisure aesthetic, we've got something to suit.`,
             }}
           />
-          <Link href="/shop/addProduct" passHref>
+           {session && (session?.user?.role==="admin") && <Link href="/shop/addProduct" passHref>
             <p className="mx-10 bg-fitify-pink text-white sm:text-xl text-lg px-4 py-2 custom:mt-0 mt-4 hover:opacity-80">
               Add new product
             </p>
-          </Link>
+          </Link>}
           <SearchBar searchQuery={searchQuery} />
         </div>
       </div>

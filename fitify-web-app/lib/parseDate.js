@@ -1,5 +1,4 @@
 export const parseDate = (date) => {
-  console.log(date);
   const parts = date.split("-");
   const postDate = {
     year: parts[0],

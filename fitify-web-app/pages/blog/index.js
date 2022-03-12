@@ -3,9 +3,11 @@ import { Config } from "@/lib/Config";
 import PostList from "@/components/blog/PostList";
 import HeadPost from "@/components/blog/HeadPost";
 import Link from "next/link";
+import { useSession } from "next-auth/react";
 
 const Blog = (props) => {
   const { posts, totalPages, currentPage } = props;
+  const { data:session } = useSession();
 
   // Ako nema postova (doslo je do greske)
   if (posts.length == 0)
@@ -17,11 +19,11 @@ const Blog = (props) => {
         <h1 className="sm:text-5xl text-3xl sm:text-left text-center uppercase mt-12 text-gray-700 font-semibold">
           BLOG
         </h1>
-        <Link href="/blog/addPost" passHref>
+        {session && (session?.user?.role==="admin") && <Link href="/blog/addPost" passHref>
           <p className="bg-fitify-pink text-white sm:text-xl text-lg px-4 py-2 mt-12 hover:opacity-80 w-1/8">
             Add new post
           </p>
-        </Link>
+        </Link>}
       </div>
       <HeadPost post={posts[0]} />
       <PostList

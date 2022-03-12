@@ -12,6 +12,7 @@ import { useRouter } from "next/router";
 import { deleteProduct } from "pages/api/ModifyProducts";
 import ModalWindow from "../modalWindow/ModalWindow";
 import CommentsContainer from "../comments/commentsContainer";
+import { useSession } from "next-auth/react";
 
 const components = {
   h2: H2,
@@ -33,6 +34,7 @@ const ProductView = ({ product, addToCartRedux, counter }) => {
   const [pickSize, setPickSize] = useState(false);
   const [modalOpened, setModalOpened] = useState(false);
   const router = useRouter();
+  const { data:session } = useSession();
 
   const amount = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
@@ -102,20 +104,20 @@ const ProductView = ({ product, addToCartRedux, counter }) => {
           {product.oldPrice != null && (
             <h2 className="line-through font-bold ml-5">${product.oldPrice}</h2>
           )}
-          <Link
+           {session && (session?.user?.role==="admin") && <Link
             href={`/shop/product/modifyProduct?id=${product.sys.id}`}
             passHref
           >
             <p className="mx-10 bg-fitify-pink text-white sm:text-xl text-lg px-4 py-2 custom:mt-0 mt-4 hover:opacity-80">
               Modify product
             </p>
-          </Link>
-          <button
+          </Link>}
+          {session && (session?.user?.role==="admin") && <button
             className="mx-10 bg-fitify-pink text-white sm:text-xl text-lg px-4 py-2 custom:mt-0 mt-4 hover:opacity-80"
             onClick={() => setModalOpened(true)}
           >
             Delete product
-          </button>
+          </button>}
         </div>
         <p className="sm:text-xl text-lg">Select Size:</p>
         <div className="flex justify-start mb-5 flex-wrap">
