@@ -5,6 +5,11 @@ import { checkProduct } from "@/lib/errorChecking";
 import ImageChanger from "@/components/dataModification/ImageChanger";
 import MultipleImagesChanger from "@/components/dataModification/MultipleImagesChanger";
 import Checkbox from "@/components/dataModification/Checkbox";
+import {
+  NotificationContainer,
+  NotificationManager,
+} from "react-notifications";
+import "react-notifications/lib/notifications.css";
 
 const AddProduct = () => {
   const [title, setTitle] = useState("");
@@ -19,9 +24,8 @@ const AddProduct = () => {
   const [material, setMaterial] = useState("");
   const [thumbnailImage, setThumbnailImage] = useState("");
   const [images, setImages] = useState([]);
-  const [errorMessage, setErrorMessage] = useState("");
 
-  const sendProduct = (e) => {
+  const sendProduct = async (e) => {
     e.preventDefault();
     let newProduct = {
       title: title,
@@ -40,10 +44,17 @@ const AddProduct = () => {
 
     console.log(newProduct);
     let errorCheck = checkProduct(newProduct);
-    if (errorCheck.error == false) {
-      createNewProduct(newProduct);
-      setErrorMessage("Your query is taken.");
-    } else setErrorMessage(errorCheck.errorMsg);
+    if (errorCheck.error) NotificationManager.warning(errorCheck.errorMsg);
+    else {
+      NotificationManager.info("Your query is processing.");
+      errorCheck = await createNewProduct(newProduct)
+        .then(() =>
+          NotificationManager.success(
+            "Product is successfully added! Change will be visible in several minutes."
+          )
+        )
+        .catch(() => NotificationManager.error("Ooops! Something went wrong!"));
+    }
   };
 
   const handleSizeChange = (selectedSizes) => {
@@ -60,11 +71,6 @@ const AddProduct = () => {
         <h1 className="md:text-5xl sm:text-4xl text-3xl uppercase text-gray-700 font-semibold basis-5/6 px-7">
           Add new product
         </h1>
-        {errorMessage && (
-          <p className="border-2 border-fitify-pink text-2xl p-2 basis-1/6">
-            {errorMessage}
-          </p>
-        )}
       </div>
       <form className=" w-5/6 my-5 flex flex-col">
         <div className="px-7 flex flex-col sm:text-base text-sm">
@@ -204,6 +210,7 @@ const AddProduct = () => {
           </button>
         </div>
       </form>
+      <NotificationContainer />
     </div>
   );
 };
