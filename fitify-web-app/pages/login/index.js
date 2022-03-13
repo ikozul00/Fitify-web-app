@@ -96,8 +96,8 @@ const Login = () => {
             </div>
           </form>
           <div className="my-5 border-t-2 border-black flex sm:flex-row flex-col justify-around mx-auto w-11/12">
-          <button className=" bg-fitify-purple text-white text-xl px-3 py-1 mt-4" onClick={() => signIn("google", { callbackUrl: 'http://localhost:3000/' })}>Sign in using Google</button>
-          <button className=" bg-fitify-purple text-white text-xl px-3 py-1 mt-4" onClick={() => signIn("github", { callbackUrl: 'http://localhost:3000/' })}>Sign in using Github</button>
+          <button className=" bg-fitify-purple text-white text-xl px-3 py-1 mt-4" onClick={() => signIn("google", { callbackUrl: 'https://fitify-web-app.vercel.app/' })}>Sign in using Google</button>
+          <button className=" bg-fitify-purple text-white text-xl px-3 py-1 mt-4" onClick={() => signIn("github", { callbackUrl: 'https://fitify-web-app.vercel.app/' })}>Sign in using Github</button>
         </div>
         </div>
         
