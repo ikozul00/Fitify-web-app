@@ -27,11 +27,12 @@ const Order = ({ data }) => {
             <div>
                 <p className="font-bold mt-5 text-xl">Items:</p>
                 {data.items.map((item) => {
+                    if(item){
                     return(
                         <div key={`${item.id}+${item.size}`}>
                         <Product order={true} item={item}/>
                         </div>
-                    )
+                    )}
                 })}
             </div>
             
@@ -40,6 +41,7 @@ const Order = ({ data }) => {
 }
 
 export async function getStaticPaths() {
+    //pukne error connection refused
     const res = await fetch(`http://localhost:3000/api/orders/getOrdersIds`);
     let paths={};
     if(res.status===200){

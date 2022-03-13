@@ -33,6 +33,7 @@ export default NextAuth({
         //Connect to DB
         //Get all the users
         let client = await clientPromise;
+        console.log(clientPromise);
         const users = client.db().collection('users');
         //Find user with the email  
         const result = await users.findOne({
@@ -40,7 +41,7 @@ export default NextAuth({
         });
             //Not found - send error res
         if (!result) {
-          client.close();
+          // client.close();
           throw new Error('No user found with the email');
         }
         const checkPassword = await compare(credentials.password, result.password);
@@ -49,8 +50,8 @@ export default NextAuth({
           throw new Error(`Password doesnt match`);
         }
         //Else send success response
-        client.close();
-        return { name: result.name,email:result.email, credentials:result.credentials };
+        // client.close();
+        return { name: result.name,email:result.email, credentials:result.credentials, userId:result._id, role:result.role };
       },
     }),
   ],
@@ -71,6 +72,7 @@ export default NextAuth({
         token.user=user;
         token.user.credentials=account.provider;
         let client = await clientPromise;
+        console.log(clientPromise);
         const users = client.db().collection('users');
         if(account.provider==="github"){
           const result = await users.findOne({
@@ -79,6 +81,12 @@ export default NextAuth({
           });
           if(!result){
             let newUser = await users.insertOne({...user, credentials:"github",role:"user"});
+            token.user.id=newUser.insertedId;
+            token.user.role="user";
+          }
+          else{
+            token.user.userId=result._id;
+            token.user.role=result.role;
           }
         }
 
@@ -89,9 +97,15 @@ export default NextAuth({
           });
           if(!result){
             let newUser = await users.insertOne({...user, credentials:"google",role:"user"});
+            token.user.id=newUser.insertedId;
+            token.user.role="user";
+          }
+          else{
+            token.user.userId=result._id;
+            token.user.role=result.role;
           }
         }
-        client.close();
+        // client.close();
         return token;
       }
       return token;
@@ -100,6 +114,8 @@ export default NextAuth({
     async session({ session,token}) {
       if(token){
         session.user.credentials=token.user.credentials;
+        session.user.userId=token.user.userId;
+        session.user.role=token.user.role;
       }
       
       return session;

@@ -1,12 +1,18 @@
 import { Country, City }  from 'country-state-city';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 const Edit = ({setEdit, user, setUser}) => {
     const [modified, setModified] = useState(false);
     const [newUser, setNewUser] = useState(user);
-    const [cities, setCities] = useState("");
+    const [cities, setCities] = useState([]);
     const [error, setError] = useState("");
     const countries = Country.getAllCountries();
+    console.log(user);
+
+    useEffect(() => {
+        const country=countries.find((item) => item.name===user.country);
+        setCities(City.getCitiesOfCountry(country.isoCode));
+    },[]);
     
     function handleChange(e){
         setModified(true);

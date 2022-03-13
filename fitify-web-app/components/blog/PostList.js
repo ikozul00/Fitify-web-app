@@ -6,6 +6,7 @@ import { parseDate } from "@/lib/parseDate";
 const PostList = (props) => {
   const { posts, currentPage, totalPages } = props;
 
+
   return (
     <div className=" mx-auto my-0">
       <h2 className=" sm:text-5xl text-3xl text-gray-700 mb-10">
@@ -15,7 +16,7 @@ const PostList = (props) => {
         {posts.map((post) => {
           const postDate = parseDate(post.sys.publishedAt);
           return (
-            <Link href={`/blog/${post.slug}`} key={post.id} passHref>
+            <Link href={`/blog/${post.slug}`} key={post.slug} passHref>
               <li className=" border-2 my-7 border-fitify-green flex sm:flex-row flex-col justify-between sm:h-56 h-auto py-0 cursor-pointer hover:bg-fitify-green-light">
                 <div className=" md:w-2/12 sm:w-3/12 w-full sm:h-auto h-56 relative my-0">
                   <Image

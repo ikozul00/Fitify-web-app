@@ -11,6 +11,8 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import { deleteProduct } from "pages/api/ModifyProducts";
 import ModalWindow from "../modalWindow/ModalWindow";
+import CommentsContainer from "../comments/commentsContainer";
+import { useSession } from "next-auth/react";
 
 const components = {
   h2: H2,
@@ -32,6 +34,7 @@ const ProductView = ({ product, addToCartRedux, counter }) => {
   const [pickSize, setPickSize] = useState(false);
   const [modalOpened, setModalOpened] = useState(false);
   const router = useRouter();
+  const { data:session } = useSession();
 
   const amount = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
@@ -64,20 +67,29 @@ const ProductView = ({ product, addToCartRedux, counter }) => {
       );
     }
   }
-  function handleOptionChoice(choice) {
+  async function handleOptionChoice(choice) {
     if (choice) {
       if (deleteProduct(product.sys.id)) {
-        router.push("/");
+        const res = await fetch(`/api/comments/deleteByProduct?id=${product.sys.id}`, {
+          method: 'DELETE'
+        });
+        if(res.status===200){
+          router.push("/");
+        }
+        else console.log("There has been an error deleting comments");
       }
     } else setModalOpened(false);
   }
 
+
   return (
+
     <main
       className={`custom:w-4/5 w-11/12 mx-auto my-10 flex md:flex-row flex-col justify-between md:items-start items-center font-open-sans ${
         modalOpened ? "overflow-hidden" : ""
       }`}
     >
+
       <div className="md:w-1/2 w-full">
         <div className="relative w-full h-full">
           <ImageSlider images={images} />
@@ -99,20 +111,20 @@ const ProductView = ({ product, addToCartRedux, counter }) => {
           )}
         </div>
         <div className="flex flex-row w-full justify-start my-10">
-          <Link
+           {session && (session?.user?.role==="admin") && <Link
             href={`/shop/product/modifyProduct?id=${product.sys.id}`}
             passHref
           >
             <p className="bg-fitify-pink text-white sm:text-xl text-lg px-4 py-2 custom:mt-0 mt-4 hover:opacity-80 mr-10">
               Modify product
             </p>
-          </Link>
-          <button
-            className="bg-fitify-pink text-white sm:text-xl text-lg px-4 py-2 custom:mt-0 mt-4 hover:opacity-80"
+          </Link>}
+          {session && (session?.user?.role==="admin") && <button
+            className="mx-10 bg-fitify-pink text-white sm:text-xl text-lg px-4 py-2 custom:mt-0 mt-4 hover:opacity-80"
             onClick={() => setModalOpened(true)}
           >
             Delete product
-          </button>
+          </button>}
         </div>
 
         <p className="sm:text-xl text-lg">Select Size:</p>
@@ -195,6 +207,8 @@ const ProductView = ({ product, addToCartRedux, counter }) => {
         <ModalWindow chooseOption={handleOptionChoice} title={product.title} />
       )}
     </main>
+    <CommentsContainer productId={product.sys.id} productTitle={product.title} productBrand={product.brand}/>
+    </>
   );
 };
 
@@ -204,7 +218,7 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 const mapStateToProps = (state) => ({
-  counter: state.cartReducer.quantity[0],
+  counter: state.cartReducer.quantity.total,
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(ProductView);

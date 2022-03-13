@@ -9,11 +9,11 @@ export default async function (req, res) {
         id:order._id
     }));
     if (ordersIds.length===0) {
-        client.close();
+        // client.close();
         res.status(404).json({message:"Orders not found!"});
     }
     else{
-        client.close();
+        // client.close();
         res.status(200).json({ ordersIds });
     }
 }

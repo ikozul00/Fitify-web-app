@@ -2,8 +2,9 @@ import clientPromise from "lib/mongodb";
 
 export default async function (req, res) {
     let client = await clientPromise;
-
+    console.log(clientPromise);
     const users = client.db().collection('orders'); 
+    req.body.items=req.body.items.filter((item) => item!=null);
     const result = await users.insertOne({...(req.body), date:Date()});
     if(result.acknowledged && result.insertedId){
         res.status(201).json({ message: "Success!" });

@@ -9,12 +9,13 @@ const Success = ({user, items, removeAll, ordered, setOrdered})=> {
 
     useEffect(()=> {
         let price=0;
+        items=items.filter((item)=> item!=null);
         items.forEach(item => { price= price +Math.round((item.price*item.amount+Number.EPSILON)*100)/100});
         setTotalPrice(Math.round((price+Number.EPSILON)*100)/100);
     },[items]);
 
     async function placeOrder(){
-        const res = await fetch("/api/placeOrder", {
+        const res = await fetch("/api/orders/placeOrder", {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json;charset=utf-8'
@@ -52,9 +53,10 @@ const Success = ({user, items, removeAll, ordered, setOrdered})=> {
             <div>
                 <p className="font-bold">Items:</p>
                 {items.map((item) => {
+                    if(item){
                     return(
                         <p key={`${item.id}+${item.size}`} className="mx-2"><span className="mr-4 font-semibold">{item.amount}X </span><span>{item.title}</span> <span className="font-semibold">${item.price}</span></p>
-                    )
+                    )}
                 })}
                 <p className="font-bold text-xl mt-5">Total price: ${totalPrice+2}</p>
             </div>
