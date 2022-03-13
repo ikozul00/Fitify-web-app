@@ -6,6 +6,7 @@ import { ParseDate } from "@/lib/parseDateMongo";
 import Link from "next/link";
 import Edit from "@/components/profile/edit";
 import CommentsContainer from "@/components/profile/commentsContainer";
+import clientPromise from "@/lib/mongodb";
 
 const Profile = ({ userData, orders }) => {
   const router = useRouter();
@@ -131,35 +132,58 @@ const Profile = ({ userData, orders }) => {
   );
 };
 
+
 export async function getServerSideProps(context) {
   const session = await getSession(context);
+  console.log("session");
+  console.log(session);
   if(session){
-      // Fetch data from external API
-    const res = await fetch("http://fitify-web-app/api/profile/user", {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json;charset=utf-8'
-    },
-    body: JSON.stringify(session.user)
+    let client = await clientPromise;
+    const users = client.db().collection('users'); 
+    const result = await users.findOne({
+        name: session.user.name,
+        email: session.user.email,
+        credentials:session.user.credentials
     });
-    if(res.status===200){
-      const user = await res.json();
-      const resOrders = await fetch(`http://fitify-web-app/api/orders/getOrders?id=${user.data.id}`);
-      if(resOrders.status===200){
-        const orders=await resOrders.json();
-        return { props: { userData:user.data, session: session, orders:orders.userOrders } };
-      }
-      else{
-        return { props: { userData:user.data, session: session, orders:[] } };
-      }
+    if (!result) {
+      return {props: {userData:{}, session:session, orders:[]}};
     }
     else{
-      return { props: { userData:{}, session: session, orders:[] } };
+      let user={
+        name:result.name, 
+        email:result.email,
+        firstName: result.firstName, 
+        lastName:result.lastName, 
+        phone: result.phone, 
+        address:result.address,
+        city:result.city,
+        country:result.country,
+        image:result.image ? result.image : null,
+        id:`${result._id}`
+      };
+      console.log(user);
+      let userOrders=[];
+      const orders=client.db().collection('orders');
+      const results = await orders.find({
+          id:user.id
+      });
+      await results.forEach((order) => userOrders.push({
+        items:order.items,
+        price:order.price,
+        date:order.date,
+        id:`${order._id}`
+    }));
+    if (userOrders.length===0){
+      return { props: { userData:user, session: session, orders:[] } };
+    }
+    else{
+      return { props: { userData:user, session: session, orders:userOrders } };
     }
   }
-  else{
-    return {props: {userData:{}, session:session, orders:[]}}
-  }
+}
+else{
+  return {props: {userData:{}, session:session, orders:[]}}
+}
   
 }
 

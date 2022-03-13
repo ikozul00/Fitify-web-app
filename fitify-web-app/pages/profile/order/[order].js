@@ -1,6 +1,7 @@
-
+import clientPromise from "@/lib/mongodb";
 import React from "react";
 import Product from "@/components/cart/product";
+import { ObjectId } from "mongodb";
 
 const Order = ({ data }) => {
 
@@ -40,42 +41,43 @@ const Order = ({ data }) => {
     )
 }
 
-// export async function getStaticPaths() {
-//     //pukne error connection refused
-//     const res = await fetch(`http://localhost:3000/api/orders/getOrdersIds/`);
-//     let paths={};
-//     if(res.status===200){
-//         const ids = await res.json();
-
-//         //Uzmu se svi slugovi i iz njih kreiraju pathovi
-//         paths = ids.ordersIds.map((id) => ({
-//             params: { order: id.id },
-//         }));
-//     }
-//     else{
-//         paths={params:{order:0}};
-//     }
-
+// export async function getServerSideProps(context) {
+//   const { order } = context.params;
+//   const res = await fetch(`http://localhost:3000/api/orders/getOrder?id=${order}`);
+//   let orderData={};
+//   if(res.status===200){
+//     orderData=await res.json();
+//     orderData=orderData.order;
+//   }
+//   else{
+//       orderData={};
+//   }
 //   return {
-//     paths,
-//     fallback: false, // Ovim se obvezujemo da smo dali opise svih pathova koje zelimo staticki pregenerirati
+//     props: { data:orderData },
 //   };
 // }
 
 export async function getServerSideProps(context) {
-  const { order } = context.params;
-  const res = await fetch(`http://localhost:3000/api/orders/getOrder?id=${order}`);
-  let orderData={};
-  if(res.status===200){
-    orderData=await res.json();
-    orderData=orderData.order;
+    const { order } = context.params;
+    let client = await clientPromise;
+    let orderInfo={};
+    const orders=client.db().collection('orders');
+    const orderData = await orders.findOne({
+        _id: ObjectId(order)
+    });
+    console.log(orderData);
+    if(!orderData){
+        orderInfo={};
+    }
+    else{
+        orderData.total=0;
+        orderData.items.forEach(item => { orderData.total= (Number)(orderData.total) +Math.round((item.price*item.amount+Number.EPSILON)*100)/100});
+        orderInfo={
+            ...orderData, _id:`${orderData._id}`,
+        };
+    }
+    return {
+        props: { data:orderInfo },
+      };
   }
-  else{
-      orderData={};
-  }
-  return {
-    props: { data:orderData },
-  };
-}
-
 export default Order;

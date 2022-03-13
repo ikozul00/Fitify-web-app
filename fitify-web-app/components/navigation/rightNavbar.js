@@ -17,8 +17,8 @@ const RightNavbar = ({mobile }) => {
   },[session]);
 
   function LogOut(event) {
-    event.preventDefault();
-    signOut({ callbackUrl: 'http://localhost:3000/' });
+    event.preventDefault(); 
+    signOut({ callbackUrl: 'https://fitify-nwt.vercel.app/' });
   }
   return (
     <>
