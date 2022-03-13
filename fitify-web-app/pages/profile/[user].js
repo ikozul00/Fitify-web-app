@@ -23,7 +23,7 @@ const Profile = ({ userData, orders }) => {
 
   function LogOut(event) {
     event.preventDefault();
-    signOut({ callbackUrl: 'http://localhost:3000/' });
+    signOut({ callbackUrl: 'http://fitify-web-app/' });
   }
 
 
@@ -135,7 +135,7 @@ export async function getServerSideProps(context) {
   const session = await getSession(context);
   if(session){
       // Fetch data from external API
-    const res = await fetch("http://localhost:3000/api/profile/user", {
+    const res = await fetch("http://fitify-web-app/api/profile/user", {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json;charset=utf-8'
@@ -144,7 +144,7 @@ export async function getServerSideProps(context) {
     });
     if(res.status===200){
       const user = await res.json();
-      const resOrders = await fetch(`http://localhost:3000/api/orders/getOrders?id=${user.data.id}`);
+      const resOrders = await fetch(`http://fitify-web-app/api/orders/getOrders?id=${user.data.id}`);
       if(resOrders.status===200){
         const orders=await resOrders.json();
         return { props: { userData:user.data, session: session, orders:orders.userOrders } };
