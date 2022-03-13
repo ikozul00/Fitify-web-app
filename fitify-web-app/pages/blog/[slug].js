@@ -14,6 +14,7 @@ import { deletePost } from "pages/api/ModifyBlogPosts";
 import { useState } from "react";
 import { useRouter } from "next/router";
 import ModalWindow from "@/components/modalWindow/ModalWindow";
+import { useSession } from "next-auth/react";
 
 const components = {
   h2: H2,
@@ -30,6 +31,7 @@ const BlogPost = ({ post }) => {
   const [modalOpened, setModalOpened] = useState(false);
   const router = useRouter();
   const date = parseDate(post.sys.publishedAt);
+  const { data:session } = useSession();
 
   const handleOptionChoice = (choice) => {
     if (choice) {
@@ -58,17 +60,17 @@ const BlogPost = ({ post }) => {
         {post.description}
       </h2>
       <div className="flex flex-row w-full justify-end my-10">
-        <Link href={`/blog/modifyPost?id=${post.sys.id}`} passHref>
+      {session && (session?.user?.role==="admin") && <Link href={`/blog/modifyPost?id=${post.sys.id}`} passHref>
           <p className="bg-fitify-pink text-white sm:text-xl text-lg px-4 py-2 custom:mt-0 mt-4 hover:opacity-80 mr-10">
             Modify post
           </p>
-        </Link>
-        <button
+        </Link>}
+        {session && (session?.user?.role==="admin") && <button
           className="bg-fitify-pink text-white sm:text-xl text-lg px-4 py-2 custom:mt-0 mt-4 hover:opacity-80"
           onClick={() => setModalOpened(true)}
         >
           Delete post
-        </button>
+        </button>}
       </div>
       <div className="relative w-full h-96 mx-auto mb-10 -z-10">
         <Image
