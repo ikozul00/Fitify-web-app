@@ -83,7 +83,7 @@ const ProductView = ({ product, addToCartRedux, counter }) => {
 
 
   return (
-
+    <>
     <main
       className={`custom:w-4/5 w-11/12 mx-auto my-10 flex md:flex-row flex-col justify-between md:items-start items-center font-open-sans ${
         modalOpened ? "overflow-hidden" : ""

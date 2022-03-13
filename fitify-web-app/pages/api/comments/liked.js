@@ -3,7 +3,6 @@ import { ObjectId } from "mongodb";
 
 export default async function (req, res) {
     let client = await clientPromise;
-    console.log("evo");
     // console.log(clientPromise);
     const comments = client.db().collection('comments');
     // console.log(comments);
@@ -14,11 +13,11 @@ export default async function (req, res) {
     });
     console.log(result);
     if(result.modifiedCount==1){
-        client.close();
+        // client.close();
         res.status(200).json({ message:"Liked successfully." });
     }
     else{
-        client.close();
+        // client.close();
         res.status(405).json({ message:"Operation is not allowed." });
     }
 

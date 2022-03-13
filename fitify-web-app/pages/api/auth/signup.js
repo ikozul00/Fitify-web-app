@@ -16,7 +16,7 @@ async function handler(req, res) {
         //Send error response if duplicate user is found
         if (checkExisting) {
             res.status(422).json({ message: 'User already exists' });
-            client.close();
+            // client.close();
             return;
         }
         //Hash password
@@ -36,7 +36,7 @@ async function handler(req, res) {
         //Send success response
         res.status(201).json({ message: 'User created', ...status });
         //Close DB connection
-        client.close();
+        // client.close();
     } else {
         //Response for other than POST method
         res.status(500).json({ message: 'Route not valid' });

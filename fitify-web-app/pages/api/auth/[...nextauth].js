@@ -33,7 +33,6 @@ export default NextAuth({
         //Connect to DB
         //Get all the users
         let client = await clientPromise;
-        console.log(clientPromise);
         const users = client.db().collection('users');
         //Find user with the email  
         const result = await users.findOne({
@@ -72,7 +71,6 @@ export default NextAuth({
         token.user=user;
         token.user.credentials=account.provider;
         let client = await clientPromise;
-        console.log(clientPromise);
         const users = client.db().collection('users');
         if(account.provider==="github"){
           const result = await users.findOne({

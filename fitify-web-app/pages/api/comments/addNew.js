@@ -2,7 +2,6 @@ import clientPromise from "lib/mongodb";
 
 export default async function (req, res) {
     let client = await clientPromise;
-    console.log(clientPromise);
     const comments = client.db().collection('comments');
     const result = await comments.insertOne({
         title:req.body.title,

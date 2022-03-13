@@ -7,7 +7,6 @@ const Edit = ({setEdit, user, setUser}) => {
     const [cities, setCities] = useState([]);
     const [error, setError] = useState("");
     const countries = Country.getAllCountries();
-    console.log(user);
 
     useEffect(() => {
         const country=countries.find((item) => item.name===user.country);

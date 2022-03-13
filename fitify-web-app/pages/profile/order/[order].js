@@ -40,29 +40,29 @@ const Order = ({ data }) => {
     )
 }
 
-export async function getStaticPaths() {
-    //pukne error connection refused
-    const res = await fetch(`http://localhost:3000/api/orders/getOrdersIds`);
-    let paths={};
-    if(res.status===200){
-        const ids = await res.json();
+// export async function getStaticPaths() {
+//     //pukne error connection refused
+//     const res = await fetch(`http://localhost:3000/api/orders/getOrdersIds/`);
+//     let paths={};
+//     if(res.status===200){
+//         const ids = await res.json();
 
-        //Uzmu se svi slugovi i iz njih kreiraju pathovi
-        paths = ids.ordersIds.map((id) => ({
-            params: { order: id.id },
-        }));
-    }
-    else{
-        paths={params:{order:0}};
-    }
+//         //Uzmu se svi slugovi i iz njih kreiraju pathovi
+//         paths = ids.ordersIds.map((id) => ({
+//             params: { order: id.id },
+//         }));
+//     }
+//     else{
+//         paths={params:{order:0}};
+//     }
 
-  return {
-    paths,
-    fallback: false, // Ovim se obvezujemo da smo dali opise svih pathova koje zelimo staticki pregenerirati
-  };
-}
+//   return {
+//     paths,
+//     fallback: false, // Ovim se obvezujemo da smo dali opise svih pathova koje zelimo staticki pregenerirati
+//   };
+// }
 
-export async function getStaticProps(context) {
+export async function getServerSideProps(context) {
   const { order } = context.params;
   const res = await fetch(`http://localhost:3000/api/orders/getOrder?id=${order}`);
   let orderData={};

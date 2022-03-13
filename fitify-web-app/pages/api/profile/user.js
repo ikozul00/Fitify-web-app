@@ -2,7 +2,6 @@ import clientPromise from "lib/mongodb";
 
 export default async function (req, res) {
     let client = await clientPromise;
-    console.log(clientPromise);
     const users = client.db().collection('users'); 
     const result = await users.findOne({
         name: req.body.name,
@@ -10,7 +9,7 @@ export default async function (req, res) {
         credentials:req.body.credentials
     });
     if (!result) {
-        client.close();
+        // client.close();
         res.status(404).json({message:"User not found!"});
     }
     else{
@@ -26,7 +25,7 @@ export default async function (req, res) {
             image:result.image,
             id:result._id
          }
-        client.close();
+        // client.close();
         res.status(200).json({ data: user });
     } 
   }

@@ -9,8 +9,6 @@ const NewComment = ({setVisibility, productId, productTitle,productBrand,comment
     const [title, setTitle] = useState("");
     const [content, setContent] = useState("");
     const [image, setImage] = useState();
-    const [rateStars, setRateStars] = useState([0, 0, 0,0,0]);
-    const [rate, setRate] = useState(0);
     const [error, setError] = useState("");
     const { data:session } = useSession({
         required: true,

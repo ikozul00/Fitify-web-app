@@ -3,8 +3,6 @@ import { ObjectId } from "mongodb";
 
 export default async function (req, res) {
     let client = await clientPromise;
-    // console.log(clientPromise);
-    console.log(req.body);
     const users = client.db().collection('users');
     const user = req.body;
     const result = await users.updateOne({_id:ObjectId(req.body.id)},
@@ -20,11 +18,11 @@ export default async function (req, res) {
     }
     });
     if(result.modifiedCount==1){
-        client.close();
+        // client.close();
         res.status(200).json({ message:"Updated successfully." });
     }
     else{
-        client.close();
+        // client.close();
         res.status(405).json({ message:"Operation is not allowed." });
     }
 
