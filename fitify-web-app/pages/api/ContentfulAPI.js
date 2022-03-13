@@ -124,6 +124,7 @@ export const getPostBySlug = async (slug) => {
           title
           description
           sys{
+            id
             publishedAt
           }
           headerImage{
@@ -439,13 +440,13 @@ export const getAssetById = async (assetId) => {
   return data;
 };
 
-export const checkIfTitleExists = async (title) => {
+export const checkIfSlugExists = async (slug) => {
   const response = await instance
     .post(
       "",
       {
         query: `{
-        blogCollection(where: {title: "${title}"}) {
+        blogCollection(where: {slug: "${slug}"}) {
           total
         }
       }`,

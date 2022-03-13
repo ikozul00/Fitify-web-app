@@ -25,23 +25,28 @@ const ModifyProduct = () => {
 
   useEffect(async () => {
     if (router.query.id) {
-      let entry = await fetchEntryById(router.query.id);
-      entry = entry.fields;
-      console.log(entry);
-      setTitle(entry.title["en-US"]);
-      setPrice(entry.price["en-US"]);
-      //Ako postoji stara cijena (product snizen)
-      if (entry.oldPrice) setOldPrice(entry.oldPrice["en-US"]);
-      setGender(entry.gender["en-US"]);
-      setCategory(entry.category["en-US"]);
-      setBrand(entry.brand["en-US"]);
-      setSizes(entry.sizes["en-US"]);
-      setColor(entry.color["en-US"]);
-      setDetails(entry.productDetails["en-US"]);
-      if (entry.material) setMaterial(entry.material["en-US"]);
-      setThumbnailImage(entry.thumbnailImage["en-US"].sys);
-      if (entry.images)
-        setImages(entry.images["en-US"].map((image) => image.sys.id));
+      let entry = await fetchEntryById(router.query.id)
+        .then((entry) => entry.fields)
+        .catch(() => false);
+
+      if (!entry) router.push("/404");
+      else {
+        console.log(entry);
+        setTitle(entry.title["en-US"]);
+        setPrice(entry.price["en-US"]);
+        //Ako postoji stara cijena (product snizen)
+        if (entry.oldPrice["en-US"]) setOldPrice(entry.oldPrice["en-US"]);
+        setGender(entry.gender["en-US"]);
+        setCategory(entry.category["en-US"]);
+        setBrand(entry.brand["en-US"]);
+        setSizes(entry.sizes["en-US"]);
+        setColor(entry.color["en-US"]);
+        setDetails(entry.productDetails["en-US"]);
+        if (entry.material["en-US"]) setMaterial(entry.material["en-US"]);
+        setThumbnailImage(entry.thumbnailImage["en-US"].sys);
+        if (entry.images)
+          setImages(entry.images["en-US"].map((image) => image.sys.id));
+      }
     }
   }, [router]);
 
@@ -69,7 +74,7 @@ const ModifyProduct = () => {
       sizes: sizes,
       material: material,
       productDetails: details,
-      thumbnailImage: thumbnailImage.file,
+      thumbnailImage: thumbnailImage,
       images: images,
     };
 
@@ -81,7 +86,7 @@ const ModifyProduct = () => {
   };
 
   const handleNewThumbnailImage = (newImage) => {
-    setThumbnailImage(newImage);
+    setThumbnailImage({ ...newImage });
   };
 
   const handleUpdateImages = (newImagesArray) => {
@@ -90,9 +95,9 @@ const ModifyProduct = () => {
   };
 
   return (
-    <div>
+    <div className="md:ml-16 ml-8 w-11/12 my-12 font-open-sans">
       <div className="flex flex-row">
-        <h1 className="md:text-5xl sm:text-4xl text-3xl uppercase text-gray-700 font-semibold basis-5/6">
+        <h1 className="md:text-5xl sm:text-4xl text-3xl uppercase text-gray-700 font-semibold basis-5/6 px-7">
           Modify product
         </h1>
         {errorMessage && (

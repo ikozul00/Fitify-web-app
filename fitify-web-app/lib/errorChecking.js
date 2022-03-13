@@ -1,9 +1,5 @@
 export const checkProduct = (product) => {
-  if (
-    product.title == "" ||
-    product.price == "" ||
-    product.thumbnailImage == ""
-  )
+  if (!product.title || !product.price || !product.thumbnailImage)
     return {
       error: true,
       errorMsg: "Please, fill out all of the required fields.",
@@ -33,16 +29,16 @@ export const checkProduct = (product) => {
       errorMsg: "Price should be a positive number.",
     };
 
-  if (product.oldPrice && product.price > product.oldPrice)
+  if (product.oldPrice && Number(product.price) > Number(product.oldPrice))
     return {
       error: true,
       errorMsg: "Old price cannot be lower than current price.",
     };
 
   if (
-    product.thumbnailImage.type &&
+    product.thumbnailImage.file &&
     !["image/jpeg", "image/png", "image/webp", "image/gif"].includes(
-      product.thumbnailImage.type
+      product.thumbnailImage.file.type
     )
   )
     //Ako je dodan novi file, provjerava se je li ok tip
@@ -53,9 +49,9 @@ export const checkProduct = (product) => {
 
   for (let i = 0; i < product.images.length; i++)
     if (
-      product.images[i].type &&
+      product.images[i].file &&
       !["image/jpeg", "image/png", "image/webp", "image/gif"].includes(
-        product.images[i].type
+        product.images[i].file.type
       )
     )
       return {
@@ -72,20 +68,20 @@ export const checkProduct = (product) => {
 
 export const checkPost = (post) => {
   if (
-    post.title == "" ||
-    post.body == "" ||
-    post.description == "" ||
-    post.thumbnailImage == "" ||
-    post.headerImage == ""
+    !post.title ||
+    !post.body ||
+    !post.description ||
+    !post.thumbnailImage ||
+    !post.headerImage
   )
     return {
       error: true,
       errorMsg: "Please, fill out all of the fields.",
     };
   if (
-    post.thumbnailImage.type &&
+    post.thumbnailImage.file &&
     !["image/jpeg", "image/png", "image/webp", "image/gif"].includes(
-      post.thumbnailImage.type
+      post.thumbnailImage.file.type
     )
   )
     //Ako je dodan novi file, provjerava se je li ok tip
@@ -94,9 +90,9 @@ export const checkPost = (post) => {
       errorMsg: "Thumbnail image format is not accepted.",
     };
   if (
-    post.headerImage.type &&
+    post.headerImage.file &&
     !["image/jpeg", "image/png", "image/webp", "image/gif"].includes(
-      post.headerImage.type
+      post.headerImage.file.type
     )
   )
     //Ako je dodan novi file, provjerava se je li ok tip

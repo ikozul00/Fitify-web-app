@@ -1,7 +1,9 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import ImageChanger from "@/components/dataModification/ImageChanger";
 import { checkPost } from "@/lib/errorChecking";
-import { createNewBlogPost } from "pages/api/ModifyBlogPosts";
+import { fetchEntryById } from "pages/api/ModifyProducts";
+import { updateBlogPost } from "pages/api/ModifyBlogPosts";
+import { useRouter } from "next/router";
 
 const AddPost = () => {
   const [title, setTitle] = useState("");
@@ -10,10 +12,30 @@ const AddPost = () => {
   const [thumbnailImage, setThumbnailImage] = useState("");
   const [headerImage, setHeaderImage] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
+  const router = useRouter();
+
+  useEffect(async () => {
+    if (router.query.id) {
+      let entry = await fetchEntryById(router.query.id)
+        .then((entry) => entry.fields)
+        .catch(() => false);
+
+      if (!entry) router.push("/404");
+      else {
+        console.log(entry);
+        setTitle(entry.title["en-US"]);
+        setDescription(entry.description["en-US"]);
+        setBody(entry.body["en-US"]);
+        setThumbnailImage(entry.thumbnailImage["en-US"].sys);
+        setHeaderImage(entry.headerImage["en-US"].sys);
+      }
+    }
+  }, [router]);
 
   const sendPost = async (e) => {
     e.preventDefault();
     let newPost = {
+      id: router.query.id,
       title: title,
       description: description,
       body: body,
@@ -27,11 +49,11 @@ const AddPost = () => {
       setErrorMessage(errorCheck.errorMsg);
     } else {
       setErrorMessage("Your query is processing.");
-      errorCheck = await createNewBlogPost(newPost);
+      errorCheck = await updateBlogPost(newPost);
       if (errorCheck.error) setErrorMessage(errorCheck.errorMsg);
       else
         setErrorMessage(
-          "Post is successfully published! Change will be visible in several minutes."
+          "Post is successfully updated! Change will be visible in several minutes."
         );
     }
   };
@@ -88,13 +110,13 @@ const AddPost = () => {
           ></textarea>
           <p className="mt-5 text-xl">Thumbnail image:</p>
           <ImageChanger
-            imageId={""}
-            setNewImage={(img) => setThumbnailImage(img.file)}
+            imageId={thumbnailImage.id}
+            setNewImage={(img) => setThumbnailImage(img)}
           />
           <p className="mt-5 text-xl">Header image:</p>
           <ImageChanger
-            imageId={""}
-            setNewImage={(img) => setHeaderImage(img.file)}
+            imageId={headerImage.id}
+            setNewImage={(img) => setHeaderImage(img)}
           />
           <button
             className=" bg-fitify-purple text-white w-36 py-2 place-self-end mb-7"

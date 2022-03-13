@@ -2,6 +2,9 @@ import { useState } from "react";
 import { createNewProduct } from "pages/api/ModifyProducts";
 import { filters } from "@/constants/filters";
 import { checkProduct } from "@/lib/errorChecking";
+import ImageChanger from "@/components/dataModification/ImageChanger";
+import MultipleImagesChanger from "@/components/dataModification/MultipleImagesChanger";
+import Checkbox from "@/components/dataModification/Checkbox";
 
 const AddProduct = () => {
   const [title, setTitle] = useState("");
@@ -39,36 +42,22 @@ const AddProduct = () => {
     let errorCheck = checkProduct(newProduct);
     if (errorCheck.error == false) {
       createNewProduct(newProduct);
-      setErrorMessage(errorCheck.errorMsg);
+      setErrorMessage("Your query is taken.");
     } else setErrorMessage(errorCheck.errorMsg);
   };
 
-  const handleSizeChange = (e) => {
-    const isChecked = e.target.checked;
-    // Ako je true dodaj u listu sizes, inace izvadi iz liste
-    if (isChecked) {
-      setSizes([...sizes, e.target.value]);
-    } else {
-      let index = sizes.indexOf(e.target.value);
-      setSizes(sizes.splice(index, 1));
-    }
+  const handleSizeChange = (selectedSizes) => {
+    setSizes(selectedSizes);
   };
 
-  const handleColorChange = (e) => {
-    const isChecked = e.target.checked;
-    // Ako je true dodaj u listu sizes, inace izvadi iz liste
-    if (isChecked) {
-      setColor([...color, e.target.value]);
-    } else {
-      let index = color.indexOf(e.target.value);
-      setColor(color.splice(index, 1));
-    }
+  const handleColorChange = (selectedColors) => {
+    setColor(selectedColors);
   };
 
   return (
     <div className="md:ml-16 ml-8 w-11/12 my-12 font-open-sans">
       <div className="flex flex-row">
-        <h1 className="md:text-5xl sm:text-4xl text-3xl uppercase text-gray-700 font-semibold basis-5/6">
+        <h1 className="md:text-5xl sm:text-4xl text-3xl uppercase text-gray-700 font-semibold basis-5/6 px-7">
           Add new product
         </h1>
         {errorMessage && (
@@ -162,40 +151,16 @@ const AddProduct = () => {
               </option>
             ))}
           </select>
-          <p className="mt-5 text-xl">Colors:</p>
-          {filters.color.items.map((option) => {
-            return (
-              <div>
-                <input
-                  type="checkbox"
-                  name={option}
-                  key={option}
-                  value={option}
-                  onChange={handleColorChange}
-                />
-                <label htmlFor={option} className="mx-2">
-                  {option}
-                </label>
-              </div>
-            );
-          })}
-          <p className="mt-5 text-xl">Sizes:</p>
-          {filters.sizes.items.map((option) => {
-            return (
-              <div>
-                <input
-                  type="checkbox"
-                  name={option}
-                  key={option}
-                  value={option}
-                  onChange={handleSizeChange}
-                />
-                <label htmlFor={option} className="mx-2">
-                  {option}
-                </label>
-              </div>
-            );
-          })}
+          <Checkbox
+            options={filters.sizes}
+            preselectedValues={sizes}
+            setSelectedValues={handleSizeChange}
+          />
+          <Checkbox
+            options={filters.color}
+            preselectedValues={color}
+            setSelectedValues={handleColorChange}
+          />
           <label htmlFor="material" className="mt-5 text-xl">
             Material:
           </label>
@@ -221,26 +186,16 @@ const AddProduct = () => {
             required
           ></textarea>
 
-          <label htmlFor="thumbnailImage" className="mt-5 text-xl">
-            Thumbnail image:
-          </label>
-          <input
-            type="file"
-            id="thumbnailImage"
-            name="thumbnailImage"
-            onChange={(e) => setThumbnailImage(e.target.files[0])}
+          <p className="mt-5 text-xl">Thumbnail image:</p>
+          <ImageChanger
+            imageId={""}
+            setNewImage={(img) => setThumbnailImage(img)}
           />
-          <label htmlFor="images" className="mt-5 text-xl">
-            Images:
-          </label>
-          <input
-            type="file"
-            id="images"
-            name="images"
-            onChange={(e) => setImages(e.target.files)}
-            multiple
+          <p className="mt-5 text-xl">Images:</p>
+          <MultipleImagesChanger
+            imageIds={[]}
+            updateImages={(newImagesArray) => setImages([...newImagesArray])}
           />
-
           <button
             onClick={sendProduct}
             className=" bg-fitify-purple text-white w-36 py-2 place-self-end mb-7"

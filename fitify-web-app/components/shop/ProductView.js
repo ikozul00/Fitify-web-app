@@ -83,8 +83,13 @@ const ProductView = ({ product, addToCartRedux, counter }) => {
 
 
   return (
-    <>
-    <main className="custom:w-4/5 w-11/12 mx-auto my-10 flex md:flex-row flex-col justify-between md:items-start items-center font-open-sans">
+
+    <main
+      className={`custom:w-4/5 w-11/12 mx-auto my-10 flex md:flex-row flex-col justify-between md:items-start items-center font-open-sans ${
+        modalOpened ? "overflow-hidden" : ""
+      }`}
+    >
+
       <div className="md:w-1/2 w-full">
         <div className="relative w-full h-full">
           <ImageSlider images={images} />
@@ -104,11 +109,13 @@ const ProductView = ({ product, addToCartRedux, counter }) => {
           {product.oldPrice != null && (
             <h2 className="line-through font-bold ml-5">${product.oldPrice}</h2>
           )}
+        </div>
+        <div className="flex flex-row w-full justify-start my-10">
            {session && (session?.user?.role==="admin") && <Link
             href={`/shop/product/modifyProduct?id=${product.sys.id}`}
             passHref
           >
-            <p className="mx-10 bg-fitify-pink text-white sm:text-xl text-lg px-4 py-2 custom:mt-0 mt-4 hover:opacity-80">
+            <p className="bg-fitify-pink text-white sm:text-xl text-lg px-4 py-2 custom:mt-0 mt-4 hover:opacity-80 mr-10">
               Modify product
             </p>
           </Link>}
@@ -119,6 +126,7 @@ const ProductView = ({ product, addToCartRedux, counter }) => {
             Delete product
           </button>}
         </div>
+
         <p className="sm:text-xl text-lg">Select Size:</p>
         <div className="flex justify-start mb-5 flex-wrap">
           {product.sizes.map((size) => {

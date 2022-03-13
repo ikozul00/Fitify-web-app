@@ -125,12 +125,15 @@ const Shop = ({ products }) => {
           athleisure aesthetic, we've got something to suit.`,
             }}
           />
+
+       <div className="flex flex-col justify-between items-end">
            {session && (session?.user?.role==="admin") && <Link href="/shop/addProduct" passHref>
             <p className="mx-10 bg-fitify-pink text-white sm:text-xl text-lg px-4 py-2 custom:mt-0 mt-4 hover:opacity-80">
               Add new product
             </p>
           </Link>}
           <SearchBar searchQuery={searchQuery} />
+       </div>
         </div>
       </div>
       <div className="flex w-full">
