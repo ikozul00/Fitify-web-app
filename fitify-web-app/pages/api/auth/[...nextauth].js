@@ -56,9 +56,9 @@ export default NextAuth({
   ],
   //define if we are using database session or jwt
   // adapter: MongoDBAdapter(clientPromise),
-  jwt:{
-    secret: process.env.JWT_SECRET,
-  },
+  // jwt:{
+  //   secret: process.env.JWT_SECRET,
+  // },
   secret:process.env.NEXTAUTH_SECRET,
   session:{
       jwt:true,
