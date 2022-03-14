@@ -4,6 +4,11 @@ import { checkPost } from "@/lib/errorChecking";
 import { fetchEntryById } from "pages/api/ModifyProducts";
 import { updateBlogPost } from "pages/api/ModifyBlogPosts";
 import { useRouter } from "next/router";
+import {
+  NotificationContainer,
+  NotificationManager,
+} from "react-notifications";
+import "react-notifications/lib/notifications.css";
 
 const AddPost = () => {
   const [title, setTitle] = useState("");
@@ -11,7 +16,6 @@ const AddPost = () => {
   const [body, setBody] = useState("");
   const [thumbnailImage, setThumbnailImage] = useState("");
   const [headerImage, setHeaderImage] = useState("");
-  const [errorMessage, setErrorMessage] = useState("");
   const router = useRouter();
 
   useEffect(async () => {
@@ -46,15 +50,20 @@ const AddPost = () => {
     console.log(newPost);
     let errorCheck = checkPost(newPost);
     if (errorCheck.error) {
-      setErrorMessage(errorCheck.errorMsg);
+      NotificationManager.warning(errorCheck.errorMsg);
     } else {
-      setErrorMessage("Your query is processing.");
-      errorCheck = await updateBlogPost(newPost);
-      if (errorCheck.error) setErrorMessage(errorCheck.errorMsg);
-      else
-        setErrorMessage(
-          "Post is successfully updated! Change will be visible in several minutes."
-        );
+      NotificationManager.info("Your query is processing.");
+      errorCheck = await updateBlogPost(newPost)
+        .then((reply) => {
+          if (reply.errorMsg)
+            //Ako se vrati poruka da vec postoji post takvog imena
+            NotificationManager.error(reply.errorMsg);
+          else
+            NotificationManager.success(
+              "Post is successfully added! Change will be visible in several minutes."
+            );
+        })
+        .catch(() => NotificationManager.error("Ooops! Something went wrong!"));
     }
   };
 
@@ -62,13 +71,8 @@ const AddPost = () => {
     <div className="md:ml-16 ml-8 w-11/12 my-12 font-open-sans">
       <div className="flex flex-row">
         <h1 className="md:text-5xl sm:text-4xl text-3xl uppercase text-gray-700 font-semibold basis-5/6 px-7">
-          Add new post
+          Modify post
         </h1>
-        {errorMessage && (
-          <p className="border-2 border-fitify-pink text-2xl p-2 basis-1/6">
-            {errorMessage}
-          </p>
-        )}
       </div>
       <form className=" w-5/6 my-5 flex flex-col">
         <div className="px-7 flex flex-col sm:text-base text-sm">
@@ -126,6 +130,7 @@ const AddPost = () => {
           </button>
         </div>
       </form>
+      <NotificationContainer />
     </div>
   );
 };

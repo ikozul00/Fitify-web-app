@@ -6,6 +6,11 @@ import { checkProduct } from "@/lib/errorChecking";
 import Checkbox from "@/components/dataModification/Checkbox";
 import ImageChanger from "@/components/dataModification/ImageChanger";
 import MultipleImagesChanger from "@/components/dataModification/MultipleImagesChanger";
+import {
+  NotificationContainer,
+  NotificationManager,
+} from "react-notifications";
+import "react-notifications/lib/notifications.css";
 
 const ModifyProduct = () => {
   const [title, setTitle] = useState("");
@@ -20,7 +25,6 @@ const ModifyProduct = () => {
   const [material, setMaterial] = useState("");
   const [thumbnailImage, setThumbnailImage] = useState("");
   const [images, setImages] = useState("");
-  const [errorMessage, setErrorMessage] = useState("");
   const router = useRouter();
 
   useEffect(async () => {
@@ -60,7 +64,7 @@ const ModifyProduct = () => {
     console.log("Selected Colors:", selectedColors);
   };
 
-  const sendProduct = (e) => {
+  const sendProduct = async (e) => {
     e.preventDefault();
     let product = {
       id: router.query.id,
@@ -79,10 +83,17 @@ const ModifyProduct = () => {
     };
 
     let errorCheck = checkProduct(product);
-    if (errorCheck.error == false) {
-      updateProduct(product);
-      setErrorMessage(errorCheck.errorMsg);
-    } else setErrorMessage(errorCheck.errorMsg);
+    if (errorCheck.error) NotificationManager.warning(errorCheck.errorMsg);
+    else {
+      NotificationManager.info("Your query is processing.");
+      errorCheck = await updateProduct(product)
+        .then(() =>
+          NotificationManager.success(
+            "Product is successfully updated! Change will be visible in several minutes."
+          )
+        )
+        .catch(() => NotificationManager.error("Ooops! Something went wrong!"));
+    }
   };
 
   const handleNewThumbnailImage = (newImage) => {
@@ -100,11 +111,6 @@ const ModifyProduct = () => {
         <h1 className="md:text-5xl sm:text-4xl text-3xl uppercase text-gray-700 font-semibold basis-5/6 px-7">
           Modify product
         </h1>
-        {errorMessage && (
-          <p className="border-2 border-fitify-pink text-2xl p-2 basis-1/6">
-            {errorMessage}
-          </p>
-        )}
       </div>
       <form className=" w-5/6 my-5 flex flex-col">
         <div className="px-7 flex flex-col sm:text-base text-sm relative">
@@ -245,6 +251,7 @@ const ModifyProduct = () => {
           </button>
         </div>
       </form>
+      <NotificationContainer />
     </div>
   );
 };

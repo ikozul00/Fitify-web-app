@@ -22,7 +22,6 @@ export const createNewBlogPost = async (newPost) => {
 
   if (titleCheck)
     return {
-      error: true,
       errorMsg:
         "Post with that title already exists! Please, change the title.",
     };
