@@ -27,7 +27,7 @@ export default function Home({ saleProducts, blogArticles }) {
       </div>
       <div className="w-9/12 mx-auto sm:my-10 my-8">
         <Link href={`/shop`} passHref>
-          <h1 className="text-center sm:text-5xl md:text-4xl text-3xl uppercase sm:mt-12 mt-6 text-gray-700 font-semibold hover:cursor-pointer hover:scale-105">
+          <h1 className="text-center md:text-5xl sm:text-4xl text-3xl uppercase sm:mt-12 mt-6 text-gray-700 font-semibold hover:cursor-pointer hover:scale-105">
             SHOP
           </h1>
         </Link>
